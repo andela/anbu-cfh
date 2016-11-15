@@ -24,20 +24,4 @@ var ArticleSchema = new Schema({
     user: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 
-/**
- * Methods
- */
-ArticleSchema.methods = {
-    /**
-     * Authenticate - check if the passwords are the same
-     *
-     * @param {String} plainText
-     * @return {Boolean}
-     * @api public
-     */
-    save: function(plainText) {
-        
-    }
-};
-
 mongoose.model('Article', ArticleSchema);
