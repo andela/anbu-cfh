@@ -33,7 +33,8 @@ script:
   - npm test
 #npm test
 node_js:
-  - stable
+  - 5
+  - 4
 services:
   - MongoDB
 after_success: 'npm run coveralls'
