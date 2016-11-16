@@ -1,4 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela/anbu-cfh/badge.svg?branch=master)](https://coveralls.io/github/andela/anbu-cfh?branch=master)
+=======
+[![codebeat badge](https://codebeat.co/badges/aa2e3819-2f12-4593-83ab-10660560550c)](https://codebeat.co/projects/github-com-andela-anbu-cfh)
 
 Cards for Humanity - [http://cfh.io](http://cfh.io)
 ===========
