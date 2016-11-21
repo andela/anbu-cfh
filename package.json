@@ -13,6 +13,8 @@
     "npm": "1.2.x"
   },
   "scripts": {
+    "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
+    "postinstall": "node node_modules/grunt-cli/bin/grunt install",
     "test": "node_modules/karma/bin/karma start"
   },
   "dependencies": {
