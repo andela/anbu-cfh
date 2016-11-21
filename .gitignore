@@ -6,4 +6,5 @@ c4h_keys.txt
 npm-debug.log
 .env
 coverage
+.env
 

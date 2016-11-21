@@ -111,5 +111,4 @@ UserSchema.methods = {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
 };
-
-module.exports = mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema);
