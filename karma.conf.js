@@ -1,7 +1,8 @@
-// Karma configuration
+// Karma configuration....................................................................................................................................................
 // Generated on Wed Nov 16 2016 10:45:57 GMT+0100 (WAT)
 
 module.exports = function(config) {
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -51,16 +52,25 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-   autoWatch: true,
+    autoWatch: true,
 
+    
+    // other things
+ 
+    customLaunchers: {
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
 
     // start these browsers
-    browsers: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci']: ['Chrome'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

@@ -3,19 +3,23 @@
   "description": "A Game For Horrible People Desperately Trying To Do Good",
   "version": "1.0.0",
   "private": false,
-  "author": "cardsforhumanity",
+  "author": "anbu squad",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cardsforhumanity/cardsforhumanity.git"
+    "url": "https://github.com/andela/anbu-cfh/"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
   },
   "scripts": {
+<<<<<<< HEAD
     "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha ./test/**/*.js",
     "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install"
+=======
+    "test": "node_modules/karma/bin/karma start"
+>>>>>>> 305e37004212b42b5db918608d745b5961350831
   },
   "dependencies": {
     "async": "~0.2.9",
@@ -27,6 +31,10 @@
     "dotenv": "^2.0.0",
     "express": "~3.4.0",
     "forever": "latest",
+    "jade": "~0.35.0",
+    "mean-logger": "~0.0.1",
+    "mongoose": "~3.6.20",
+    "node-env": "^0.1.6",
     "grunt": "~0.4.1",
     "grunt-bower-task": "~0.4.0",
     "grunt-cli": "~0.1.9",
