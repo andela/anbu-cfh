@@ -1,5 +1,4 @@
 language: node_js
-node_js:
 
 node_js:
   - "6"
@@ -37,6 +36,7 @@ before_script:
   
 script:
   - npm test
+<<<<<<< HEAD
 #npm test
 node_js:
   - 5
@@ -44,3 +44,5 @@ node_js:
 services:
   - MongoDB
 after_success: 'npm run coveralls'
+=======
+>>>>>>> 6d67a670be03875912b669834b4dd92a1c1b03d7
