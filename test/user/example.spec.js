@@ -1,4 +1,3 @@
-//var expect = require('expect')
 describe('User Example', function() {
 
     it('Dummy User test example', function() {
