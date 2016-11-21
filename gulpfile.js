@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     eslint = require('gulp-eslint'),
     //jshint = require ('gulp-jshint'),
     browserSync = require('browser-sync');
-    port = process.env.PORT;
+    //port = process.env.PORT;
+    port = 3000
 
 
 gulp.task('watch', function() {
