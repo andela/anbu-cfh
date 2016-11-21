@@ -1,13 +1,7 @@
-// Karma configuration
+// Karma configuration....................................................................................................................................................
 // Generated on Wed Nov 16 2016 10:45:57 GMT+0100 (WAT)
 
 module.exports = function(config) {
-
-  if (process.env.TRAVIS) {
-    config.set({
-      config.browsers = ['Chrome_travis_ci'];
-    )};
-  }
 
   config.set({
 
@@ -63,9 +57,8 @@ module.exports = function(config) {
         }
     },
 
-
     // start these browsers
-    browsers: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci']: ['Chrome'],
 
 
     // Continuous Integration mode
