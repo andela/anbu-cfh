@@ -76,10 +76,10 @@ gulp.task('serve', ['nodemon'], function(){
 // });
 
 //Default task(s).
-gulp.task('default', ['eslint', 'serve','watch', 'sass', 'test']);
+gulp.task('default', ['eslint', 'serve','watch', 'sass', 'mochaTest']);
 
 //Test task.
-gulp.task('test', ['mochaTest']);
+// gulp.task('test', ['mochaTest']);
 
 //Bower task.
 gulp.task('install', ['bower']);

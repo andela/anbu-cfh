@@ -6,8 +6,11 @@ var express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
+<<<<<<< HEAD
     require('dotenv').config();
 
+=======
+>>>>>>> 790556d4087b8023a6f8bcf55847c1b5fcfe940b
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
