@@ -1,4 +1,3 @@
-require('dotenv').config();
 var gulp = require('gulp'),
     watch = require('gulp-watch'),
     mocha = require('gulp-mocha'),
@@ -7,9 +6,10 @@ var gulp = require('gulp'),
     bower = require('gulp-bower'),
     eslint = require('gulp-eslint'),
     //jshint = require ('gulp-jshint'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
     //port = process.env.PORT;
-    port = 3000
+    port = 3000;
+require('dotenv').config();
 
 
 gulp.task('watch', function() {
@@ -77,10 +77,10 @@ gulp.task('serve', ['nodemon'], function(){
 // });
 
 //Default task(s).
-gulp.task('default', ['eslint', 'serve','watch', 'sass', 'mochaTest']);
+gulp.task('default', ['eslint', 'serve','watch', 'sass', 'test']);
 
 //Test task.
-// gulp.task('test', ['mochaTest']);
+ gulp.task('test', ['mochaTest']);
 
 //Bower task.
 gulp.task('install', ['bower']);
