@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './test/user/example.spec.js'
+        './test/**/example.spec.js'
     ],
 
 
@@ -26,11 +26,18 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
+        './app/**/*.js':'coverage'
     },
 
 
     // test results reporter to use
-    reporters: ['spec'],
+    reporters: ['coverage'],
+
+    coverageReporter: {
+        type : 'lcov',
+        dir : 'coverage/',
+        file : 'lcov.info'
+    },
 
 
     // web server port
