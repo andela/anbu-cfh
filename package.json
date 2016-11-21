@@ -13,13 +13,9 @@
     "npm": "1.2.x"
   },
   "scripts": {
-<<<<<<< HEAD
-    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha ./test/**/*.js",
     "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
-    "postinstall": "node node_modules/grunt-cli/bin/grunt install"
-=======
+    "postinstall": "node node_modules/grunt-cli/bin/grunt install",
     "test": "node_modules/karma/bin/karma start"
->>>>>>> 305e37004212b42b5db918608d745b5961350831
   },
   "dependencies": {
     "async": "~0.2.9",
