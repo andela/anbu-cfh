@@ -2,6 +2,13 @@
 // Generated on Wed Nov 16 2016 10:45:57 GMT+0100 (WAT)
 
 module.exports = function(config) {
+
+  if (process.env.TRAVIS) {
+    config.set({
+      config.browsers = ['Chrome_travis_ci'];
+    )};
+  }
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -44,7 +51,17 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-   autoWatch: true,
+    autoWatch: true,
+
+    
+    // other things
+ 
+    customLaunchers: {
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
 
 
     // start these browsers
