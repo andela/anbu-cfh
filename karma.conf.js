@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './test/user/example.spec.js'
+        './app/example.js', './test/user/example.spec.js'
     ],
 
 
@@ -34,9 +34,8 @@ module.exports = function(config) {
 
     coverageReporter: {
         type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
-        dir: 'coverage'
+        dir: 'coverage/'
     },
-
 
     // web server port
     port: 9876,
