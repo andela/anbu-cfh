@@ -1,6 +1,6 @@
 describe('User Example', function() {
 
-    it('Dummy User test example', function() {
-         expect(2).toEqual(4);
+    it('2+2 should equal 4', function() {
+         expect(4).toEqual(4);
     });
 });
