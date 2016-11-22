@@ -1,5 +1,5 @@
 class Example{
-
+/*
 	addNumbers(a, b){
 		return a + b ;
 	}
@@ -13,5 +13,7 @@ class Example{
 			return a/b ;
 		}
 		return 0 ;
-	}
+	}*/
 }
+
+//module.exports = Example;
