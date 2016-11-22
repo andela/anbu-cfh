@@ -1,7 +1,8 @@
 
 /* eslint-disable */
+const example = new Example();
 describe('User Example', function () {
-  it('Dummy User test example', function () {
-    expect(4).toEqual(4);
+  it('should return summation of 2 numbers', function () {
+    expect(example.addNumbers(2, 2)).toEqual(4);
   });
 });
