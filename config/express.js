@@ -2,7 +2,10 @@
  * Module dependencies.
  */
 var express = require('express'),
-    mongoStore = require('connect-mongo')(express),
+    // Added express session
+    session = require('express-session'),
+    // replaced express with session
+    mongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
