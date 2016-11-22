@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './app/example.js','./test/user/example.spec.js'
+        './test/user/example.spec.js'
     ],
 
 
@@ -27,7 +27,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
-        './app/example.js': ['coverage']
+        //'./app/example.js': ['coverage']
     },
 
 
