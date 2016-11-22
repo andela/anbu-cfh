@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 require('dotenv').config();
 
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	gulp.watch('public/css/common.scss', ['sass']);
  	gulp.watch('public/css/**', browserSync.reload);
  	gulp.watch('public/views/**', browserSync.reload);
@@ -20,28 +20,28 @@ gulp.task('watch', function() {
  })
 
 
-gulp.task('sass', function() {
+gulp.task('sass', function( ) {
 	return gulp.src('public/css/common.scss')
 	.pipe(sass())
 	.pipe(gulp.dest('public/css/'))
 });
 
-gulp.task('eslint', function() {
+gulp.task('eslint', function () {
 	return gulp.src(['gulpfile.js', 'public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
 	.pipe(eslint());
 });
 
-gulp.task('bower', function() {
+gulp.task('bower', function () {
 	return bower()
 	.pipe(gulp.dest('./public/lib'));
 });
 
-gulp.task('mochaTest', function() {
+gulp.task('mochaTest', function () {
 	gulp.src('test/**/*.js', {read: false})
   .pipe(mocha({reporter: 'spec'}));
 });
 
-gulp.task('nodemon', function() {
+gulp.task('nodemon', function () {
   nodemon({
     script: 'server.js',
     ext: 'js',
@@ -49,9 +49,9 @@ gulp.task('nodemon', function() {
   })
 });
 
-gulp.task('serve', ['nodemon'], function(){
+gulp.task('serve', ['nodemon'], function () {
   browserSync({
-    proxy: 'localhost:'+port,
+    proxy: 'localhost:' + port,
     port: 5000,
     ui: {
       port: 5001
@@ -62,7 +62,7 @@ gulp.task('serve', ['nodemon'], function(){
 
 
 // Default task(s).
-gulp.task('default', ['eslint', 'serve','watch', 'sass', 'test']);
+gulp.task('default', ['eslint', 'serve', 'watch', 'sass', 'test']);
 
 // Test task.
 gulp.task('test', ['mochaTest']);
