@@ -26,7 +26,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
-        './app/**/*.js': ['coverage']
+        './app/example.js': ['coverage']
     },
 
 
@@ -36,10 +36,6 @@ module.exports = function(config) {
     coverageReporter: {
         type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
         dir: 'coverage/'
-    },
-
-    coverallsReporter: {
-
     },
 
 
