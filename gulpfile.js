@@ -5,10 +5,10 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   bower = require('gulp-bower'),
   eslint = require('gulp-eslint'),
-  browserSync = require('browser-sync'),
-  port = process.env.PORT;
+  browserSync = require('browser-sync');
+  
 require('dotenv').config();
-
+  var port = process.env.PORT;
 
 gulp.task('watch', function () {
 	gulp.watch('public/css/common.scss', ['sass']);
@@ -59,7 +59,6 @@ gulp.task('serve', ['nodemon'], function () {
     reloadOnRestart: true
   });
 });
-
 
 // Default task(s).
 gulp.task('default', ['eslint', 'serve', 'watch', 'sass', 'test']);
