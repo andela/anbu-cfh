@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './test/**/*.js'
+        './test/frontend/**/*.spec.js'
     ],
 
 
@@ -47,9 +47,9 @@ module.exports = function(config) {
 
     autoWatch: true,
 
-    
+
     // other things
- 
+
     customLaunchers: {
         Chrome_travis_ci: {
             base: 'Chrome',
