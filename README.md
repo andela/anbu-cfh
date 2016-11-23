@@ -29,8 +29,6 @@ The app is completely functional across all devices - from iPhone to full-sized 
 
 ![alt-text](https://dl.dropboxusercontent.com/u/7390609/CFHforGit.png "Cards for Humanity views")
 
-![alt-text](http://www.tylermcginnis.com/images/cfh3.png "Desktop with Cards")
-
 Our Tech Stack
 --------------
 Cards for Humanity uses AngularJS on the front-end, with Node.js/Express.js, MongoDB and Socket.io on the back-end. It's currently deployed to Heroku.
