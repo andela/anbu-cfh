@@ -1,0 +1,19 @@
+<div class="row" >
+      <div class="panel panel-info" >
+            <div class="panel-body">
+              <ul id="results" class="media-list">
+              <li ng-repeat="message in chat.messageArray"> <p>{{message.user}} | {{message.time}}</p>
+              <p>message.message</p></li>
+              </ul>
+            </div>
+            <div class="panel-footer">
+                <div class="input-group">
+                <input id="text" type="text" class="form-control" placeholder="Enter Message" ng-model="chatMessage"/>
+                <span class="input-group-btn">
+                <button id="post" class="btn btn-info" ng-click="sendMessage(chatMessage)" type="button">SEND</button>
+                </span>
+                <p>{{chatMessage}}
+                </div>
+            </div>
+        </div>
+</div>

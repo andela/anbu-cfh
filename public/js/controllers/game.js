@@ -1,5 +1,5 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', 'chat', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog, chat) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -8,6 +8,13 @@ angular.module('mean.system')
     $scope.pickedCards = [];
     var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
+    $scope.chat = chat;
+    $scope.chat.setChatGroup('random-group');
+    $scope.chat.listenForMessages();
+
+    $scope.sendMessage = function (userMessage){
+      $scope.chat.postGroupMessage('azeez', userMessage);
+    };
 
     $scope.pickCard = function(card) {
       if (!$scope.hasPickedCards) {
