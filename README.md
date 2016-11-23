@@ -1,16 +1,23 @@
 [![Build Status](https://travis-ci.org/andela/anbu-cfh.svg?branch=chore%2F13424926%2Fintegrat-travis-ci-with-readme)](https://travis-ci.org/andela/anbu-cfh) [![Coverage Status](https://coveralls.io/repos/github/andela/anbu-cfh/badge.svg?branch=master)](https://coveralls.io/github/andela/anbu-cfh?branch=master) [![codebeat badge](https://codebeat.co/badges/aa2e3819-2f12-4593-83ab-10660560550c)](https://codebeat.co/projects/github-com-andela-anbu-cfh)
 
-Cards for Humanity - [http://cfh.io](http://cfh.io)
+Cards for Humanity - [https://anbu-cfh.herokuapp.com](https://anbu-cfh.herokuapp.com)
 ===========
 Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.
 
 Our Team
 --------
-Cards for Humanity was created at [Hack Reactor](http://www.hackreactor.com) by:
+Cards for Humanity was originally created at [Hack Reactor](http://www.hackreactor.com) by:
 * [Matt Silverstein](http://www.mattsilverstein.com/)
 * [Will Ngo](https://mrngoitall.net)
 * [Tyler McGinnis](http://www.tylermcginnis.com)
 * [David Gonzalez](http://www.truthyfalsy.com)
+
+This Revised version of the Card for Humanity was created at Andela by a team consisting of the following people:
+* [Raphael Akpan](http://github.com/andela-rakpan)
+* [Oreoluwa Banwo](http://github.com/andela-obanwo)
+* [Azeez Olaniran](http://github.com/andela-aolaniran)
+* [Victor Enogwe](http://github.com/andela-venogwe)
+* [Olawale Akinseye](http://github.com/andela-oakinseye)
 
 About the Game
 -------------
@@ -18,7 +25,7 @@ The game is simple - each player is given 10 answer cards which are used to fill
 
 Cards Against Humanity is open-source and licensed under Creative Commons. The idea for Cards for Humanity was to create a web version of the game we love so much, while still doing something good for humanity. To achieve this we integrated the option to donate to the Make a Wish Foundation.
 
-The app is completely functional across all devices - from iPhone to full-sized desktop. We used Socket.io to create rooms which hold up 6 players at a time, and also included the functionality to create private rooms once logged in. Passport handles authentication with Local, Twitter, Facebook, Google and Github strategies implemented. 
+The app is completely functional across all devices - from iPhone to full-sized desktop. You can also signup with your 
 
 ![alt-text](https://dl.dropboxusercontent.com/u/7390609/CFHforGit.png "Cards for Humanity views")
 
@@ -26,7 +33,7 @@ The app is completely functional across all devices - from iPhone to full-sized 
 
 Our Tech Stack
 --------------
-Cards for Humanity uses AngularJS and Sass on the front-end, with Node.js/Express.js, MongoDB and Socket.io on the back-end. It's currently deployed to Amazon EC2. 
+Cards for Humanity uses AngularJS on the front-end, with Node.js/Express.js, MongoDB and Socket.io on the back-end. It's currently deployed to Heroku.
 
 ![alt-text](https://dl.dropboxusercontent.com/u/7390609/tech.png "Tech Stack Overview")
 
