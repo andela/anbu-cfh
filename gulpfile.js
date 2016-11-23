@@ -1,5 +1,5 @@
 require('dotenv').config();
-let gulp = require('gulp'),
+const gulp = require('gulp'),
   watch = require('gulp-watch'),
   mocha = require('gulp-mocha'),
   nodemon = require('gulp-nodemon'),
@@ -15,9 +15,7 @@ gulp.task('watch', () => {
   gulp.watch('public/views/**', browserSync.reload);
   gulp.watch(['public/js/**', 'app/**/*.js'], browserSync.reload);
   gulp.watch('app/views/**', browserSync.reload);
-
  });
-
 
 gulp.task('sass', () => {
   return gulp.src('public/css/common.scss')
