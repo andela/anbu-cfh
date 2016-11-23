@@ -1,14 +1,13 @@
-const gulp = require('gulp'),
+require('dotenv').config();
+let gulp = require('gulp'),
   watch = require('gulp-watch'),
   mocha = require('gulp-mocha'),
   nodemon = require('gulp-nodemon'),
   sass = require('gulp-sass'),
   bower = require('gulp-bower'),
   eslint = require('gulp-eslint'),
-  browserSync = require('browser-sync');
-  
-require('dotenv').config();
-  var port = process.env.PORT;
+  browserSync = require('browser-sync'),
+  port = process.env.PORT;
 
 gulp.task('watch', () => {
   gulp.watch('public/css/common.scss', ['sass']);
