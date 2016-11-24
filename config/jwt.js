@@ -15,9 +15,9 @@ module.exports = function(app){
 
   // API ROUTES -------------------
 
-  // route to authenticate a user and create token (POST ./api/auth/login)
-  app.post('/api/auth/login', function(req, res) {
-
+  // route to authenticate a user and create token
+  // (POST ./api/auth/login) and (POST ./api/auth/signup)
+  var authToken = function(req, res) {
     // find the user
     User.findOne({
       email: req.body.email
@@ -26,7 +26,8 @@ module.exports = function(app){
       if (err) throw err;
 
       if (!existingUser) {
-        res.json({ success: false, message: 'Authentication failed. User not found.', email: req.body.email });
+        res.json({ success: false, message: 'User not found.',
+                email: req.body.email });
       } else if (existingUser) {
 
         // create a token that expires in 24 hours
@@ -34,20 +35,29 @@ module.exports = function(app){
             expiresIn: '1440m'
           });
 
-          // return the information including token as JSON
+          // return the token as JSON
           res.json({
             token: token
           });
+
+          //Store token in  request body
+          req.body.token = token;
       }
 
     });
-  });
+  };
+
+  app.post('/api/auth/login', authToken);
+  app.post('/api/auth/signup', authToken);
+
+
 
   // route middleware to verify a token
   var checkToken = function(req, res, next) {
 
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.query.token ||
+                req.headers['x-access-token'];
 
     // decode token
     if (token) {
@@ -55,7 +65,8 @@ module.exports = function(app){
       // verifies secret and checks exp
       jwt.verify(token, app.get('superSecret'), function(err, decoded) {
         if (err) {
-          return res.json({ success: false, message: 'Failed to authenticate token.' });
+          return res.json({ success: false,
+                    message: 'Failed to authenticate token.' });
         } else {
           // if everything is good, save to request for use in other routes
           req.decoded = decoded;
