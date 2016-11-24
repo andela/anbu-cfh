@@ -2,7 +2,7 @@ node_modules
 .sass-cache/
 .DS_store
 c4h_keys.txt
+bower_components
 coverage
 npm-debug.log
 .env
-
