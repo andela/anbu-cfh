@@ -13,15 +13,11 @@
     "npm": "2.15.x"
   },
   "scripts": {
-<<<<<<< HEAD
-    "test": "node_modules/karma/bin/karma start",
-    "serve": "./node_modules/.bin/forever -m 5 server.js"
-=======
+    "serve": "./node_modules/.bin/forever -m 5 server.js",
     "start": "node node_modules/gulp-cli/bin/gulp",
     "testmocha": "node node_modules/gulp-cli/bin/gulp test",
     "postinstall": "node node_modules/gulp-cli/bin/gulp install",
     "test": "node_modules/karma/bin/karma start"
->>>>>>> b40f928ad9d92cfbe64e35e0e33a0d49415a026f
   },
   "dependencies": {
     "async": "~0.2.9",
