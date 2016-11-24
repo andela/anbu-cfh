@@ -1,6 +1,7 @@
+/* eslint-disable */
 var path = require('path'),
   rootPath = path.normalize(__dirname + '/../..');
-var keys = rootPath + '/keys.txt';
+let keys = `${rootPath}/keys.txt`;
 
 module.exports = {
   root: rootPath,
