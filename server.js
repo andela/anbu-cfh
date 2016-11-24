@@ -7,7 +7,7 @@ var express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
-    
+
 require('dotenv').config();
 
 /**
@@ -56,6 +56,9 @@ require('./config/express')(app, passport, mongoose);
 
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
+
+//JWT settings and routes
+require('./config/jwt')(app);
 
 //Start the app by listening on <port>
 var port = config.port;
