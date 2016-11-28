@@ -10,14 +10,18 @@ angular.module('mean.system')
       setChatGroup(group) {
         this.chatGroup = group;
       }
-      postGroupMessage(userName, messageText) {
+
+      setChatUsername(name){
+        this.userName = name ;
+      }
+      postGroupMessage(messageText) {
         const date = new Date();
         const messageTime = `${(date.getHours() + 1)}:${date.getMinutes()}`;
         // We do not want to send empty messages
         if (messageText !== undefined && messageText.trim().length > 0) {
           // Push message to group thread on firebase
           const messageObject = {
-            senderName: userName,
+            senderName: this.userName,
             textContent: messageText,
             time: messageTime
           };

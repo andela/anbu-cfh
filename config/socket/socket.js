@@ -1,3 +1,4 @@
+
 var Game = require('./game');
 var Player = require('./player');
 require("console-stamp")(console, "m/dd HH:MM:ss");
@@ -104,6 +105,8 @@ module.exports = function(io) {
       player.avatar = avatars[Math.floor(Math.random()*4)+12];
       getGame(player,socket,data.room,data.createPrivate);
     }
+
+    console.log('join game called on socket class');
   };
 
   var getGame = function(player,socket,requestedGameId,createPrivate) {
