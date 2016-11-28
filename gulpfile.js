@@ -36,8 +36,8 @@ gulp.task('eslint', () =>
 );
 
 gulp.task('bower', () =>
-  bower()
-  .pipe(gulp.dest('./public/lib'))
+  return bower()
+  .pipe(gulp.dest('./public/lib/'))
 );
 
 gulp.task('mochaTest', () =>
