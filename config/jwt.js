@@ -51,7 +51,7 @@ var mongoose = require('mongoose'),
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      jwt.verify(token, app.get('superSecret'), (err, decoded) => {
         if (err) {
           return res.status(403).json({
                     message: 'Failed to authenticate token.' });
