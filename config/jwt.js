@@ -68,7 +68,7 @@ var mongoose = require('mongoose'),
       // if there is no token
       // return an error
       return res.status(403).send({
-          message: 'No token provided.'
+        message: 'No token provided.'
       });
     }
   };
