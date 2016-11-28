@@ -1,4 +1,5 @@
 var async = require('async');
+var secret = process.env.JWT_KEY;
 
 module.exports = function(app, passport, auth) {
     //User Routes
@@ -90,4 +91,13 @@ module.exports = function(app, passport, auth) {
     app.get('/play', index.play);
     app.get('/', index.render);
 
+    //JWT settings and routes
+    var jwt = require('./jwt');
+    app.set('superSecret', secret);
+    app.post('/api/auth/login', jwt.authToken);
+    app.post('/api/auth/signup', jwt.authToken);
+    // apply the routes to our application with the prefix /api
+    app.get('/api', jwt.checkToken, (req, res) => {
+      res.status(200).json({ message: 'Welcome to the CFH JWT API' });
+    });
 };
