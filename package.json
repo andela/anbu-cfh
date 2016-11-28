@@ -9,10 +9,11 @@
     "url": "https://github.com/andela/anbu-cfh/"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "4.6.x",
+    "npm": "2.15.x"
   },
   "scripts": {
+    "serve": "./node_modules/.bin/forever -m 5 server.js",
     "start": "node node_modules/gulp-cli/bin/gulp",
     "testmocha": "node node_modules/gulp-cli/bin/gulp test",
     "postinstall": "node node_modules/gulp-cli/bin/gulp install",
