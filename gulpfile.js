@@ -9,7 +9,7 @@ const gulp = require('gulp'),
   bower = require('gulp-bower'),
   eslint = require('gulp-eslint'),
   browserSync = require('browser-sync'),
-  port = process.env.PORT;
+  port = 3000;
 
 gulp.task('watch', () => {
   gulp.watch('public/css/common.scss', ['sass']);
