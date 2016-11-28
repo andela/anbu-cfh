@@ -83,7 +83,7 @@ module.exports = function(app, passport, auth) {
   app.param('questionId', questions.question);
 
   // Avatar Routes
-  var avatars = require('../app/controllers/avatars');
+  const avatars = require('../app/controllers/avatars');
   app.get('/avatars', avatars.allJSON);
 
   // Home route
@@ -98,6 +98,6 @@ module.exports = function(app, passport, auth) {
   app.post('/api/auth/signup', jwt.authToken);
   // apply the routes to our application with the prefix /api
   app.get('/api', jwt.checkToken, (req, res) => {
-  res.status(200).json({ message: 'Welcome to the CFH JWT API' });
+    res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
 };
