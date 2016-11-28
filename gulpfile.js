@@ -55,7 +55,7 @@ gulp.task('nodemon', function () {
 
 gulp.task('serve', ['nodemon'], function () {
   browserSync({
-    proxy: `localhost:${port}`,
+    proxy: 'localhost:'+port,
     port: 5000,
     ui: {
       port: 5001
