@@ -16,7 +16,7 @@ var mongoose = require('mongoose'),
     // find the user
     User.findOne({
       email: req.body.email
-    }, function(err, existingUser) {
+    }, function(err, existingUser){
 
       if (err) throw err;
 
@@ -24,7 +24,7 @@ var mongoose = require('mongoose'),
         res.status(403).json({
             message: 'User not found.',
             email: req.body.email });
-      } else if (existingUser) {
+      } else if (existingUser){
 
           //Create the token
           var token = jwt.sign(existingUser, secret, {
@@ -41,14 +41,14 @@ var mongoose = require('mongoose'),
   };
 
   // route middleware to verify a token
-  exports.checkToken = function(req, res, next) {
+  exports.checkToken = function(req, res, next){
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token ||
                 req.headers['x-access-token'];
 
     // decode token
-    if (token) {
+    if(token){
 
       // verifies secret and checks exp
       jwt.verify(token, app.get('superSecret'), (err, decoded) => {
