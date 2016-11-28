@@ -22,19 +22,19 @@ var mongoose = require('mongoose'),
 
       if (!existingUser) {
         res.status(403).json({
-            message: 'User not found.',
-            email: req.body.email });
+          message: 'User not found.',
+          email: req.body.email });
       } else if (existingUser){
 
-          //Create the token
-          var token = jwt.sign(existingUser, secret, {
-            expiresIn: expiryDate
-          });
+        //Create the token
+        var token = jwt.sign(existingUser, secret, {
+          expiresIn: expiryDate
+        });
 
-          // return the token as JSON
-          res.status(200).json({
-            token: token
-          });
+        // return the token as JSON
+        res.status(200).json({
+          token: token
+        });
       }
 
     });
@@ -45,7 +45,7 @@ var mongoose = require('mongoose'),
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token ||
-                req.headers['x-access-token'];
+      req.headers['x-access-token'];
 
     // decode token
     if(token){
@@ -54,7 +54,7 @@ var mongoose = require('mongoose'),
       jwt.verify(token, app.get('superSecret'), (err, decoded) => {
         if (err) {
           return res.status(403).json({
-                    message: 'Failed to authenticate token.' });
+            message: 'Failed to authenticate token.' });
         } else {
           // if everything is good, save to request for use in other routes
           req.decoded = decoded;

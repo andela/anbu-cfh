@@ -1,5 +1,5 @@
 var async = require('async');
-var secret = process.env.JWT_KEY;
+const secret = process.env.JWT_KEY;
 
 module.exports = function(app, passport, auth) {
   //User Routes
