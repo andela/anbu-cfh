@@ -12,8 +12,10 @@ angular.module('mean.system')
     $scope.chat.setChatGroup('random-group');
     $scope.chat.listenForMessages();
 
-    $scope.sendMessage = function (userMessage){
+    $scope.sendMessage = (userMessage) => {
       $scope.chat.postGroupMessage('azeez', userMessage);
+      // Clear the chat input box
+      $scope.chatMessage = '';
     };
 
     $scope.pickCard = function(card) {
