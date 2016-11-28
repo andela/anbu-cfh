@@ -1,4 +1,4 @@
-/* eslint-disabled */
+/* eslint-disable */
 var path = require('path'),
 rootPath = path.normalize(__dirname + '/../..');
 var keys = rootPath + '/keys.txt';
