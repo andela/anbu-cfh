@@ -7,28 +7,28 @@ angular.module('mean.system')
         this.messageArray = [];
       }
 
-      setChatGroup(group){
+      setChatGroup(group) {
         this.chatGroup = group;
       }
-      postGroupMessage(userName, userMessage){
-        const date = new Date;
+      postGroupMessage(userName, userMessage) {
+        const date = new Date();
         const messageTime = `${(date.getHours() + 1)}:${date.getMinutes()}`;
         // We do not want to send empty messages
-        if(userMessage !== undefined && userMessage.trim().length > 0){
+        if (userMessage !== undefined && userMessage.trim().length > 0) {
           // Push message to group thread on firebase
-          this.myFirebase.child(this.chatGroup).push({user: userName, message: userMessage, time: messageTime});
-          console.log(`user: ${userName} | message: ${userMessage} | group: ${this.chatGroup}`);
+          this.myFirebase.child(this.chatGroup)
+            .push({ user: userName, message: userMessage, time: messageTime });
         }
-      };
+      }
 
-      listenForMessages(){
-        const thisChat = this ;
-        this.myFirebase.child(this.chatGroup).on('child_added', function(snapshot) {
+      listenForMessages() {
+        const thisChat = this;
+        this.myFirebase.child(this.chatGroup).on('child_added', (snapshot) => {
           const message = snapshot.val();
           thisChat.messageArray.push(message);
         });
-      };
+      }
     }
     const chat = new Chat();
     return chat;
-});
+  });
