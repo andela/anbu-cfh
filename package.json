@@ -16,7 +16,8 @@
     "start": "node node_modules/gulp-cli/bin/gulp",
     "testmocha": "node node_modules/gulp-cli/bin/gulp test",
     "postinstall": "node node_modules/gulp-cli/bin/gulp install",
-    "test": "node_modules/karma/bin/karma start"
+    "test": "node_modules/karma/bin/karma start",
+    "install": "node node_modules/gulp-cli/bin/gulp install"
   },
   "dependencies": {
     "async": "~0.2.9",
