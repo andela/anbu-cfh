@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-//Dependencies
+// Dependencies
 var jwt    = require('jsonwebtoken');
 
 var secret = process.env.JWT_KEY;
-//Token expiry date
+// Token expiry date
 var expiryDate = '1440m'; //24hrs
 
 var mongoose = require('mongoose'),
@@ -26,7 +26,7 @@ var mongoose = require('mongoose'),
           email: req.body.email });
       } else if (existingUser){
 
-        //Create the token
+        // Create the token
         var token = jwt.sign(existingUser, secret, {
           expiresIn: expiryDate
         });
