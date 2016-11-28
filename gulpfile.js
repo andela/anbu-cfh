@@ -35,10 +35,10 @@ gulp.task('eslint', () =>
   .pipe(eslint())
 );
 
-gulp.task('bower', function () {
-  return bower()
+gulp.task('bower', () =>
+  bower()
   .pipe(gulp.dest('./public/lib/'))
-});
+);
 
 gulp.task('mochaTest', () =>
   gulp.src('test/**/*.js', { read: false })
