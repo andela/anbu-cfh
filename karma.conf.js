@@ -21,16 +21,23 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+        './coverage/*'
     ],
 
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
+        //'./app/example.js': ['coverage']
     },
 
 
     // test results reporter to use
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage', 'coveralls'],
+
+    coverageReporter: {
+        type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+        dir: 'coverage/'
+    },
 
 
     // web server port

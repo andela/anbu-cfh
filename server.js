@@ -8,7 +8,7 @@ var express = require('express'),
     logger = require('mean-logger'),
     io = require('socket.io'),
     bodyParser  = require('body-parser');
-require('dotenv').config();
+require('dotenv').config({silent:true});
 
 /**
  * Main application entry file.
