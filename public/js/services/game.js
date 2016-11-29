@@ -86,7 +86,6 @@ angular.module('mean.system')
     }
 
     var newState = (data.state !== game.state);
-    console.log('gameUpdate called');
     //update our chat service properties
     game.gameChat.setChatUsername(data.players[game.playerIndex].username);
     game.gameChat.setChatGroup(data.gameID);

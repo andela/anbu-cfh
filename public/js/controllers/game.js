@@ -9,6 +9,7 @@ angular.module('mean.system')
     var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
+    $scope.chatIcon = 'comment';
     $scope.sendMessage = (userMessage) => {
       $scope.chat.postGroupMessage(userMessage);
       // Clear the chat input box
@@ -34,6 +35,19 @@ angular.module('mean.system')
         }
       }
     };
+
+    $scope.keyPressed = function($event){
+    var keyCode = $event.which || $event.keyCode;
+    if (keyCode === 13) {
+        // Do that thing you finally wanted to do
+        $scope.sendMessage($scope.chatMessage);
+    }
+
+  };
+
+    $scope.showChat = function(){
+      $scope.enableChatWindow = !$scope.enableChatWindow;
+    }
 
     $scope.pointerCursorStyle = function() {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
