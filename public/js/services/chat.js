@@ -1,22 +1,44 @@
 angular.module('mean.system')
   .factory('chat', function() {
-    class Chat{
-      constructor(group) {
+    class Chat {
+      /**
+      * Constructor to create a new instance of this class
+      */
+      constructor() {
         // declare fire base reference with link to our firebase database
         this.myFirebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
         this.messageArray = [];
+        this.enableListener = true;
       }
 
+      /**
+      * Method to set the chat group to post
+      * our messages to.
+      * @param{String} group - Name of the group
+      * @return{undefined}
+      */
       setChatGroup(group) {
         this.chatGroup = group;
       }
 
-      setChatUsername(name){
-        this.userName = name ;
+      /**
+      * Method to set the current chat user name
+      * @param{String} name - name of the user
+      * @return{undefined}
+      */
+      setChatUsername(name) {
+        this.userName = name;
       }
+
+      /**
+      * Method to post user message to firebase
+      * database.
+      * @param{String} messageText - message
+      * @return{undefined}
+      */
       postGroupMessage(messageText) {
         const date = new Date();
-        const messageTime = `${(date.getHours() + 1)}:${date.getMinutes()}`;
+        const messageTime = date.toTimeString().substr(0, 8);
         // We do not want to send empty messages
         if (messageText !== undefined && messageText.trim().length > 0) {
           // Push message to group thread on firebase
@@ -27,15 +49,23 @@ angular.module('mean.system')
           };
           this.myFirebase.child(this.chatGroup)
             .push(messageObject);
-            console.log('userMessage: ' + messageObject.textContent);
         }
       }
 
+      /**
+      * Method to setup  eventlistener
+      * for firebase
+      * @return{undefined}
+      */
       listenForMessages() {
-        const thisChat = this;
+        if(!this.enableListener){
+          return;
+        }
+        this.myFirebase.child(this.chatGroup).off();
+        this.enableListener = false;
         this.myFirebase.child(this.chatGroup).on('child_added', (snapshot) => {
           const message = snapshot.val();
-          thisChat.messageArray.push(message);
+          this.messageArray.push(message);
         });
       }
     }
