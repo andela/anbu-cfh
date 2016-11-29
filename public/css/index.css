@@ -20,6 +20,15 @@ a img{
   color: #fff;
 }
 
+.mdl-button--fab.mdl-button--colored {
+    background: #46B6AC;
+    color: #fff;
+}
+
+.mdl-button--fab.mdl-button--colored:hover {
+    background: #469fb6;
+}
+
 #view-source {
   position: fixed;
   display: block;
@@ -30,17 +39,16 @@ a img{
   z-index: 900;
 }
 .text-logo{
-  color: #64ffda;
+  color: #46B6AC;
   text-transform: uppercase;
   font-size: 18px;
   font-weight: 900;
   margin-top: 3px;
-  text-shadow: 1px 1px 1px rgba(150, 150, 0, 1);
 }
 
 .text-logo-mobile{
   display: none;
-  color: #64ffda;
+  color: #46B6AC;
   text-transform: uppercase;
   text-align: center;
   font-size: 18px;
@@ -67,7 +75,7 @@ a img{
   right: 20%;
   bottom: 26px;
   z-index: 3;
-  background: #64ffda !important;
+  background: #46B6AC !important;
   color: black !important;
 }
 
@@ -137,7 +145,7 @@ a img{
   }
 
     .cfh-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid #8bc34a;
+      border-bottom: 4px solid #46B6AC;
     }
 
   .cfh-search-box {
@@ -171,7 +179,7 @@ a img{
   }
 
   .cfh-drawer span.mdl-navigation__link.mdl-navigation__link {
-    color: #8bc34a;
+    color: #46B6AC;
   }
 
   .cfh-drawer .mdl-layout-title {
@@ -364,7 +372,7 @@ a img{
 
 .cfh-link {
   text-decoration: none;
-  color: #8bc34a !important;
+  color: #46B6AC !important;
 }
 
   .cfh-link:hover {
@@ -379,7 +387,7 @@ a img{
 
 .cfh-alt-link {
   text-decoration: none;
-  color: #64ffda !important;
+  color: #46B6AC !important;
   font-size: 12px;
 }
 
@@ -448,7 +456,7 @@ a img{
 }
 
   .cfh-footer a:hover {
-    color: #8bc34a;
+    color: #46B6AC;
   }
 
   .cfh-footer .mdl-mega-footer--top-section::after {
