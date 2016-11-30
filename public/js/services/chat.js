@@ -63,7 +63,7 @@ angular.module('mean.system')
         }
         this.myFirebase.child(this.chatGroup).off();
         this.enableListener = false;
-        this.myFirebase.child(this.chatGroup).on('child_added', (snapshot) => {
+        this.myFirebase.child(this.chatGroup).limit(1).on('child_added', (snapshot) => {
           const message = snapshot.val();
           this.messageArray.push(message);
         });
