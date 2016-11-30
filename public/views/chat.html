@@ -1,6 +1,6 @@
 <div class="chatpanel">                
   <div class="panel-heading" style="background: black; color: white">
-    <span class="glyphicon glyphicon-{{chat.unreadMessageCount > 0 ?'envelope' : 'comment'}}"></span> Chat {{chat.unreadMessageCount}}
+    <span class="glyphicon glyphicon-{{chat.unreadMessageCount > 0 ?'envelope' : 'comment'}}"></span> Chat <span class="message_notification" ng-show="chat.unreadMessageCount > 0">{{chat.unreadMessageCount + ' new message'}}</span>
       <div class="btn-group pull-right">
         <a type="button" class="btn btn-default btn-xs" ng-click="showChat()">
           <span class="glyphicon glyphicon-chevron-{{chat.showChatWindow?'down': 'up'}}"></span>
@@ -9,14 +9,14 @@
   </div>
   <div ng-show="chat.showChatWindow">
   <div id="results" class="chatthread">
-    <ul class="media-list" style="max-height: 300px">
+    <ul class="media-list">
       <li ng-repeat="message in chat.messageArray" class="chat">
         <div class="chat-body clearfix">
           <div class="header">
-            <strong class="primary-font">{{message.senderName}} | </strong>
-            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{message.time}}</small>
+            <b>{{message.senderName}} </b>
+            <small class="text-muted">{{message.time}}</small>
           </div>
-              {{message.textContent}}
+              <p>{{message.textContent}}</p>
           </div>
         </li>
     </ul>

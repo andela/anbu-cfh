@@ -1134,3 +1134,7 @@ li.chat {
   padding-bottom: 5px;
 }
 
+span.message_notification {
+  color: lightgreen;
+}
+
