@@ -105,8 +105,6 @@ module.exports = function(io) {
       player.avatar = avatars[Math.floor(Math.random()*4)+12];
       getGame(player,socket,data.room,data.createPrivate);
     }
-
-    console.log('join game called on socket class');
   };
 
   var getGame = function(player,socket,requestedGameId,createPrivate) {

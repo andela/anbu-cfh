@@ -1,12 +1,15 @@
 angular.module('mean.system')
   .factory('chat', function() {
+    /**
+    * Class to implement chat functionality
+    */
     class Chat {
       /**
       * Constructor to create a new instance of this class
       */
       constructor() {
         // declare fire base reference with link to our firebase database
-        this.myFirebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
+        this.firebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
         this.messageArray = [];
         this.enableListener = true;
         this.showChatWindow = false;
@@ -49,7 +52,7 @@ angular.module('mean.system')
             textContent: messageText,
             time: messageTime
           };
-          this.myFirebase.child(this.chatGroup)
+          this.firebase.child(this.chatGroup)
             .push(messageObject);
         }
       }
@@ -60,12 +63,12 @@ angular.module('mean.system')
       * @return{undefined}
       */
       listenForMessages() {
-        if(!this.enableListener){
+        if (!this.enableListener) {
           return;
         }
-        this.myFirebase.child(this.chatGroup).off();
+        this.firebase.child(this.chatGroup).off();
         this.enableListener = false;
-        this.myFirebase.child(this.chatGroup).on('child_added', (snapshot) => {
+        this.firebase.child(this.chatGroup).on('child_added', (snapshot) => {
           const message = snapshot.val();
           this.messageArray.push(message);
           this.updateUnreadMessageCount();
@@ -74,9 +77,10 @@ angular.module('mean.system')
 
       /**
       * Method to update the uread messages count
+      * @return{undefined} returns undefined
       */
-      updateUnreadMessageCount(){
-        if(!this.showChatWindow){
+      updateUnreadMessageCount() {
+        if (!this.showChatWindow) {
           this.unreadMessageCount += 1;
         }
       }

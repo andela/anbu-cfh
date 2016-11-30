@@ -337,7 +337,6 @@ Game.prototype.pickCards = function(thisCardArray, thisPlayer) {
 Game.prototype.getPlayer = function(thisPlayer) {
   var playerIndex = this._findPlayerIndexBySocket(thisPlayer);
   if (playerIndex > -1) {
-    console.log(this.players[playerIndex]);
     return this.players[playerIndex];
   } else {
     return {};

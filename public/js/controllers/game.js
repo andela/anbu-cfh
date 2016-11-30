@@ -1,5 +1,7 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+.controller('GameController', ['$scope', 'game', '$timeout',
+  '$location', 'MakeAWishFactsService', '$dialog',
+  function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -11,24 +13,30 @@ angular.module('mean.system')
     $scope.chat = game.gameChat;
 
 
-    $scope.$watchCollection('chat.messageArray', function (newValue, oldValue) {
+    $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {
       $timeout(() => {
         $scope.scrollChatThread();
       }, 100);
     });
+
+    /**
+    * Method to send messages
+    * @param{String} userMessage - String containing the message to be sent
+    * @return{undefined}
+    */
     $scope.sendMessage = (userMessage) => {
       $scope.chat.postGroupMessage(userMessage);
       $scope.chatMessage = '';
- 
     };
     /**
     * Method to scroll the chat thread to the bottom
     * so user can see latest message when messages overflow
+    * @return{undefined}
     */
     $scope.scrollChatThread = () => {
-      var chatResults = document.getElementById("results");
+      const chatResults = document.getElementById('results');
       chatResults.scrollTop = chatResults.scrollHeight;
-    }
+    };
 
     $scope.pickCard = function(card) {
       if (!$scope.hasPickedCards) {
@@ -58,9 +66,10 @@ angular.module('mean.system')
 
   };
 
-    $scope.showChat = function(){
-      $scope.chat.showChatWindow = !$scope.chat.showChatWindow;//enableChatWindow;
-      if($scope.chat.showChatWindow){
+    $scope.showChat = function() {
+      $scope.chat.showChatWindow = !$scope.chat.showChatWindow;
+      // enableChatWindow;
+      if ($scope.chat.showChatWindow) {
         $scope.chat.unreadMessageCount = 0;
       }
     }
