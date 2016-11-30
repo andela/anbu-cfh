@@ -56,25 +56,22 @@ angular.module('mean.system')
         }
       }
     };
-
-    $scope.keyPressed = function($event){
-    var keyCode = $event.which || $event.keyCode;
-    if (keyCode === 13) {
-        // Do that thing you finally wanted to do
+    $scope.keyPressed = function ($event) {
+      const keyCode = $event.which || $event.keyCode;
+      if (keyCode === 13) {
         $scope.sendMessage($scope.chatMessage);
-    }
+      }
+    };
 
-  };
-
-    $scope.showChat = function() {
+    $scope.showChat = function () {
       $scope.chat.showChatWindow = !$scope.chat.showChatWindow;
       // enableChatWindow;
       if ($scope.chat.showChatWindow) {
         $scope.chat.unreadMessageCount = 0;
       }
-    }
+    };
 
-    $scope.pointerCursorStyle = function() {
+    $scope.pointerCursorStyle = function () {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
         return {'cursor': 'pointer'};
       } else {
@@ -82,7 +79,7 @@ angular.module('mean.system')
       }
     };
 
-    $scope.sendPickedCards = function() {
+    $scope.sendPickedCards = function () {
       game.pickCards($scope.pickedCards);
       $scope.showTable = true;
     };
