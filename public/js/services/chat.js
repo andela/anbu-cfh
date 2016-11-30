@@ -9,6 +9,8 @@ angular.module('mean.system')
         this.myFirebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
         this.messageArray = [];
         this.enableListener = true;
+        this.showChatWindow = false;
+        this.unreadMessageCount = 0;
       }
 
       /**
@@ -66,7 +68,17 @@ angular.module('mean.system')
         this.myFirebase.child(this.chatGroup).limit(1).on('child_added', (snapshot) => {
           const message = snapshot.val();
           this.messageArray.push(message);
+          this.updateUnreadMessageCount();
         });
+      }
+
+      /**
+      * Method to update the uread messages count
+      */
+      updateUnreadMessageCount(){
+        if(!this.showChatWindow){
+          this.unreadMessageCount += 1;
+        }
       }
     }
     const chat = new Chat();
