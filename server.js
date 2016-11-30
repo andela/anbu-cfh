@@ -6,7 +6,8 @@ var express = require('express'),
     fs = require('fs'),
     passport = require('passport'),
     logger = require('mean-logger'),
-    io = require('socket.io');
+    io = require('socket.io'),
+    bodyParser  = require('body-parser');
 require('dotenv').config({silent:true});
 
 /**
@@ -50,6 +51,10 @@ app.use(function(req, res, next){
     next();
 });
 
+// use body parser to get info from POST and/or URL parameters
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 //express settings
 require('./config/express')(app, passport, mongoose);
 
@@ -60,6 +65,7 @@ require('./config/routes')(app, passport, auth);
 var port = config.port;
 var server = app.listen(port);
 var ioObj = io.listen(server, { log: false });
+
 //game logic handled here
 require('./config/socket/socket')(ioObj);
 console.log('Express app started on port ' + port);
