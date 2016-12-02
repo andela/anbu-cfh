@@ -360,13 +360,13 @@ a img{
 
 .cfh-charity-band-text {
   max-width: 800px;
-  margin-left: 25%;
   padding: 24px;
   text-align: left;
   color: white;
 }
 
   .cfh-charity-band-text p {
+    font-family: Montserrat;
     padding-top: 8px;
   }
 
@@ -563,4 +563,24 @@ a img{
   .cfh-footer .mdl-mega-footer--bottom-section {
     display: none;
   }
+}
+
+div.crImageAndTitleOuter {
+  display: none !important;
+}
+
+.left {
+  float: left;
+  margin-right: 1em;
+}
+
+.cfh-how-card.mdl-card {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: left;
+    min-width: 200px;
+}
+
+.cfh-header {
+    position: fixed;
 }
