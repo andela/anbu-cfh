@@ -1,0 +1,55 @@
+body{
+  padding: 20px;
+}
+.signup-wrapper{
+  border-radius: 2px;
+  margin: 0 auto;
+  float: none;
+  text-align:center;
+}
+
+.social-buttons{
+  margin: 0 auto;
+  float: none;
+}
+.form-wrapper{
+  border-radius: 5px;
+  background-color: #fafafa;
+  padding: 10px;
+  border: 2px solid #333;
+  min-width: 500px;
+  text-align: center;
+  margin: 0 auto !important;
+  float: none;
+  border-radius: 2px;
+}
+
+form div{
+  display: block;
+}
+
+.avatar-list li{
+  display: inline-block;
+}
+
+.img-thumbnail{
+  width:10%;
+  cursor: pointer;
+}
+
+.submit-btn{
+  height: 60px;
+}
+
+.social-buttons img{
+  height: 80px;
+  width: 80px;
+}
+
+.avatar-list img{
+  height: 40px;
+  width: 40px; 
+}
+input{
+  outline: none;
+}
