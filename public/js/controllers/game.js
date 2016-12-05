@@ -15,7 +15,7 @@ angular.module('mean.system')
 
     $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {
       $timeout(() => {
-        $scope.scrollChatThread();
+        scrollChatThread();
       }, 100);
     });
 
@@ -33,7 +33,7 @@ angular.module('mean.system')
     * so user can see latest message when messages overflow
     * @return{undefined}
     */
-    $scope.scrollChatThread = () => {
+    scrollChatThread = () => {
       const chatResults = document.getElementById('results');
       chatResults.scrollTop = chatResults.scrollHeight;
     };

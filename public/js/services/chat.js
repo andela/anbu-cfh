@@ -63,7 +63,7 @@ angular.module('mean.system')
       * a game ends.
       * @return{undefined}
       */
-      clearMessgeHistory() {
+      clearMessageHistory() {
         this.firebase.child(this.chatGroup).remove();
       }
 

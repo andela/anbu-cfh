@@ -90,12 +90,11 @@ angular.module('mean.system')
     game.gameChat.setChatUsername(data.players[game.playerIndex].username);
     game.gameChat.setChatGroup(data.gameID);
     game.gameChat.listenForMessages();
+    game.gameChat.clearMessageHistory();
     
     if (data.round !== game.round && data.state !== 'awaiting players' &&
       data.state !=='game ended' && data.state !== 'game dissolved') {
       game.time = game.timeLimits.stateChoosing - 1;
-      game.gameChat.clearMessageHistory();
-      console.log('game ended');
       timeSetViaUpdate = true;
     } else if (newState && data.state === 'waiting for czar to decide') {
       game.time = game.timeLimits.stateJudging - 1;
