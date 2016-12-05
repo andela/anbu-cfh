@@ -58,6 +58,16 @@ angular.module('mean.system')
       }
 
       /**
+      * Method to clear our chat
+      * history on firebase when
+      * a game ends.
+      * @return{undefined}
+      */
+      clearMessgeHistory() {
+        this.firebase.child(this.chatGroup).remove();
+      }
+
+      /**
       * Method to setup  eventlistener
       * for firebase
       * @return{undefined}

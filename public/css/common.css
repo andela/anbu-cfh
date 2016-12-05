@@ -869,12 +869,9 @@ body {
   -webkit-border-radius: 8px !important;
   -moz-border-radius: 8px !important;
   border-radius: 8px !important;
-  text-transform: none !important;
-}
-.gradientButton .donateNow {
-  border-top: 0px solid black !important;
-}
-
+  text-transform: none !important; }
+  .gradientButton .donateNow {
+    border-top: 0px solid black !important; }
 /*chat styles*/
 div.chatpanel {
   position: fixed;
