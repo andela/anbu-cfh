@@ -1,0 +1,586 @@
+body {
+  margin: 0;
+}
+body, text-logo, p, h1, h2, h3, h4, h5, h6, .mdl-typography--subhead, .mdl-typography--subhead-color-contrast,
+.mdl-typography--display-1, .mdl-typography--display-1-color-contrast {
+  font-family: Montserrat;
+}
+/* Disable ugly boxes around images in IE10 */
+a img{
+  border: 0px;
+}
+
+::-moz-selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+.mdl-button--fab.mdl-button--colored {
+    background: #46B6AC;
+    color: #fff;
+}
+
+.mdl-button--fab.mdl-button--colored:hover {
+    background: #469fb6;
+}
+
+#view-source {
+  position: fixed;
+  display: block;
+  right: 0;
+  bottom: 0;
+  margin-right: 40px;
+  margin-bottom: 30px;
+  z-index: 900;
+}
+.text-logo{
+  color: #46B6AC;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 3px;
+}
+
+.text-logo-mobile{
+  display: none;
+  color: #46B6AC;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 3px;
+}
+
+.cfh-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.cfh-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;
+}
+
+
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+.cfh-fab {
+  position: absolute;
+  right: 20%;
+  bottom: 26px;
+  z-index: 3;
+  background: #46B6AC !important;
+  color: black !important;
+}
+
+.cfh-mobile-title {
+  display: none !important;
+}
+
+
+.cfh-logo-image {
+  height: 28px;
+  width: 140px;
+}
+
+
+.cfh-header {
+  overflow: visible;
+  background-color: white;
+}
+
+  .cfh-header .material-icons {
+    color: #767777 !important;
+  }
+
+  .cfh-header .mdl-layout__drawer-button {
+    background: transparent;
+    color: #767777;
+  }
+
+  .cfh-header .mdl-navigation__link {
+    color: #757575;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  .cfh-navigation-container {
+    /* Simple hack to make the overflow happen to the left instead... */
+    direction: rtl;
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
+    width: 500px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cfh-navigation {
+    /* ... and now make sure the content is actually LTR */
+    direction: ltr;
+    -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 800px;
+  }
+
+  .cfh-search-box.is-focused + .cfh-navigation-container {
+    opacity: 0;
+    width: 100px;
+  }
+
+
+  .cfh-navigation .mdl-navigation__link {
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid transparent;
+  }
+
+    .cfh-navigation .mdl-navigation__link:hover {
+      border-bottom: 4px solid #46B6AC;
+    }
+
+  .cfh-search-box {
+    -webkit-order: 2;
+        -ms-flex-order: 2;
+            order: 2;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .cfh-more-button {
+    -webkit-order: 3;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+
+
+.cfh-drawer {
+  border-right: none;
+}
+
+  .cfh-drawer-separator {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+  }
+
+  .cfh-drawer .mdl-navigation__link.mdl-navigation__link {
+    font-size: 14px;
+    color: #757575;
+  }
+
+  .cfh-drawer span.mdl-navigation__link.mdl-navigation__link {
+    color: #46B6AC;
+  }
+
+  .cfh-drawer .mdl-layout-title {
+    position: relative;
+    background: #6ab344;
+    height: 160px;
+  }
+
+    .cfh-drawer .cfh-logo-image {
+      position: absolute;
+      bottom: 16px;
+    }
+
+.cfh-horrible-people-section {
+  position: relative;
+  height: 620px;
+  width: auto;
+  background-color: #f3f3f3;
+  background: url('../img/slide01.jpg') center 50% no-repeat;
+  background-size: cover;
+}
+
+.logo-font {
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+
+.cfh-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+.cfh-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+.cfh-how-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.cfh-hows {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.cfh-how {
+  text-align: center;
+}
+
+.cfh-how .cfh-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+.cfh-how-panel--text {
+    padding: 100px;
+}
+
+.cfh-how-text{
+  display: block;
+  max-width: 780px;
+  margin: 0 auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.cfh-how-card{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.cfh-how-card.mdl-card {
+  text-align: left;
+}
+.cfh-how-card > .mdl-card__title {
+  color: #fff;
+  background:
+    url('../img/github.png') bottom right 15% no-repeat #46B6AC;
+}
+
+.cfh-image-link {
+  text-decoration: none;
+}
+
+.cfh-charity {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+  .cfh-charity .cfh-how-image {
+    width: 40%;
+    z-index: 1;
+  }
+
+
+.cfh-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+  .cfh-phone .cfh-how-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.cfh-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+  .cfh-tablet .cfh-how-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+  .cfh-tablet .cfh-link {
+    display: block;
+    z-index: 2;
+  }
+
+
+.cfh-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+  .cfh-tv .cfh-how-image {
+    width: 100%;
+    z-index: 1;
+  }
+
+
+.cfh-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+  .cfh-auto .cfh-how-image {
+    display: block;
+    height: 300px;
+    z-index: 1;
+  }
+
+
+.cfh-charity-section {
+  position: relative;
+  background: url('../img/make-a-wish.jpg') center top no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+.cfh-charity-donate {
+  position: absolute;
+  bottom: 0;
+  background-color: #37474f;
+}
+
+.cfh-charity-band {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background-color: #37474f;
+}
+
+.cfh-charity-band-text {
+  max-width: 800px;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+  .cfh-charity-band-text p {
+    font-family: Montserrat;
+    padding-top: 8px;
+  }
+
+.cfh-link {
+  text-decoration: none;
+  color: #46B6AC !important;
+}
+
+  .cfh-link:hover {
+    color: #7cb342 !important;
+  }
+
+  .cfh-link .material-icons {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+  }
+
+.cfh-alt-link {
+  text-decoration: none;
+  color: #46B6AC !important;
+  font-size: 12px;
+}
+
+  .cfh-alt-link:hover {
+    color: #00bfa5 !important;
+  }
+
+  .cfh-alt-link .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+.cfh-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .cfh-more-section .cfh-section-title {
+    margin-left: 12px;
+    padding-bottom: 24px;
+  }
+
+.cfh-card-container {
+}
+
+  .cfh-card-container .mdl-card__media {
+    overflow: hidden;
+    background: transparent;
+  }
+
+    .cfh-card-container .mdl-card__media img {
+      width: 100%;
+    }
+
+  .cfh-card-container .mdl-card__title {
+    background: transparent;
+    height: auto;
+  }
+
+  .cfh-card-container .mdl-card__title-text {
+    color: black;
+    height: auto;
+  }
+
+  .cfh-card-container .mdl-card__supporting-text {
+    height: auto;
+    color: black;
+    padding-bottom: 56px;
+  }
+
+  .cfh-card-container .mdl-card__actions {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .cfh-card-container .mdl-card__actions a {
+    border-top: none;
+    font-size: 16px;
+  }
+
+.cfh-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+  .cfh-footer a:hover {
+    color: #46B6AC;
+  }
+
+  .cfh-footer .mdl-mega-footer--top-section::after {
+    border-bottom: none;
+  }
+
+  .cfh-footer .mdl-mega-footer--middle-section::after {
+    border-bottom: none;
+  }
+
+  .cfh-footer .mdl-mega-footer--bottom-section {
+    position: relative;
+  }
+
+  .cfh-footer .mdl-mega-footer--bottom-section a {
+    margin-right: 2em;
+  }
+
+  .cfh-footer .mdl-mega-footer--right-section a .material-icons {
+    position: relative;
+    top: 6px;
+  }
+
+
+.cfh-link-menu:hover {
+  cursor: pointer;
+}
+
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  .cfh-navigation-container {
+    display: none;
+  }
+
+  .cfh-title {
+    display: none !important;
+  }
+
+  .cfh-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .text-logo-mobile{
+    display: block !important;
+  }
+  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover all the bases. */
+  .cfh.cfh-search-box.is-focused ~ .cfh-mobile-title,
+  .cfh-search-box.is-focused + .cfh-navigation-container + .cfh-mobile-title {
+    opacity: 0;
+  }
+
+  .cfh-more-button {
+    display: none;
+  }
+
+  .cfh-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+
+  .cfh-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+
+  .cfh-horrible-people-section {
+    height: 350px;
+  }
+
+  .cfh-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+
+  .cfh-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+
+  .cfh-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+
+  .cfh-create-character img {
+    height: 12px;
+  }
+
+  .cfh-fab {
+    display: none;
+  }
+
+  .cfh-charity-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .cfh-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
+
+div.crImageAndTitleOuter {
+  display: none !important;
+}
+
+.left {
+  float: left;
+  margin-right: 1em;
+}
+
+.cfh-how-card.mdl-card {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: left;
+    min-width: 200px;
+}
+
+.cfh-header {
+    position: fixed;
+}

@@ -1,34 +1,13 @@
-<!-- Brand and toggle get grouped for better mobile display -->
-
-<div class="navbar-header">
-  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-    <span class="sr-only">Toggle navigation</span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-  </button>
-  <a class="navbar-brand" href="/">Cards For Humanity</a>
+<div class="cfh-header mdl-layout__header mdl-layout__header--scroll">
+  <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title text-logo">Cards For Humanity</span>
+    <!-- Add spacer, to align navigation to the right in desktop-->
+    <div class="cfh-header-spacer mdl-layout-spacer"></div>
+    <!-- Navigation-->
+    <div class="cfh-navigation-container">
+      <nav class="cfh-navigation mdl-navigation"><a href="#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a><a href="#how" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a><a href="#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a><a href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN UP</a><a href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a></nav>
+    </div><span class="android-mobile-title mdl-layout-title text-logo-mobile">Cards For Humanity</span>
+  </div>
 </div>
-
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse navbar-ex1-collapse">
-  <ul class="nav navbar-nav">
-    <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}"><a href="#!/{{item.link}}">{{item.title}}</a></li>
-  </ul>
-
-  <ul class="nav navbar-nav navbar-right" data-ng-hide="global.authenticated">
-    <li><a href="signup">Sign up</a></li>
-    <li class="divider-vertical"></li>
-    <li><a href="signin">Sign in</a>
-  </ul>
-
-  <ul class="nav navbar-nav navbar-right" data-ng-show="global.authenticated">
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{global.user.name}} <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a href="/signout">Sign out</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div><!-- /.navbar-collapse -->
+<div class="cfh-drawer mdl-layout__drawer">
+  <nav class="mdl-navigation"><a href="#top" class="mdl-navigation__link">HOME</a><a href="#how" class="mdl-navigation__link">HOW TO PLAY</a><a href="#charity" class="mdl-navigation__link">CHARITY</a><a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a><a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a></nav>
+</div>
