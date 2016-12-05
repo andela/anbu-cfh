@@ -1,0 +1,178 @@
+      </script>
+      <div id="app-container" ng-controller="GameTourController">
+        <div id="menu-container">
+          <div id="logo">
+            <span id="first-word">Cards</span>
+            <span id="second-word"> for</span>
+            <span id="third-word">Humanity</span>
+          </div>
+          <div id = 'abandon-game-button'">
+              Abandon Game
+          </div>
+              <span id="tweet-container">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </span>
+        </div>
+        <div id="gameplay-container">
+          <div id="upper-gameplay-container">
+            <div id="menu-timeremaining-container">
+              <div id="menu-container">
+                <span id="menu-button">Menu</span>
+              </div>
+              <div id="timer-container">
+                <!-- Timer here -->
+                <div id = "inner-timer-container" ng-show="showTimer">
+                  <span id="timer-status-round" ng-hide="game.state === 'winner has been chosen' || game.state === 'waiting for czar to decide'"> Time Remaining</span>
+                  <span id="timer-status-czar-choosing" ng-show="game.state === 'winner has been chosen'"> Next Round In</span>
+                  <span id="timer-status-czar-choosing" ng-show="czarTime"> Czar Choosing</span>
+                  <div id="time" ng-bind="game.time"></div>
+                </div>
+                <!-- Timer ends here -->
+              </div>
+            </div>
+            <div id="question-container-outer">
+              <!-- Questions here -->
+              <div id="question-container-inner" ng-show="showQuestionContainer">
+                <div class="card longBlack" id="question-container">
+                  <div id="question" ng-show="showQuestion">
+                    <span>What is the current question _______________________________ ?</span>
+                  </div>
+                  <div id="startGame">
+                    <div id="finding-players" ng-show="showAwaitingPlayers">Finding Players</div>
+                    <div id="player-count-container" ng-show="showAwaitingPlayers" ng-init="playerCount = 1">
+                      <div id="player-count"> {{playerCount}} / 6 </div>
+                      <div id="the-word-players"> Players </div>
+                    </div>
+                    <div id="loading-container" ng-show="showAwaitingPlayers">
+                      <div id="loading-gif"><img ng-src="../img/loader.gif"/></div>
+                    </div>
+                    <div id="start-game-container" ng-show="showStartGameContainer">
+                      <div id='start-game-button'>
+                        Start Game</br>with {{playerCount}} players
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- Question container ends here -->
+            </div>
+          </div>
+          <!-- Answers here-->
+          <div ng-cloak id="cards-container">
+            <div id="social-bar-container" ng-show="showSocialBar">
+              <!-- player list starts here -->
+              <div id="player0" ng-show="showFirstPlayer">
+              <div id="player-container" >
+                <div id ="above-czar-container">
+                  <div id="avatar_">
+                    <img src="../img/chosen/N05.png"/>
+                  </div>
+                  <div id="player-container-inner">
+                    <div id="player-name"><h4>Player One</h4></div>
+                    <div id="player-score" ng-show="showPlayerScore"><h2> 0 / 5 </h2></div>
+                    <div id="player-star">
+                      <img src="../img/11.png"/>
+                    </div>
+                  </div>
+                </div>
+                <div id="czar-container" ng-show="showCurrentCzar">
+                  <span id='the-czar'>CZAR</span>
+                </div>
+                </div>
+              </div>
+              <div id="player1" ng-show="showOtherPlayers">
+                <div id="player-container" >
+        <div id ="above-czar-container">
+          <div id="avatar_">
+            <img src="../img/chosen/E01.png"/>
+          </div>
+          <div id="player-container-inner">
+            <div id="player-name"><h4>Player Two</h4></div>
+            <div id="player-score" ng-show="showPlayerScore"><h2> 0 / 5 </h2></div>
+            <div id="player-star">
+              <img src="../img/11.png"/>
+            </div>
+          </div>
+        </div>
+        <div id="czar-container" ng-show="currentCzar($index)">
+          <span id='the-czar'>CZAR</span>
+        </div>
+        </div>
+      </div>
+      <div id="player2" ng-show="showOtherPlayers">
+      <div id="player-container" >
+        <div id ="above-czar-container">
+          <div id="avatar_">
+            <img src="../img/chosen/F01.png"/>
+          </div>
+          <div id="player-container-inner">
+            <div id="player-name"><h4>Player Three</h4></div>
+            <div id="player-score" ng-show="showPlayerScore"><h2> 0 / 5 </h2></div>
+            <div id="player-star">
+              <img src="../img/11.png"/>
+            </div>
+          </div>
+        </div>
+        <div id="czar-container" ng-show="currentCzar($index)">
+          <span id='the-czar'>CZAR</span>
+        </div>
+        </div>
+      </div>
+      <div id="player3" ng-show="showOtherPlayers">
+      <div id="player-container" >
+        <div id ="above-czar-container">
+          <div id="avatar_">
+            <img src="../img/chosen/N05.png"/>
+          </div>
+          <div id="player-container-inner">
+            <div id="player-name"><h4>Player Four</h4></div>
+            <div id="player-score" ng-show="showPlayerScore"><h2> 0 / 5 </h2></div>
+            <div id="player-star">
+              <img src="../img/11.png"/>
+            </div>
+          </div>
+        </div>
+        <div id="czar-container" ng-show="currentCzar($index)">
+          <span id='the-czar'>CZAR</span>
+        </div>
+        </div>
+      </div>
+
+
+              <!-- player list ends here -->
+            </div>
+        
+          <div id="cards" class='hand' ng-show="showAnswerCards">
+              <span ng-show="winnerPicked()"></span>
+            <div ng-style="{'cursor':'pointer'}" class="card smallest" id='answers' ng-click="pickCard(card)"
+              ng-repeat="i in [0, 1, 2, 3, 4]" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}" ng-init="randomAnswers = ['Unknown answer', 'Welcome to anbu squad', 'Santa is older than metusalah', 'Lets go a fishing :)', 'This is quite harder than I expected']">
+              <span> {{randomAnswers[i]}}</span>
+              <span id='selection-number'> {{i + 1}} </span>
+            </div>
+
+            <span ng-repeat="answer in game.table">
+              <div class="card smallest" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
+              ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
+                  <span ng-bind-html-unsafe="card.text"></span>
+                  <span id='selection-number' ng-show="firstAnswer($index)"> 1 </span>
+                  <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>
+              </div>
+            </span>
+          </div>
+      </div>
+
+      <div id="info-container" ng-show="showHowToPlay">
+        <div id="inner-info">
+          <div id="lobby-how-to-play">How To Play</div>
+          <ol id="oh-el">
+            <li>Each player begins with, and will always have, 10 white answer cards.</li>
+            <li>For each round, one player is randomly chosen as the Card Czar.</li>
+            <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
+            <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
+            <li>*Want to adorn your avatar with a glorious crown? Donate to charity after the game!</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -22,7 +22,7 @@ angular.module('mean.system')
     timeLimits: {},
     joinOverride: false
   };
-
+  
   var notificationQueue = [];
   var timeout = false;
   var self = this;
