@@ -42,8 +42,8 @@ form div{
 }
 
 .social-buttons img{
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
 }
 
 .avatar-list img{
@@ -52,4 +52,8 @@ form div{
 }
 input{
   outline: none;
+}
+
+.title{
+  color: teal;
 }
