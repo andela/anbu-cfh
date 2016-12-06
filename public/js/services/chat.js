@@ -1,15 +1,17 @@
 angular.module('mean.system')
-  .factory('chat', function() {
+  .factory('chat', ['env', function (env) {
     /**
     * Class to implement chat functionality
     */
     class Chat {
       /**
       * Constructor to create a new instance of this class
+      * @param{Object} dotEnv - Object holding our enviroment variables
+      * for angular
       */
-      constructor() {
+      constructor(dotEnv) {
         // declare fire base reference with link to our firebase database
-        this.firebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
+        this.firebase = new Firebase(dotEnv.FIREBASE_URL);
         this.messageArray = [];
         this.enableListener = true;
         this.chatWindowVisible = false;
@@ -48,8 +50,8 @@ angular.module('mean.system')
         if (messageText !== undefined && messageText.trim().length > 0) {
           // Push message to group thread on firebase
           const messageObject = {
-            senderName: this.userName,
-            textContent: messageText,
+            username: this.userName,
+            text: messageText,
             time: messageTime
           };
           this.firebase.child(this.chatGroup)
@@ -95,6 +97,6 @@ angular.module('mean.system')
         }
       }
     }
-    const chat = new Chat();
+    const chat = new Chat(env);
     return chat;
-  });
+  }]);

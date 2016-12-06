@@ -584,3 +584,60 @@ div.crImageAndTitleOuter {
 .cfh-header {
     position: fixed;
 }
+
+/*chat styles*/
+div.chatpanel {
+  position: fixed;
+  bottom: 0px;
+  left: 2px;
+  width: 304px;
+  background: #f6f6f6;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+}
+
+div.panel-heading {
+  height: 30px;
+}
+
+div.chatthread {
+  overflow-y: scroll;
+  height: 300px;
+  margin-bottom:35px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.chatinput {
+  width: 300px;
+  position: absolute;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  bottom: 0;
+}
+
+span.message_notification {
+  color: lightgreen;
+}
+
+/*
+div.chatpanel {
+  position: fixed;
+  width: 320px;
+  height: 400px;
+  right: 0;
+  bottom: 0;
+}
+
+div.panel-heading {
+  background: black;
+  height: 30px;
+  color: white;
+  padding: 5px;
+}
+
+div.chatthread {
+  background: red;
+  height: 340px;
+  width: 320px;
+}*/

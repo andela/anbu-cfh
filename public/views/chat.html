@@ -1,34 +1,32 @@
 <div class="chatpanel">                
   <div class="panel-heading" style="background: black; color: white">
-    <span class="glyphicon glyphicon-{{chat.unreadMessageCount > 0 ?'envelope' : 'comment'}}"></span> Chat <span class="message_notification" ng-show="chat.unreadMessageCount > 0">{{chat.unreadMessageCount + ' new message'}}</span>
+    <span class="material-icon">Mood</span> Chat <span class="message_notification" ng-show="chat.unreadMessageCount > 0">{{chat.unreadMessageCount + ' new message'}}</span>
       <div class="btn-group pull-right">
         <a type="button" class="btn btn-default btn-xs" ng-click="showChat()">
           <span class="glyphicon glyphicon-chevron-{{chat.chatWindowVisible?'down': 'up'}}"></span>
         </a>
       </div>
   </div>
-  <div ng-show="chat.chatWindowVisible">
+  <div ng-show="true">
   <div id="results" class="chatthread">
-    <ul class="media-list">
+    <ul class="demo-list-item mdl-list">
       <li ng-repeat="message in chat.messageArray" class="chat">
         <div class="chat-body clearfix">
-          <div class="header">
-            <b>{{message.senderName}} </b>
-            <small class="text-muted">{{message.time}}</small>
+          <span class="mdl-list__item-primary-content">
+            <b>{{message.username}} </b>
+            <small class="text-muted">{{message.time}}</small></span>
           </div>
-              <p>{{message.textContent}}</p>
+              <p>{{message.text}}</p>
           </div>
         </li>
     </ul>
   </div>
-    <div class="chatinput">
-      <div class="input-group">
-        <input id="text" type="text" class="form-control" placeholder="Enter Message" ng-model="chatMessage" ng-keypress="keyPressed($event)"/>
-        <span class="input-group-btn">
-        <button id="post" class="btn btn-info" ng-click="sendMessage(chatMessage)" type="button">SEND</button>
-        </span>
+  <div>
+    <div class="chatinput mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col">
+          <input id="text" type="text" class="mdl-textfield__input" placeholder="Enter Message" ng-model="chatMessage" ng-keypress="keyPressed($event)"/>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
