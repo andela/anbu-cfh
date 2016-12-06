@@ -1,0 +1,124 @@
+<div class="bd-example">
+
+  <!-- for list of invite -->
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="searchModalLabel">Invite Friends</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="search-query" placeholder="search users..." ng-model="searchString" ng-keypress="searchDB(searchString)">
+            </div>
+          </form>
+          <div id="search-result">
+
+            <table class="table table-striped">
+              <tbody>
+                <tr ng-repeat="i in items">
+                  <td>{{i.name}} </td>
+                  <td ng-if="checkPlayer(i.email)" title="{{i.email}}"><button ng-click="sendInvite(i.email, i.name)" class="btn btn-info">Send Invite</button></td>
+                  <td ng-if="!checkPlayer(i.email)"><button ng-disabled="true" class="btn btn-info">User already invited</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- for player limit -->
+  <div class="modal fade" id="alertModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          <h4 class="modal-title">Alert Message</h4>
+        </div>
+        <div class="modal-body">
+          <p>A minimum of three players are required to start the game</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- for player invite limit -->
+  <div class="modal fade" id="alertMaxModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          <h4 class="modal-title">Alert Message</h4>
+        </div>
+        <div class="modal-body">
+          <p>You have exceeded the maximum allowed no of invites</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Beginning of test code -->
+
+  <button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
+    <dialog class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Allow data collection?</h4>
+      <div class="mdl-dialog__content">
+        <p>
+          Allowing us to collect data will let us get you the information you want faster.
+        </p>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button">Agree</button>
+        <button type="button" class="mdl-button close">Disagree</button>
+      </div>
+    </dialog>
+    <script>
+      var dialog = document.querySelector('dialog');
+      var showDialogButton = document.querySelector('#show-dialog');
+      if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+      }
+      showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+      });
+      dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- final div not to be deleted -->
+</div>

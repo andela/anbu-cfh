@@ -100,4 +100,11 @@ module.exports = function(app, passport, auth) {
   app.get('/api', jwt.checkToken, (req, res) => {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
+// Search Route
+  const search = require('../app/controllers/searchUser');
+  app.get('/api/search/users/:email', search);
+
+  // Send Invite Route
+  const sendInvite = require('../app/controllers/sendInvite');
+  app.post('/api/send/userinvite', sendInvite);
 };

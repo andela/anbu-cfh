@@ -1,20 +1,21 @@
-var async = require('async');
-var _ = require('underscore');
-var questions = require(__dirname + '/../../app/controllers/questions.js');
-var answers = require(__dirname + '/../../app/controllers/answers.js');
-var guestNames = [
-  "Disco Potato",
-  "Silver Blister",
-  "Insulated Mustard",
-  "Funeral Flapjack",
-  "Toenail",
-  "Urgent Drip",
-  "Raging Bagel",
-  "Aggressive Pie",
-  "Loving Spoon",
-  "Swollen Node",
-  "The Spleen",
-  "Dingle Dangle"
+const async = require('async');
+const _ = require('underscore');
+
+const questions = require(__dirname + '/../../app/controllers/questions.js');
+const answers = require(__dirname + '/../../app/controllers/answers.js');
+const guestNames = [
+  'Disco Potato',
+  'Silver Blister',
+  'Insulated Mustard',
+  'Funeral Flapjack',
+  'Toenail',
+  'Urgent Drip',
+  'Raging Bagel',
+  'Aggressive Pie',
+  'Loving Spoon',
+  'Swollen Node',
+  'The Spleen',
+  'Dingle Dangle'
 ];
 
 function Game(gameID, io) {
@@ -27,9 +28,9 @@ function Game(gameID, io) {
   this.winnerAutopicked = false;
   this.czar = -1; // Index in this.players
   this.playerMinLimit = 3;
-  this.playerMaxLimit = 6;
+  this.playerMaxLimit = 12;
   this.pointLimit = 5;
-  this.state = "awaiting players";
+  this.state = 'awaiting players';
   this.round = 0;
   this.questions = null;
   this.answers = null;
@@ -40,7 +41,8 @@ function Game(gameID, io) {
     stateResults: 6
   };
   // setTimeout ID that triggers the czar judging state
-  // Used to automatically run czar judging if players don't pick before time limit
+  // Used to automatically run czar judging if players don't
+  // pick before time limit
   // Gets cleared if players finish picking before time limit.
   this.choosingTimeout = 0;
   // setTimeout ID that triggers the result state
