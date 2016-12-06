@@ -9,9 +9,9 @@ angular.module('mean.system')
       * @param{Object} dotEnv - Object holding our enviroment variables
       * for angular
       */
-      constructor(dotEnv) {
+      constructor() {
         // declare fire base reference with link to our firebase database
-        this.firebase = new Firebase(dotEnv.FIREBASE_URL);
+        this.firebase = new Firebase(env.FIREBASE_URL);
         this.messageArray = [];
         this.enableListener = true;
         this.chatWindowVisible = false;
@@ -97,6 +97,6 @@ angular.module('mean.system')
         }
       }
     }
-    const chat = new Chat(env);
+    const chat = new Chat();
     return chat;
   }]);
