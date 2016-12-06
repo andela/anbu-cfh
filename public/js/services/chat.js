@@ -12,7 +12,7 @@ angular.module('mean.system')
         this.firebase = new Firebase('https://anbu-cfh-chat.firebaseio.com/');
         this.messageArray = [];
         this.enableListener = true;
-        this.showChatWindow = false;
+        this.chatWindowVisible = false;
         this.unreadMessageCount = 0;
       }
 
@@ -90,7 +90,7 @@ angular.module('mean.system')
       * @return{undefined} returns undefined
       */
       updateUnreadMessageCount() {
-        if (!this.showChatWindow) {
+        if (!this.chatWindowVisible) {
           this.unreadMessageCount += 1;
         }
       }

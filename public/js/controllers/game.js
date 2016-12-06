@@ -64,9 +64,9 @@ angular.module('mean.system')
     };
 
     $scope.showChat = function () {
-      $scope.chat.showChatWindow = !$scope.chat.showChatWindow;
+      $scope.chat.chatWindowVisible = !$scope.chat.chatWindowVisible;
       // enableChatWindow;
-      if ($scope.chat.showChatWindow) {
+      if ($scope.chat.chatWindowVisible) {
         $scope.chat.unreadMessageCount = 0;
       }
     };
