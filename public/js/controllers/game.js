@@ -12,6 +12,15 @@ angular.module('mean.system')
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
 
+    /**
+    * Method to scroll the chat thread to the bottom
+    * so user can see latest message when messages overflow
+    * @return{undefined}
+    */
+    const scrollChatThread = () => {
+      const chatResults = document.getElementById('results');
+      chatResults.scrollTop = chatResults.scrollHeight;
+    };
 
     $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {
       $timeout(() => {
@@ -27,15 +36,6 @@ angular.module('mean.system')
     $scope.sendMessage = (userMessage) => {
       $scope.chat.postGroupMessage(userMessage);
       $scope.chatMessage = '';
-    };
-    /**
-    * Method to scroll the chat thread to the bottom
-    * so user can see latest message when messages overflow
-    * @return{undefined}
-    */
-    scrollChatThread = () => {
-      const chatResults = document.getElementById('results');
-      chatResults.scrollTop = chatResults.scrollHeight;
     };
 
     $scope.pickCard = function(card) {
