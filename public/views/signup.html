@@ -3,75 +3,71 @@
   <main class='mdl-layout__content'>
     <div class="signup-wrapper">
       <div class="sign-up-title">
-      </div>   
-      </div>
-        <div class="mdl-card form-wrapper">
-          <h4> Create Account </h4>
-       <!--<p> Signup with social accounts or email </p>   -->
-          
-   <form action="/users" method="post">
-      <div class="social-buttons">
-        <a href="http:/auth/facebook"><img class="login-item" src="img/icons/facebook.png"></a>
-        <a href="/auth/github"><img class="login-item" src="img/icons/github.png"></a>
-        <a href="/auth/twitter"><img class="login-item" src="img/icons/twitter.png"></a>
-        <a href="/auth/google"><img class="login-item" src="img/icons/google.png"></a>
-      </div>
-
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" pattern="[A-Za-z]{2,}" id="name" name="name" />
-  <label class="mdl-textfield__label" for="name">First name</label>
-	<span class="mdl-textfield__error">Alphabets only</span>
-  </div>
-     <br />
-            
-   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="email" id="email" name="email"/>
-  <label class="mdl-textfield__label" for="email">Email</label>
-	<span class="mdl-textfield__error">Valid email only</span>
-   </div>
-     <br />
-            
-             
-   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="password" id="password" name="password"/>
-  <label class="mdl-textfield__label" for="password">Password</label>
-   </div>
-     
-     <br /> 
-     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-       <a href="" ng-click="showme=true"><img  id="img1" class="img-thumbnail" src="http://cfh.io/img/chosen/FB03.png"></a>
- 
-  <label class="mdl-textfield__label" for="password">Choose Avatar</label>
-     
-   </div>
-
-   <br />
-     
-     
-      <div ng-show="showme" id="contain-avatars" class="a">
-            <ul class="avatar-list" ng-controller="IndexController">
-          <li 
-      ng-repeat="avatar in avatars"
-class="avatars ng-scope">
-                <input name="avatar" type='radio' value="{{$index}}">
-                <img ng-src="{{avatar}}">
-                </input>
-              </li>
-            </ul>
-        </div>
-     
-     <!-- Raised button with ripple , class "mdl-js-ripple-effect" -->
-<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn" value="Create Account"/>
-            
-</form>
-
-          
-                <br /> 
-        <a href="/#!/signin"> Already registered? Login here </a>
-
       </div>
     </div>
-  
-  </main>
+    <div class="mdl-card form-wrapper">
+      <h4> Create Account </h4>
+      <form action="/users" method="post">
+        <div class="social-buttons">
+          <a href="http:/auth/facebook"><img class="login-item" src="img/icons/facebook.png"></a>
+          <a href="/auth/github"><img class="login-item" src="img/icons/github.png"></a>
+          <a href="/auth/twitter"><img class="login-item" src="img/icons/twitter.png"></a>
+          <a href="/auth/google"><img class="login-item" src="img/icons/google.png"></a>
+        </div>
+
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="[A-Za-z]{2,}" id="name" name="name" />
+          <label class="mdl-textfield__label" for="name">First name</label>
+          <span class="mdl-textfield__error">Alphabets only</span>
+        </div>
+        <br />
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="email" id="email" name="email" />
+          <label class="mdl-textfield__label" for="email">Email</label>
+          <span class="mdl-textfield__error">Valid email only</span>
+        </div>
+        <br />
+
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="password" id="password" name="password" />
+          <label class="mdl-textfield__label" for="password">Password</label>
+        </div>
+
+        <br />
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <a href="" ng-click="showme=true"><img id="img1" class="img-thumbnail" src="http://cfh.io/img/chosen/FB03.png"></a>
+
+          <label class="mdl-textfield__label" for="password">Choose Avatar</label>
+
+        </div>
+
+        <br />
+
+
+        <div ng-show="showme" id="contain-avatars" class="a">
+          <ul class="avatar-list" ng-controller="IndexController">
+            <li ng-repeat="avatar in avatars" class="avatars ng-scope">
+              <input name="avatar" type='radio' value="{{$index}}">
+              <img ng-src="{{avatar}}">
+              </input>
+            </li>
+          </ul>
+        </div>
+
+        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn"
+          value="Create Account" />
+
+      </form>
+
+
+      <br />
+      <a href="/#!/signin"> Already registered? Login here </a>
+
+    </div>
+</div>
+
+</main>
 </div>
