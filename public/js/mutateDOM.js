@@ -1,6 +1,8 @@
 /** Updates the DOM when nodes are added */
 /** State transitions cause node to be added  */
-/** reference https://getmdl.io/started/index.html */
+/** References: https://getmdl.io/started/index.html , 
+ * https://developers.google.com/web/updates/2012/02/Detect-DOM-changes-with-Mutation-Observers
+ **/
 const observer = new MutationObserver((mutations) => {
   let upgrade = false;
 
