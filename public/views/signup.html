@@ -3,20 +3,20 @@
   <main class='mdl-layout__content'>
     <div class="signup-wrapper">
       <div class="sign-up-title">
-        <h3> Sign in with:</h3>
+      </div>   
       </div>
+        <div class="mdl-card form-wrapper">
+          <h4> Create Account </h4>
+       <!--<p> Signup with social accounts or email </p>   -->
+          
+   <form action="/users" method="post">
       <div class="social-buttons">
         <a href="http:/auth/facebook"><img class="login-item" src="img/icons/facebook.png"></a>
         <a href="/auth/github"><img class="login-item" src="img/icons/github.png"></a>
         <a href="/auth/twitter"><img class="login-item" src="img/icons/twitter.png"></a>
         <a href="/auth/google"><img class="login-item" src="img/icons/google.png"></a>
       </div>
-   
-      </div>
-        <div class="mdl-card form-wrapper">
-       <p> Signup with email </p>   
-          
-   <form action="/users" method="post">
+
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
   <input class="mdl-textfield__input" type="text" pattern="[A-Za-z]{2,}" id="name" name="name" />
@@ -50,22 +50,22 @@
      
      
       <div ng-show="showme" id="contain-avatars" class="a">
-            <ul class="avatar-list">
+            <ul class="avatar-list" ng-controller="IndexController">
           <li 
-      ng-repeat="avatar in ['E01.png', 'F01.png', 'FA04.png', 'FB03.png', 'FC01.png', 'FD01.png', 'FE01.png', 'FH03.png', 'FI02.png', 'H01.png', 'J01.png', 'M05.png', 'N02.png', 'N03.png', 'N04.png', 'N05.png'];
-"
+      ng-repeat="avatar in avatars"
 class="avatars ng-scope">
                 <input name="avatar" type='radio' value="{{$index}}">
-                <img ng-src="{{'img/chosen/'+avatar}}">
+                <img ng-src="{{avatar}}">
                 </input>
               </li>
             </ul>
         </div>
      
      <!-- Raised button with ripple , class "mdl-js-ripple-effect" -->
-<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-button--accent submit-btn" value="Create Account"/>
+<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn" value="Create Account"/>
             
 </form>
+
           
                 <br /> 
         <a href="/#!/signin"> Already registered? Login here </a>
