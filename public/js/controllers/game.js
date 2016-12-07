@@ -1,5 +1,7 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+.controller('GameController', ['$scope', 'game', '$timeout',
+  '$location', 'MakeAWishFactsService', '$dialog',
+  function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -8,6 +10,33 @@ angular.module('mean.system')
     $scope.pickedCards = [];
     var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
+    $scope.chat = game.gameChat;
+
+    /**
+    * Method to scroll the chat thread to the bottom
+    * so user can see latest message when messages overflow
+    * @return{undefined}
+    */
+    const scrollChatThread = () => {
+      const chatResults = document.getElementById('results');
+      chatResults.scrollTop = chatResults.scrollHeight;
+    };
+
+    $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {
+      $timeout(() => {
+        scrollChatThread();
+      }, 100);
+    });
+
+    /**
+    * Method to send messages
+    * @param{String} userMessage - String containing the message to be sent
+    * @return{undefined}
+    */
+    $scope.sendMessage = (userMessage) => {
+      $scope.chat.postGroupMessage(userMessage);
+      $scope.chatMessage = '';
+    };
 
     $scope.pickCard = function(card) {
       if (!$scope.hasPickedCards) {
@@ -27,8 +56,22 @@ angular.module('mean.system')
         }
       }
     };
+    $scope.keyPressed = function ($event) {
+      const keyCode = $event.which || $event.keyCode;
+      if (keyCode === 13) {
+        $scope.sendMessage($scope.chatMessage);
+      }
+    };
 
-    $scope.pointerCursorStyle = function() {
+    $scope.showChat = function () {
+      $scope.chat.chatWindowVisible = !$scope.chat.chatWindowVisible;
+      // enableChatWindow;
+      if ($scope.chat.chatWindowVisible) {
+        $scope.chat.unreadMessageCount = 0;
+      }
+    };
+
+    $scope.pointerCursorStyle = function () {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
         return {'cursor': 'pointer'};
       } else {
@@ -36,7 +79,7 @@ angular.module('mean.system')
       }
     };
 
-    $scope.sendPickedCards = function() {
+    $scope.sendPickedCards = function () {
       game.pickCards($scope.pickedCards);
       $scope.showTable = true;
     };
