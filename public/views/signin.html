@@ -1,48 +1,46 @@
-
 <!-- Signup form here -->
 <div class="mdl-layout">
   <main class='mdl-layout__content'>
-    
+
     <div class="signup-wrapper">
       <div class="sign-up-title">
       </div>
-   
-      </div>
-        <div class="mdl-card form-wrapper">
-       <h4> Sign In</h4>   
-       <div class="social-buttons">
+
+    </div>
+    <div class="mdl-card form-wrapper">
+      <h4> Sign In</h4>
+      <div class="social-buttons">
         <a href="http:/auth/facebook"><img class="login-item" src="http://cfh.io/img/icons/facebook.png"></a>
         <a href="/auth/github"><img class="login-item" src="http://cfh.io/img/icons/github.png"></a>
         <a href="/auth/twitter"><img class="login-item" src="http://cfh.io/img/icons/twitter.png"></a>
         <a href="/auth/google"><img class="login-item" src="http://cfh.io/img/icons/google.png"></a>
       </div>
-          
-   <form action="/users/session" method="post">
-            
-   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="email" id="email" name="email"/>
-  <label class="mdl-textfield__label" for="email">Email</label>
-	<span class="mdl-textfield__error">Valid email only</span>
-   </div>
-     <br />
-            
-             
-   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="password" id="password" name="password"/>
-  <label class="mdl-textfield__label" for="password">Password</label>
-   </div>     
-     <br />
 
-<input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn" value="Login"/>
-            
-</form>
+      <form action="/users/session" method="post">
 
-      <br /> 
-        <a href="/#!/signup"> No account? Register here </a>
-      </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="email" id="email" name="email" />
+          <label class="mdl-textfield__label" for="email">Email</label>
+          <span class="mdl-textfield__error">Valid email only</span>
+        </div>
+        <br />
+
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="password" id="password" name="password" />
+          <label class="mdl-textfield__label" for="password">Password</label>
+        </div>
+        <br />
+
+        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit-btn"
+          value="Login" />
+
+      </form>
+
+      <br />
+      <a href="/#!/signup"> No account? Register here </a>
     </div>
-  
-  </main>
 </div>
 
-          
+</main>
+</div>
