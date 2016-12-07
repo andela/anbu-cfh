@@ -1,18 +1,18 @@
-body{
+body {
   padding: 20px;
 }
-.signup-wrapper{
+.signup-wrapper {
   border-radius: 2px;
   margin: 0 auto;
   float: none;
   text-align:center;
 }
 
-.social-buttons{
+.social-buttons {
   margin: 0 auto;
   float: none;
 }
-.form-wrapper{
+.form-wrapper {
   background-color: #fafafa;
   padding: 15px 0 50px 0;
   min-width: 500px;
@@ -22,33 +22,33 @@ body{
   border-radius: 2px;
 }
 
-form div{
+form div {
   display: block;
 }
 
-.avatar-list li{
+.avatar-list li {
   display: inline-block;
 }
 
-.img-thumbnail{
+.img-thumbnail {
   width:10%;
   cursor: pointer;
 }
 
-.form-wrapper{
+.form-wrapper {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.social-buttons img{
+.social-buttons img {
   height: 50px;
   width: 50px;
 }
 
-.avatar-list img{
+.avatar-list img {
   height: 40px;
   width: 40px; 
 }
-input{
+input {
   outline: none;
 }
