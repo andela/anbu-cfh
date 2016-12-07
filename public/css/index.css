@@ -585,16 +585,26 @@ div.crImageAndTitleOuter {
     position: fixed;
 }
 
+
 /*chat styles*/
 div.chatpanel {
   position: fixed;
   bottom: 0px;
-  right: 10px;
-  width: 310px;
+  width: 340px;
+  right: 0;
   background: #f6f6f6;
-  box-shadow: 3px 3px 3px 3px rgba(50, 50, 50, 0.5);
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+  box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+}
+
+@media screen and (max-width:650px){
+  div.chatpanel {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    right: 0;
+    background: #f6f6f6;
+    box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+  }
 }
 
 div.panel-heading {
@@ -628,19 +638,19 @@ p.message_content {
 }
 
 div.chatinput {
-  width: 300px;
+  width: calc(100% - 10px);
   position: absolute;
-  padding-bottom: 2px;
   padding: 5px;
   background: #212f3c; 
   bottom: 0;
+  left: 0;
 }
 
 input.chat_message {
   outline: none;
-  width: 255px;
+  width: calc(100% - 60px);
   background: white;
-  padding: 0px 5px;
+  padding: 0px 30px;
   height: 35px;
 
 }
@@ -662,9 +672,9 @@ a.send_icon {
   position: absolute;
   right: 0;
   bottom: 0;
-  padding: 5px;
-  margin-right: 5px;
-  color: #64ffda;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  color: #909497;
 }
 
 p.message_content {
