@@ -186,3 +186,43 @@ exports.user = function(req, res, next, id) {
       next();
     });
 };
+
+/**
+* Fetch specific users by from database
+* when a user needs to add a new friend
+* @param{Object} req - the request object
+* @param{Object} res - the result object
+* @return {undefined} returns undefined
+*/
+exports.searchUsers = (req, res) => {
+  const filter = req.query.name;
+  if (filter) {
+    User.find({ name: { $regex: filter } }).limit(10)
+    .exec((err, user) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.json(user);
+    });
+  }
+  res.send();
+};
+
+/**
+* Fetch a specific user friends from the database
+* when a user needs to add a new friend
+* @param{Object} req - the request object
+* @param{Object} res - the result object
+* @return {undefined} returns undefined
+*/
+exports.searchFriends = (req, res) => {
+  const filter = req.query.friendname;
+  User.find({ name: { $regex: filter } }).limit(10)
+    .exec((err, user) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.json(user);
+    });
+};
+

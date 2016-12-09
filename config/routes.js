@@ -22,7 +22,10 @@ module.exports = function(app, passport, auth) {
   }), users.session);
 
   app.get('/users/me', users.me);
+  app.get('/users/search_users', users.searchUsers);
+  app.get('/users/search_friends', users.searchFriends);
   app.get('/users/:userId', users.show);
+  //app.post('/user/add_friend/', users.addFriend);
 
   // Setting the facebook oauth routes
   app.get('/auth/facebook', passport.authenticate('facebook', {
