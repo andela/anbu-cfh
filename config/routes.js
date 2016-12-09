@@ -23,7 +23,7 @@ module.exports = function(app, passport, auth) {
 
   app.get('/users/me', users.me);
   app.get('/users/search_users', users.searchUsers);
-  app.get('/users/search_friends', users.searchFriends);
+  app.get('/users/get_friends', users.getFriends);
   app.get('/users/:userId', users.show);
   //app.post('/user/add_friend/', users.addFriend);
 
