@@ -216,8 +216,8 @@ exports.searchUsers = (req, res) => {
 * @return {undefined} returns undefined
 */
 exports.searchFriends = (req, res) => {
-  const filter = req.query.friendname;
-  User.find({ name: { $regex: filter } }).limit(10)
+  const userEmail = req.query.user_email;
+  User.findOne({ email: userEmail })
     .exec((err, user) => {
       if (err) {
         return res.json(err);
