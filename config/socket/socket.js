@@ -1,3 +1,4 @@
+
 var Game = require('./game');
 var Player = require('./player');
 require("console-stamp")(console, "m/dd HH:MM:ss");
@@ -70,7 +71,7 @@ module.exports = function(io) {
     });
 
     socket.on('disconnect', function(){
-      console.log('Rooms on Disconnect ', io.sockets.manager.rooms);
+      console.log('Rooms on Disconnect ', io.sockets);
       exitGame(socket);
     });
   });
