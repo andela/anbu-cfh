@@ -41,13 +41,11 @@ var mongoose = require('mongoose'),
       req.headers['x-access-token'];
     // decode token
     if(token){
-      // verifies secret and checks exp
-      jwt.verify(token, app.get('superSecret'), (err, decoded) => {
+      jwt.verify(token, secret, (err, decoded) => {
         if (err) {
           return res.status(403).json({
             message: 'Failed to authenticate token.' });
         } else {
-          // if everything is good, save to request for use in other routes
           req.decoded = decoded;
           next();
         }

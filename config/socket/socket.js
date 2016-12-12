@@ -21,6 +21,10 @@ module.exports = function(io) {
     console.log(socket.id +  ' Connected');
     socket.emit('id', {id: socket.id});
 
+    socket.on('game_invite', (data) => {
+      console.log(data );
+    });
+
     socket.on('pickCards', function(data) {
       console.log(socket.id,"picked",data);
       if (allGames[socket.gameID]) {

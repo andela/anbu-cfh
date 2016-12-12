@@ -9,6 +9,31 @@
     <div id = 'abandon-game-button' ng-click="abandonGame()">
         Abandon Game
     </div>
+    <div style=" max-width: 300px; padding-top: 10px; padding-right: 10px; padding-left: 10px; margin: 50px; border: solid black 1px;">
+      <select  ng-model="selectedFriend" ng-options="friend.name for friend in friends.userFriends"> 
+        <option value="" selected="selected">Choose a friend</option>
+      </select> 
+      <span>
+        <button ng-click="sendInvite(selectedFriend)">Send Invite</button>
+      </span>
+        <input class="mdl-textfield__input" style=" max-width: 200px; outline: none; padding: 5px;" type="  text" id="sample1" placeholder="Search Registered Users" ng-model="userName" ng-change="findRegisteredUser(userName)">
+        </input>
+          <ul style="max-height: 100px; overflow-y: scroll; margin-top: 0px; margin-bottom: 0px; border: 1px black" class="demo-list-item mdl-list">
+            <li ng-repeat="user in friends.registeredUsers">
+              {{user.name}}
+              <a ng-hide="friends.checkFriendInUsers(user.email)" href="" ng-click="addFriend(user)"><i class="material-icons">person_add</i></a>
+              <br> <span><small>[{{user.email}}]</small>
+            </li>
+          </ul>
+      </div>
+          <!--
+          <datalist id="users" ng-model="selectedUser">
+            <option ng-repeat="user in friends.registeredUsers" value="{{user.name}}">
+              {{user.email}} <a href="" ng-click="addFriend(user)"> Add Friend</a>
+            </option>
+          </datalist>
+            
+          <button ng-click="addFriend(selectedUser)">Add Friend</button>-->
         <span id="tweet-container">
       <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

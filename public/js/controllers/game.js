@@ -1,7 +1,7 @@
 angular.module('mean.system')
 .controller('GameController', ['$scope', 'game', '$timeout',
-  '$location', 'MakeAWishFactsService', '$dialog',
-  function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+  '$location', 'MakeAWishFactsService', '$dialog', 'friends',
+  function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog, friends) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -11,6 +11,50 @@ angular.module('mean.system')
     var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
+
+    // add friends service
+    $scope.friends = friends;
+    // fetch this user friends
+    $scope.friends.fetchFriends();
+    // bind to registered users
+    // $scope.registeredUsers = $scope.friends.registeredUsers;
+    // bind to this user friends
+    // $scope.userFriends = $scope.friends.userFriends;
+
+    /**
+    * Add a new friend
+    * @param{Object} selectedUser
+    * @return{undefined}
+    */
+    $scope.addFriend = (selectedUser) => {
+      console.log('addFriend() - ' + selectedUser);
+      if (selectedUser) {
+        $scope.friends.addFriend(selectedUser.email);
+      }
+    };
+
+    /**
+    * Send in app invite to a friend
+    * @param{Object} selectedUser
+    * @return{undefined}
+    */
+    $scope.sendInvite = (selectedUser) => {
+      if (selectedUser) {
+        console.log(`sendInvite(${selectedUser.email}) - ${$location.absUrl()}`);
+        $scope.friends
+          .sendInAppGameInvite(selectedUser.email, $location.absUrl());
+      }
+    };
+
+
+    /**
+    * Method to find a friend as the user types
+    * @param{String} friendName - name of friend to find
+    * @return{undefined}
+    */
+    $scope.findRegisteredUser = (userName) => {
+      $scope.friends.findRegisteredUser(userName);
+    };
 
     /**
     * Method to scroll the chat thread to the bottom

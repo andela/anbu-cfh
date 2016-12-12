@@ -24,7 +24,7 @@ var UserSchema = new Schema({
     twitter: {},
     github: {},
     google: {},
-    friends: []
+    friends: [] // array containing unique emails of the user friends
 });
 
 /**
