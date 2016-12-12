@@ -6,11 +6,20 @@ angular.module('mean.system')
       */
       constructor() {
         // user email
-        this.userEmail = '';
+        this.userEmail = 'testuser4@andela.com';
         // all registered users
         this.registeredUsers = {};
         // all my friends
         this.userFriends = {};
+
+        // all unclicked game invites
+        this.gameInvites = [];
+
+        // lets publish a join event so the server can keep track of us
+        socket.emit('join', {
+          userEmail: this.userEmail
+        });
+
         // we need a test token to test our module
         // we would do this using cookies ngCookies :)
         this.userToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRvbmF0aW9ucyI6ImluaXQiLCJmcmllbmRzIjoiZGVmYXVsdCIsIl9fdiI6ImluaXQiLCJhdmF0YXIiOiJpbml0IiwiaGFzaGVkX3Bhc3N3b3JkIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwicHJvdmlkZXIiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6eyJmcmllbmRzIjp0cnVlfSwiaW5pdCI6eyJfX3YiOnRydWUsImRvbmF0aW9ucyI6dHJ1ZSwiYXZhdGFyIjp0cnVlLCJoYXNoZWRfcGFzc3dvcmQiOnRydWUsImVtYWlsIjp0cnVlLCJuYW1lIjp0cnVlLCJwcm92aWRlciI6dHJ1ZSwiX2lkIjp0cnVlfSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6e319LCJzdGF0ZU5hbWVzIjpbInJlcXVpcmUiLCJtb2RpZnkiLCJpbml0IiwiZGVmYXVsdCIsImlnbm9yZSJdfSwiZW1pdHRlciI6eyJkb21haW4iOm51bGwsIl9ldmVudHMiOnt9LCJfZXZlbnRzQ291bnQiOjAsIl9tYXhMaXN0ZW5lcnMiOjB9fSwiaXNOZXciOmZhbHNlLCJfZG9jIjp7ImRvbmF0aW9ucyI6W10sImZyaWVuZHMiOltdLCJfX3YiOjAsImF2YXRhciI6Ii9pbWcvY2hvc2VuL0gwMS5wbmciLCJoYXNoZWRfcGFzc3dvcmQiOiIkMmEkMTAkYXoyMHZIeUlac1gyU0ZQbW9Fd0hJLkFFMGZpNzhPR3pVMlV1MlF0c3QyWkd4YTQvcVJNUGEiLCJlbWFpbCI6InRlc3R1c2VyNEBhbmRlbGEuY29tIiwibmFtZSI6Ik9sYW5pcmFuIEFrZWVtIiwicHJvdmlkZXIiOiJsb2NhbCIsIl9pZCI6IjU4NGE5MDdjOTI1ZDAyNmFlNzhjNWFmYSJ9LCJfcHJlcyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbbnVsbCxudWxsLG51bGxdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W251bGxdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltudWxsXX0sIl9wb3N0cyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltdfSwiaWF0IjoxNDgxNTM4OTI5LCJleHAiOjE0ODE2MjUzMjl9.Qgq92MnFVq8mzdG-iZibbx76ZA9vhsIPXo6ubzxq-Ak`;
@@ -99,18 +108,41 @@ angular.module('mean.system')
           });
       }
 
-      // method to send in app notifications
+      /**
+      * Send in App game Invites to friends
+      * @param{String} destinationEmail - Email of invited friend
+      * @param{String} gameUrl - Url to this game
+      * @return{undefined}
+      */
       sendInAppGameInvite(destinationEmail, gameUrl) {
         if (destinationEmail) {
           socket.emit('game_invite', {
+            senderEmail: this.userEmail,
             friendEmail: destinationEmail,
             location: gameUrl
           });
         }
       }
 
+      /**
+      * Recieve a game invite
+      * @param{Object} message - Object containing the game invite data
+      * @return{undefined}
+      */
+      gameInviteRecieved(message){
+        console.log('game invite received: \nFrom: ' + message.senderEmail, '\nGame Url: ', message.location);
+        this.gameInvites.push({
+          message
+        });
+      }
+
     }
-  // return a new Friends objects
-  const friends = new Friends();
-  return friends;
-}]);
+    // Initialize new friends object
+    const friends = new Friends();
+    // Add listener for game_invite socket events
+    socket.on('game_invite', (message) => {
+      friends.gameInviteRecieved(message);
+    });
+    // return friends object
+    return friends;
+  }]);

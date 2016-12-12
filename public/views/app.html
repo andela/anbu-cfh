@@ -10,7 +10,8 @@
         Abandon Game
     </div>
     <div style=" max-width: 300px; padding-top: 10px; padding-right: 10px; padding-left: 10px; margin: 50px; border: solid black 1px;">
-      <select  ng-model="selectedFriend" ng-options="friend.name for friend in friends.userFriends"> 
+      Game Invites: {{friends.gameInvites.length}}
+      <select  ng-model="selectedFriend" ng-options="friend.email for friend in friends.userFriends"> 
         <option value="" selected="selected">Choose a friend</option>
       </select> 
       <span>

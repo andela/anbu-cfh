@@ -16,13 +16,27 @@ module.exports = function(io) {
   var allPlayers = {};
   var gamesNeedingPlayers = [];
   var gameID = 0;
+  var connectedUsers = {};
 
   io.sockets.on('connection', function (socket) {
     console.log(socket.id +  ' Connected');
     socket.emit('id', {id: socket.id});
 
     socket.on('game_invite', (data) => {
-      console.log(data );
+      const socketTo = connectedUsers[data.friendEmail];
+      if (socketTo) {
+        socketTo.emit('game_invite', data);
+        console.log('game invite to ', data.friendEmail, ' successful');
+      } else {
+        console.log('game invite to ' + data.friendEmail + ' failed');
+      }
+    });
+
+    socket.on('join', (data) => {
+      console.log(data.userEmail + ' joined');
+      // attach an email to this user so we can remove it on disconnect
+      socket.userEmail = data.userEmail;
+      connectedUsers[data.userEmail] = socket;
     });
 
     socket.on('pickCards', function(data) {
@@ -76,6 +90,8 @@ module.exports = function(io) {
 
     socket.on('disconnect', function(){
       console.log('Rooms on Disconnect ', io.sockets);
+      // set this users as null
+      connectedUsers[socket.email] = null;
       exitGame(socket);
     });
   });
@@ -98,6 +114,7 @@ module.exports = function(io) {
           player.avatar = avatars[Math.floor(Math.random()*4)+12];
         } else {
           player.username = user.name;
+          player.email = user.email;
           player.premium = user.premium || 0;
           player.avatar = user.avatar || avatars[Math.floor(Math.random()*4)+12];
         }
