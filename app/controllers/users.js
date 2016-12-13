@@ -46,10 +46,10 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-  res.redirect('/');
+  res.redirect('/#!/play-with');
 };
 
-/** 
+/**
  * Check avatar - Confirm if the user who logged in via passport
  * already has an avatar. If they don't have one, redirect them
  * to our Choose an Avatar page.
@@ -95,7 +95,7 @@ exports.create = function(req, res) {
           }
           req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/#!/');
+            return res.redirect('/#!/play-with');
           });
         });
       } else {

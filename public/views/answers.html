@@ -1,7 +1,5 @@
 <div ng-cloak id="cards-container" ng-hide="game.state === 'game ended' || game.state ==='game dissolved'">
-  <div id="social-bar-container">
-    <player></player>
-  </div>
+ 
   <div id="cards" class='hand'>
 
     <span ng-show="winnerPicked()"></span>
@@ -49,13 +47,13 @@
     </div>
     <div id='inner-text-container'>
       <a href='/#!/app'>
-      <div id="join-new-game" ng-click="game.joinGame('joinNewGame')">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default" id="join-new-game" ng-click="game.joinGame('joinNewGame')">
         Join a New Game
-      </div></a>
+      </button></a>
       <a href='/'>
-        <div id="exit-match">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="exit-match">
         Return to Lobby
-        </div>
+        </button>
       </a>
     </div>
   </div>
