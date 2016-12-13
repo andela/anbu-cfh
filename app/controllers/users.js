@@ -46,7 +46,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-  res.redirect('/');
+  res.redirect('/#!/play-with');
 };
 
 /**
@@ -95,7 +95,7 @@ exports.create = function(req, res) {
           }
           req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/#!/');
+            return res.redirect('/#!/play-with');
           });
         });
       } else {
