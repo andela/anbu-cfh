@@ -1,10 +1,8 @@
-body {
-  padding: 20px;
-}
 .signup-wrapper {
   border-radius: 2px;
   margin: 0 auto;
   float: none;
+
   text-align:center;
 }
 
@@ -20,6 +18,7 @@ body {
   margin: 0 auto;
   float: none;
   border-radius: 2px;
+  padding-top: 20px;
 }
 
 form div {
@@ -40,6 +39,7 @@ form div {
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
+
 .social-buttons img {
   height: 50px;
   width: 50px;
@@ -51,4 +51,8 @@ form div {
 }
 input {
   outline: none;
+}
+
+.mdl-textfield__label:after {
+    background-color: #46B6AC;
 }
