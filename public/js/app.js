@@ -1,53 +1,52 @@
 angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
-    ($routeProvider) => {
-      $routeProvider
-        .when('/', {
-          templateUrl: 'views/index.html'
-        })
-        .when('/app', {
-          templateUrl: '/views/app.html',
-        })
-        .when('/privacy', {
-          templateUrl: '/views/privacy.html',
-        })
-        .when('/bottom', {
-          templateUrl: '/views/bottom.html'
-        })
-        .when('/signin', {
-          templateUrl: '/views/signin.html'
-        })
-        .when('/signup', {
-          templateUrl: '/views/signup.html'
-        })
-        .when('/play-with', {
-          templateUrl: '/views/play.html'
-        })
-        .when('/choose-avatar', {
-          templateUrl: '/views/choose-avatar.html'
-        })
-        .otherwise({
-          redirectTo: '/'
-        });
-    }
+      function($routeProvider) {
+          $routeProvider.
+          when('/', {
+            templateUrl: 'views/index.html'
+          }).
+          when('/app', {
+            templateUrl: '/views/app.html',
+          }).
+          when('/privacy', {
+            templateUrl: '/views/privacy.html',
+          }).
+          when('/bottom', {
+            templateUrl: '/views/bottom.html'
+          }).
+          when('/signin', {
+            templateUrl: '/views/signin.html'
+          }).
+          when('/signup', {
+            templateUrl: '/views/signup.html'
+          }).
+          when('/play-with', {
+            templateUrl: '/views/play.html'
+          }).
+          when('/choose-avatar', {
+            templateUrl: '/views/choose-avatar.html'
+          }).
+          otherwise({
+            redirectTo: '/'
+          });
+      }
   ]).config(['$locationProvider',
-    ($locationProvider) => {
-      $locationProvider.hashPrefix('!');
+    function($locationProvider) {
+        $locationProvider.hashPrefix("!");
     }
-  ]).run(['$rootScope', ($rootScope) => {
-    $rootScope.safeApply = (fn) => {
-      const phase = this.$root.$$phase;
-      if (phase === '$apply' || phase === '$digest') {
-        if (fn && (typeof (fn) === 'function')) {
-          fn();
+  ]).run(['$rootScope', function($rootScope) {
+  $rootScope.safeApply = function(fn) {
+    var phase = this.$root.$$phase;
+    if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+            fn();
         }
-      } else {
+    } else {
         this.$apply(fn);
       }
     };
-  }])
-  .run(['DonationService', (DonationService) => {
-    window.userDonationCb = (donationObject) => {
+  }]).run(['DonationService', function (DonationService) {
+    window.userDonationCb = function (donationObject) {
       DonationService.userDonated(donationObject);
     };
   }]);
