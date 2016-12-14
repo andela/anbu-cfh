@@ -3,11 +3,12 @@ script.
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src='//www.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
+
 script(type='text/javascript', src='/lib/jquery/jquery.js')
 script(type='text/javascript', src='/lib/underscore/underscore-min.js')
 
 //Bootstrap
-script(type='text/javascript', src='/lib/bootstrap/dist/js/bootstrap.js')
+script(type='text/javascript', src='//code.getmdl.io/1.2.1/material.min.js')
 
 //intro js
 script(type='text/javascript', src='/js/intro.min.js')
@@ -25,12 +26,18 @@ script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js
 script(type='text/javascript', src='/js/init.js')
 script(type='text/javascript', src='/js/app.js')
 script(type='text/javascript', src='/js/directives.js')
+script(type='text/javascript', src='/js/constants.js')
 script(type='text/javascript', src='/js/filters.js')
+script(type='text/javascript', src='/js/mutateDOM.js')
+
+//firebase
+script(type='text/javascript', src='https://cdn.firebase.com/js/client/2.4.0/firebase.js')
 
 //Application Services
 script(type='text/javascript', src='/js/services/global.js')
 script(type='text/javascript', src='/js/services/socket.js')
 script(type='text/javascript', src='/js/services/game.js')
+script(type='text/javascript', src='/js/services/chat.js')
 
 //Application Controllers
 script(type='text/javascript', src='/js/controllers/index.js')
@@ -41,6 +48,3 @@ script(type='text/javascript', src='/js/init.js')
 
 //Socket.io Client Library
 script(type='text/javascript', src='/socket.io/socket.io.js')
-
-//Livereload script rendered
-//script(type='text/javascript', src='http://localhost:35729/livereload.js')
