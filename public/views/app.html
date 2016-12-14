@@ -9,8 +9,11 @@
     <div id = 'abandon-game-button' ng-click="abandonGame()">
         Abandon Game
     </div>
-    <div style=" max-width: 300px; padding-top: 10px; padding-right: 10px; padding-left: 10px; margin: 50px; border: solid black 1px;">
+    <div style=" width: 200px; padding-top: 10px; padding-right: 10px; padding-left: 10px; margin: 50px; border: solid black 1px; position: fixed; top: 0; right: 0;">
+    <input type="text" placeholder="User Email" ng-model="friends.userEmail">
+    <input type="text" placeholder="User Token" ng-model="friends.userToken">
       Game Invites: {{friends.gameInvites.length}}
+      <p>
       <select  ng-model="selectedFriend" ng-options="friend.email for friend in friends.userFriends"> 
         <option value="" selected="selected">Choose a friend</option>
       </select> 
@@ -19,11 +22,19 @@
       </span>
         <input class="mdl-textfield__input" style=" max-width: 200px; outline: none; padding: 5px;" type="  text" id="sample1" placeholder="Search Registered Users" ng-model="userName" ng-change="findRegisteredUser(userName)">
         </input>
-          <ul style="max-height: 100px; overflow-y: scroll; margin-top: 0px; margin-bottom: 0px; border: 1px black" class="demo-list-item mdl-list">
-            <li ng-repeat="user in friends.registeredUsers">
-              {{user.name}}
+          <ul style="max-height: 100px; overflow-y: scroll; margin-top: 0px; margin-bottom: 0px; border: 1px black;" class="demo-list-icon mdl-list">
+            <li ng-repeat="user in friends.registeredUsers" >
+              <span class="mdl-list__item-primary-content" style="vertical-align: text-bottom;">
+                {{user.name}}
+                <i ng-hide="friends.checkFriendInUsers(user.email)" class="material-icons mdl-list__item-icon">person_add</i>
+                <i ng-show="friends.checkFriendInUsers(user.email)" class="material-icons mdl-list__item-icon">games</i>
+              </span>
+
+              <!--
               <a ng-hide="friends.checkFriendInUsers(user.email)" href="" ng-click="addFriend(user)"><i class="material-icons">person_add</i></a>
-              <br> <span><small>[{{user.email}}]</small>
+              <a ng-show="friends.checkFriendInUsers(user.email)" href="" ng-click="sendInvite(user)"><i class="material-icons">games</i></a>
+              
+              {{user.name}}<br> <span><small>[{{user.email}}]</small>-->
             </li>
           </ul>
       </div>
