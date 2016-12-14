@@ -1,8 +1,9 @@
-<div id="player-container" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp" ng-repeat="player in game.players" style="background-color:{{colors[player.color]}}; padding: 7px;min-height: 75px;">
+<div id="player-container" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp" ng-repeat="player in game.players"
+  style="background-color:{{colors[player.color]}}; padding: 7px;min-height: 75px;">
   <div class="mdl-card__title" style="height:30px; margin-top: -7px;">
-     <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold"> {{player.username | upperFirstLetter}}</h2>
-     <span ng-show="currentCzar($index)" style="background-color:#fff;padding:3px;margin-right: 12px;">CZAR</span>
-     <span ng-show="isPlayer($index)" id="player-star">
+    <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold"> {{player.username | upperFirstLetter}}</h2>
+    <span ng-show="currentCzar($index)" style="background-color:#fff;padding:3px;margin-right: 12px;">CZAR</span>
+    <span ng-show="isPlayer($index)" id="player-star">
       <img src="../img/11.png" width="25" height="25"/>
     </span>
   </div>
@@ -12,8 +13,7 @@
     </span>
     <span ng-show="isPremium($index)">
       <img ng-src="img/king.png" id="king">
-    </span> 
-    <img ng-src="{{player.avatar}}" width="35" height="35" style="float: right; margin-top: -5px"/>
+    </span>
+    <img ng-src="{{player.avatar}}" width="35" height="35" style="float: right; margin-top: -5px" />
   </div>
 </div>
-
