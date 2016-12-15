@@ -1,31 +1,30 @@
 </script>
 <div id="app-container" style="margin: 0 auto" ng-controller="GameController">
-<div class="mdl-layout__header mdl-layout__header--scroll">
-  <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title" style="font-family: Montserrat">Cards For Humanity</span>
-    <!-- Add spacer, to align navigation to the right in desktop-->
-    <div class="cfh-header-spacer mdl-layout-spacer"></div>
-    <!-- Navigation-->
-    <div class="cfh-navigation-container">
-      <nav class="cfh-navigation mdl-navigation">
-        <a href="#" id = 'abandon-game-button' ng-click="abandonGame()" 
-          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  <div class="mdl-layout__header mdl-layout__header--scroll">
+    <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title" style="font-family: Montserrat">Cards For Humanity</span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Abandon Game
         </a>
-      </nav>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile"></span>
     </div>
-    <span class="android-mobile-title mdl-layout-title text-logo-mobile"></span>
   </div>
-</div>
 
 
-<div class="game mdl-grid">
-  
+  <div class="game mdl-grid">
+
     <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet time-remaining mdl-card mdl-shadow--4dp">
           <timer></timer>
         </div>
-      
+
         <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
           <question></question>
         </div>
@@ -37,11 +36,11 @@
         </div>
       </div>
     </div>
-  
+
     <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
       <player></player>
-    </div> 
- 
+    </div>
+
   </div>
 
   <chat></chat>
