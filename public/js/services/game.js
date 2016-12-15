@@ -12,7 +12,7 @@ angular.module('mean.system')
     table: [],
     czar: null,
     playerMinLimit: 3,
-    playerMaxLimit: 6,
+    playerMaxLimit: 12,
     pointLimit: null,
     state: null,
     round: 0,
@@ -91,7 +91,7 @@ angular.module('mean.system')
     game.gameChat.setChatGroup(data.gameID);
     game.gameChat.listenForMessages();
     game.gameChat.clearMessageHistory();
-    
+
     if (data.round !== game.round && data.state !== 'awaiting players' &&
       data.state !=='game ended' && data.state !== 'game dissolved') {
       game.time = game.timeLimits.stateChoosing - 1;

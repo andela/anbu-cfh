@@ -274,6 +274,46 @@ angular.module('mean.system')
       } else {
         return false;
       }
-    }
+    };
+
+    const demodata =
+      [
+        {
+          gameID: 33333,
+          players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 20,
+          winner: 'hound@hound.com',
+          gamedate: Date.now()
+        },
+        {
+          gameID: 333553,
+          players: ['oreoluwa@ymail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 19,
+          winner: 'wale@wale.com',
+          gamedate: Date.now()
+        },
+        {
+          gameID: 34433,
+          players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 24,
+          winner: 'oreoluwa@yahoo.com',
+          gamedate: Date.now()
+        }
+      ];
+
+    $scope.gamelogshow = false;
+    $scope.displayfriends = false;
+
+    $scope.gameLog = () => {
+      if (!$scope.gamelogshow) {
+        console.log('Yay it works');
+        $scope.gamelogshow = true;
+        $scope.allGames = demodata;
+        return demodata;
+      }
+      $scope.gamelogshow = false;
+
+
+    };
 
 }]);
