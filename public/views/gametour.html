@@ -57,9 +57,6 @@
                 </div>
               </div>
               <!-- Game Over Stuff -->
-              <div ng-show="true">
-                <div class="game-end-headline">Congratulations! You're now on Cards For Humanity by Team Anbu.</div>We hope you feel special. This a brief tour of how the game is played.
-              </div>
             </div>
           </div>
 
@@ -200,42 +197,41 @@
     <!-- End Players Here -->
     </div> 
  
-  </div>
-  <!-- Chat Here -->
-  <div class="chatpanel" id="chat">
-    <div class="panel-heading">
-      <i class="material-icons">forum</i><small class="message_notification" ng-show="chat.unreadMessageCount > 0"></small>
-      <a href="" class="retract_button" id="chat_retract"><i class="material-icons">{{expandChat}}</i></a>
-    </div>
-    <div ng-show="showChatBody">
-      <div id="results" class="chatthread">
-        <ul class="demo-list-item mdl-list">
-          <li class="message">
-            <div class="chat_body">
-              <span class="mdl-list__item-primary-content">
-                <strong class="username">Urgent Drip</strong>
-                <small class="text-muted time-content">07:45</small></b></span>
-              <p class="message_content">Hello world, how are we doing today ?</p>
-            </div>
-          </li>
-          <li class="message">
-            <div class="chat_body">
-              <span class="mdl-list__item-primary-content">
-                <strong class="username">Toe Nail</strong>
-                <small class="text-muted time-content">07:47</small></b></span>
-              <p class="message_content">Real good, about to go bad on this one. Yahooo !</p>
-            </div>
-          </li>
-        </ul>
+  
+    <!-- Chat Here -->
+    <div class="chatpanel" id="chat">
+      <div class="panel-heading">
+        <i class="material-icons">forum</i><small class="message_notification" ng-show="chat.unreadMessageCount > 0"></small>
+        <a href="" class="retract_button" id="chat_retract"><i class="material-icons">{{expandChat}}</i></a>
       </div>
-      <div>
-        <div class="chatinput">
-          <input id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message" ng-model="chatMessage"
-          ng-keypress="keyPressed($event)" />
-          <a class="send_icon" href=""><i class="material-icons">send</i></a>
+      <div ng-show="showChatBody">
+        <div id="results" class="chatthread">
+          <ul class="demo-list-item mdl-list">
+            <li class="message">
+              <div class="chat_body">
+                <span class="mdl-list__item-primary-content">
+                  <strong class="username">Urgent Drip</strong>
+                  <small class="text-muted time-content">07:45</small></b></span>
+                <p class="message_content">Hello world, how are we doing today ?</p>
+              </div>
+            </li>
+            <li class="message">
+              <div class="chat_body">
+                <span class="mdl-list__item-primary-content">
+                  <strong class="username">Toe Nail</strong>
+                  <small class="text-muted time-content">07:47</small></b></span>
+                <p class="message_content">Real good, about to go bad on this one.  Yahooo !</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="chatinput">
+            <input id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message" />
+            <a class="send_icon" href=""><i class="material-icons">send</i></a>
+          </div>
         </div>
       </div>
     </div>
+    <!-- End Chat Here -->
   </div>
-  <!-- End Chat Here -->
-</div>
