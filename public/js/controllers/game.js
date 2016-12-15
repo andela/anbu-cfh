@@ -1,17 +1,21 @@
 angular.module('mean.system')
 .controller('GameController', ['$scope', 'game', '$timeout',
-  '$location', 'MakeAWishFactsService', '$dialog',
-  function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+  '$location', '$window', 'MakeAWishFactsService', '$dialog',
+  function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
     $scope.modalShown = false;
     $scope.game = game;
     $scope.pickedCards = [];
-    var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
+    let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
 
+    let dialog = document.getElementById('showMyDialog');
+    if (!dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
     /**
     * Method to scroll the chat thread to the bottom
     * so user can see latest message when messages overflow
@@ -163,13 +167,21 @@ angular.module('mean.system')
       return game.winningCard !== -1;
     };
 
-    $scope.startGame = function() {
+    $scope.startGame = function () {
       game.startGame();
+    };
+
+    $scope.saveGame = function () {
+      game.saveGame();
+    }
+    
+    $scope.closeModal = function () {
+      $scope.modalInstance.close();
     };
 
     $scope.abandonGame = function() {
       game.leaveGame();
-      $location.path('/');
+      $window.location.href = '/#!/play-with';
     };
 
     // Catches changes to round to update when no players pick card
@@ -216,7 +228,6 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
       game.joinGame('joinGame',$location.search().game);
     } else if ($location.search().custom) {
       game.joinGame('joinGame',null,true);
@@ -224,4 +235,18 @@ angular.module('mean.system')
       game.joinGame();
     }
 
+    if ($scope.isCustomGame() && $scope.isCzar) {
+      $scope.showDialog = true;
+      dialog.showModal();
+      dialog.querySelector('.proceed').addEventListener('click', function() {
+        dialog.close();
+        $scope.saveGame();
+      });
+    } else {
+      document.getElementById('showMyDialog').style.display = 'none';
+    }
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+      $window.location.href = '/#!/play-with';
+    });
 }]);

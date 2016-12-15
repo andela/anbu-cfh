@@ -2,8 +2,11 @@ body {
   margin: 0;
 }
 body, text-logo, p, h1, h2, h3, h4, h5, h6, .mdl-typography--subhead, .mdl-typography--subhead-color-contrast,
-.mdl-typography--display-1, .mdl-typography--display-1-color-contrast {
+.mdl-typography--display-1, .mdl-typography--display-1-color-contrast,.text-logo {
   font-family: Montserrat;
+}
+.text-logo{
+  text-decoration: none;
 }
 /* Disable ugly boxes around images in IE10 */
 a img{
@@ -485,7 +488,11 @@ a img{
   cursor: pointer;
 }
 
-
+@media (min-width: 901px) {
+  .mdl-layout__header .mdl-layout__drawer-button{
+    display: none;
+  }
+}
 /**** Mobile layout ****/
 @media (max-width: 900px) {
   .cfh-navigation-container {
