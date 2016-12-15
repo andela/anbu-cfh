@@ -1237,7 +1237,7 @@
    }
 
    .avatars {
-      position: relative;
+    /*  position: relative; */
       float: left;
       margin: 2px 17px;
    }
