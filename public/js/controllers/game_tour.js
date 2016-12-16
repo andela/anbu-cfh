@@ -11,7 +11,7 @@ angular.module('mean.system')
   $scope.expandChat = 'expand_more';
   $scope.playerCount = 1;
   $scope.playerScore = 0;
-  $scope.tourState = '';
+  $scope.awaitingPlayers = true;
   $scope.gameTour.setOption('showBullets', false);
   $scope.gameTour.setOptions({
     steps: [
@@ -77,12 +77,14 @@ angular.module('mean.system')
       {
         element: '#notifications',
         intro: `Your in-app notifications are shown here. Click to view
-         a drop down of listing game invites from your friends`
+         a drop down of listing game invites from your friends`,
+         position: 'left'
       },
       {
         element: '#requests',
         intro: `You can add other users as friends and also send in app 
-        notifications to users that are you friends to join your current game.`
+        notifications to users that are you friends to join your current game.`,
+        position: 'left'
       },
       {
         element: '#chat',
