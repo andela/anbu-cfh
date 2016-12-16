@@ -10,16 +10,18 @@ module.exports = function(app, passport, auth) {
   app.get('/signout', users.signout);
 
   // Setting up the users api
-  app.post('/users', users.create);
+  var jwt = require('./jwt');
+  app.post('/users', users.create, jwt.authToken);
   app.post('/users/avatars', users.avatars);
 
   // Donation Routes
   app.post('/donations', users.addDonation);
 
+  // Authenticate user and generate JWT token
   app.post('/users/session', passport.authenticate('local', {
     failureRedirect: '/signin',
     failureFlash: 'Invalid email or password.'
-  }), users.session);
+  }), jwt.authToken);
 
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
@@ -92,7 +94,6 @@ module.exports = function(app, passport, auth) {
   app.get('/', index.render);
 
   // JWT settings and routes
-  var jwt = require('./jwt');
   app.set('superSecret', secret);
   app.post('/api/auth/login', jwt.authToken);
   app.post('/api/auth/signup', jwt.authToken);
