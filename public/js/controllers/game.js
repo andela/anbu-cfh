@@ -11,7 +11,7 @@ angular.module('mean.system')
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
-
+    $scope.userName = $window.user;
     let dialog = document.getElementById('showMyDialog');
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -23,7 +23,9 @@ angular.module('mean.system')
     */
     const scrollChatThread = () => {
       const chatResults = document.getElementById('results');
-      chatResults.scrollTop = chatResults.scrollHeight;
+      if(chatResults){
+        chatResults.scrollTop = chatResults.scrollHeight;
+      }
     };
 
     $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {

@@ -15,14 +15,15 @@
           <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
           <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
           <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-          <a href="#" id = 'abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
-          <span ng-hide="showOptions">
+          <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+          <span ng-show="userName">
             <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
           </span>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #FFF">Cards For Humanity</a>
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
+        <a href="#" id ='abandon-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin-left: 15px;">Abandon Game</a>
       </span>
     </div>
   </div>
@@ -32,9 +33,7 @@
       <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
       <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
       <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
-      <span ng-hide="showOptions">
-        <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-      </span>
+      <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
   <div class="cfh-content mdl-layout__content" style="margin-top: 60px">

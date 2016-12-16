@@ -489,13 +489,13 @@ a img{
 }
 
 @media (min-width: 901px) {
-  .mdl-layout__header .mdl-layout__drawer-button{
+  .mdl-layout__header .mdl-layout__drawer-button, #abandon-button{
     display: none;
   }
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {
-  .cfh-navigation-container {
+  .cfh-navigation-container, #abandon-game-button {
     display: none;
   }
 
@@ -600,7 +600,7 @@ div.chatpanel {
   width: 340px;
   right: 0;
   background: #f6f6f6;
-  box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   z-index: 2000;
 }
 
@@ -612,7 +612,7 @@ div.chatpanel {
     width: 100%;
     right: 0;
     background: #f6f6f6;
-    box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
 }
 

@@ -1,7 +1,7 @@
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', 'chat', '$http', function (socket, $timeout, chat, $http) {
   
-  let game = {
+  var game = {
     id: null, // This player's socket ID, so we know who this player is
     gameID: null,
     creator: null,
@@ -172,29 +172,32 @@ angular.module('mean.system')
       joinOverrideTimeout = $timeout(function() {
         game.joinOverride = true;
       }, 15000);
-    } else if (data.state === 'game dissolved' || data.state === 'game ended') {
-      $http({
-            method: 'POST',
-            url: `/api/games/${game.gameID}/end`,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: {
-              gameID: game.gameID,
-              completed: true,
-              rounds: game.rounds,
-              winner: game.players[game.gameWinner].id
-            }
-          })
-          .success(function (res) {
-            return res.body.gameID;
-          })
-          .error(function (res) {
-            return res;
-          });
+    } 
+    else if (data.state === 'game dissolved' || data.state === 'game ended') {
+      if(!(/^\d+$/).test(game.gameID)){
+        $http({
+          method: 'PUT',
+          url: `/api/games/${game.gameID}/end`,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            gameID: game.gameID,
+            completed: true,
+            rounds: game.rounds,
+            winner: game.players[game.gameWinner].id
+          }
+        })
+        .success(function (res) {
+          return res.body.gameID;
+        })
+        .error(function (res) {
+          return res;
+        });
+      }
+      game.players[game.playerIndex].hand = [];
+      game.time = 0;
     }
-    game.players[game.playerIndex].hand = [];
-    game.time = 0;
   });
   
   socket.on('notification', function(data) {

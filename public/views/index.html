@@ -1,4 +1,4 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
@@ -9,16 +9,14 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <a href="/#!/top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
           <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
           <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-          <span ng-show="showOptions">
+          <span ng-if="!userName">
             <a href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN UP</a>
             <a href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a>
           </span>
-          <span ng-hide="showOptions">
-            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-          </span>
+          <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
@@ -31,13 +29,11 @@
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
       <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
       <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
-      <span ng-show="showOptions">
+      <span ng-if="!userName">
         <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
         <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
       </span>
-      <span ng-hide="showOptions">
-        <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-      </span>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
 
@@ -112,6 +108,4 @@
     </footer>
   </div>
 </div>
-<a ng-show="showOptions" id="view-source" href="#!/signup" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>
-
-<a ng-hide="showOptions" id="view-source" href="#!/play-with" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>
+<a id="view-source" href="#!/play-with" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>
