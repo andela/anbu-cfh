@@ -157,6 +157,8 @@ angular.module('mean.system')
     } else if (data.state === 'waiting for czar to decide') {
       if (game.czar === game.playerIndex) {
         addToNotificationQueue("Everyone's done. Choose the winner!");
+        // Prompt Czar
+        //$('#prompCzar').modal('show');
       } else {
         addToNotificationQueue("The czar is contemplating...");
       }
