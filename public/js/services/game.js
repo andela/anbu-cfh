@@ -183,7 +183,7 @@ angular.module('mean.system')
               gameID: game.gameID,
               completed: true,
               rounds: game.rounds,
-              winner: game.players[game.gameWinner].username
+              winner: game.players[game.gameWinner].id
             }
           })
           .success(function (res) {
@@ -224,7 +224,7 @@ angular.module('mean.system')
           },
           data: {
             gameID: game.gameID,
-            creator: game.players[0].username,
+            creator: game.players[0].id,
             players: game.players,
             completed: false,
             rounds: 0,
