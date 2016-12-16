@@ -9,7 +9,7 @@ var avatars = require('./avatars').all();
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/chooseavatars');
+  res.redirect('/choose-avatars');
 };
 
 /**
@@ -39,14 +39,14 @@ exports.signup = function(req, res) {
  */
 exports.signout = function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.redirect('/signin');
 };
 
 /**
  * Session
  */
 exports.session = function(req, res) {
-  res.redirect('/');
+  res.redirect('/#!/play-with');
 };
 
 /**
@@ -95,7 +95,7 @@ exports.create = function(req, res) {
           }
           req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/#!/');
+            return res.redirect('/#!/play-with');
           });
         });
       } else {
@@ -122,7 +122,7 @@ exports.avatars = function(req, res) {
       user.save();
     });
   }
-  return res.redirect('/#!/app');
+  return res.redirect('/#!/play-with');
 };
 
 exports.addDonation = function(req, res) {

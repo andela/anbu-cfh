@@ -1,9 +1,15 @@
-var async = require('async');
+const async = require('async');
 const secret = process.env.JWT_KEY;
+const jwt = require('./jwt');
+const index = require('../app/controllers/index');
+const users = require('../app/controllers/users');
+const questions = require('../app/controllers/questions');
+const answers = require('../app/controllers/answers');
+const avatars = require('../app/controllers/avatars');
+const GameHistory = require('../app/controllers/game-history');
 
 module.exports = function(app, passport, auth) {
   // User Routes
-  var users = require('../app/controllers/users');
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
@@ -69,31 +75,26 @@ module.exports = function(app, passport, auth) {
   app.param('userId', users.user);
 
   // Answer Routes
-  var answers = require('../app/controllers/answers');
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
   // Question Routes
-  var questions = require('../app/controllers/questions');
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
   // Finish with setting up the questionId param
   app.param('questionId', questions.question);
 
   // Avatar Routes
-  var avatars = require('../app/controllers/avatars');
   app.get('/avatars', avatars.allJSON);
 
   // Home route
-  //
   var index = require('../app/controllers/index');
   app.get('/play', index.play);
   app.get('/', index.render);
 
   // JWT settings and routes
-  var jwt = require('./jwt');
   app.set('superSecret', secret);
   app.post('/api/auth/login', jwt.authToken);
   app.post('/api/auth/signup', jwt.authToken);
@@ -103,9 +104,14 @@ module.exports = function(app, passport, auth) {
   });
 
   // friends route
-  
   const friends = require('../app/controllers/api/friends');
   app.post('/api/friends/add_friend', jwt.checkToken, friends.addFriend);
   app.get('/api/friends/search_users', jwt.checkToken, friends.searchUsers);
   app.get('/api/friends/get_friends', jwt.checkToken, friends.getFriends);
+  
+  // game history 
+  app.get('/api/games/history', GameHistory.getAllGames);
+  app.get('/api/games/:id/history', GameHistory.getGame);
+  app.post('/api/games/:id/start', GameHistory.createGame);
+  app.put('/api/games/:id/end', GameHistory.updateGame);
 };
