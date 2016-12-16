@@ -104,7 +104,7 @@ module.exports = function(app, passport, auth) {
 
   // game history 
   app.get('/api/games/history', GameHistory.getAllGames);
-  app.get('/api/games/:id', GameHistory.getGame);
+  app.get('/api/games/:id/history', GameHistory.getGame);
   app.post('/api/games/:id/start', GameHistory.createGame);
-  app.post('/api/games/:id/end', GameHistory.updateGame);
+  app.put('/api/games/:id/end', GameHistory.updateGame);
 };
