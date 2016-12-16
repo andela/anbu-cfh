@@ -230,7 +230,9 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      game.joinGame('joinGame',$location.search().game);
+      if($scope.userName){
+        game.joinGame('joinGame',$location.search().game);
+      } else { $window.location.href = '/#!/signup';; }
     } else if ($location.search().custom) {
       game.joinGame('joinGame',null,true);
     } else {
