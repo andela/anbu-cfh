@@ -117,15 +117,15 @@ angular.module('mean.system')
     } else {
       let added = _.difference(_.pluck(data.table,'player'), _.pluck(game.table,'player'));
       let removed = _.difference(_.pluck(game.table,'player'), _.pluck(data.table,'player'));
-      for (let i = 0; i < added.length; i++) {
-        for (let j = 0; j < data.table.length; j++) {
+      for (let i = 0; i < added.length; i += 1) {
+        for (let j = 0; j < data.table.length; j += 1) {
           if (added[i] === data.table[j].player) {
             game.table.push(data.table[j],1);
           }
         }
       }
-      for (let i = 0; i < removed.length; i++) {
-        for (let k = 0; k < game.table.length; k++) {
+      for (let i = 0; i < removed.length; i += 1) {
+        for (let k = 0; k < game.table.length; k += 1) {
           if (removed[i] === game.table[k].player) {
             game.table.splice(k,1);
           }
@@ -170,8 +170,7 @@ angular.module('mean.system')
       joinOverrideTimeout = $timeout(function() {
         game.joinOverride = true;
       }, 15000);
-    } 
-    else if (data.state === 'game dissolved' || data.state === 'game ended') {
+    } else if (data.state === 'game dissolved' || data.state === 'game ended') {
       if (!(/^\d+$/).test(game.gameID) && data.state === 'game ended') {
         $http({
           method: 'PUT',
@@ -193,7 +192,7 @@ angular.module('mean.system')
       game.time = 0;
     }
   });
-  
+
   socket.on('notification', data => addToNotificationQueue(data.notification));
 
   game.joinGame = (mode,room,createPrivate) => {
@@ -235,9 +234,13 @@ angular.module('mean.system')
     socket.emit('leaveGame');
   };
 
-  game.pickCards = cards => socket.emit('pickCards', { cards: cards });
+  game.pickCards = cards => socket.emit('pickCards', {
+    cards: cards,
+  });
 
-  game.pickWinning = card => socket.emit('pickWinning', { card: card.id });
+  game.pickWinning = card => socket.emit('pickWinning', {
+    card: card.id,
+  });
 
   decrementTime();
 
