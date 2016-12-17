@@ -48,7 +48,7 @@ angular.module('mean.system')
   };
 
   let timeSetViaUpdate = false;
-  let decrementTime = () => {
+  const decrementTime = () => {
     if (game.time > 0 && !timeSetViaUpdate) {
       game.time--;
     } else {
