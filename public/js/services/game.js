@@ -200,8 +200,8 @@ angular.module('mean.system')
     mode = mode || 'joinGame';
     room = room || '';
     createPrivate = createPrivate || false;
-    let userID = !!window.user ? user._id : 'unauthenticated';
-    socket.emit(mode,{userID: userID, room: room, createPrivate: createPrivate});
+    const userID = !!window.user ? user._id : 'unauthenticated';
+    socket.emit(mode, { userID: userID, room: room, createPrivate: createPrivate });
   };
 
   game.startGame = () => socket.emit('startGame');
@@ -224,7 +224,7 @@ angular.module('mean.system')
           winner: ''
         }
       })
-      .success(res => 'game created successfully')
+      .success(res => res)
       .error(res => res);
     }
   };
@@ -235,9 +235,9 @@ angular.module('mean.system')
     socket.emit('leaveGame');
   };
 
-  game.pickCards = cards => socket.emit('pickCards',{cards: cards});
+  game.pickCards = cards => socket.emit('pickCards', { cards: cards });
 
-  game.pickWinning = card => socket.emit('pickWinning',{card: card.id});
+  game.pickWinning = card => socket.emit('pickWinning', { card: card.id });
 
   decrementTime();
 
