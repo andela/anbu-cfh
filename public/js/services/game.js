@@ -68,7 +68,7 @@ angular.module('mean.system')
     game.timeLimits = data.timeLimits;
   });
 
-  socket.on('gameUpdate', data => {
+  socket.on('gameUpdate', (data) => {
     // Update gameID field only if it changed.
     // That way, we don't trigger the $scope.$watch too often
     if (game.gameID !== data.gameID) {
@@ -114,10 +114,10 @@ angular.module('mean.system')
     if (data.table.length === 0) {
       game.table = [];
     } else {
-      let added = _.difference(_.pluck(data.table,'player'),
-        _.pluck(game.table,'player'));
-      let removed = _.difference(_.pluck(game.table,'player'),
-        _.pluck(data.table,'player'));
+      let added = _.difference(_.pluck(data.table, 'player'),
+        _.pluck(game.table, 'player'));
+      let removed = _.difference(_.pluck(game.table, 'player'),
+        _.pluck(data.table, 'player'));
       for (let i = 0; i < added.length; i += 1) {
         for (let j = 0; j < data.table.length; j += 1) {
           if (added[i] === data.table[j].player) {
@@ -194,7 +194,9 @@ angular.module('mean.system')
     }
   });
 
-  socket.on('notification', data => addToNotificationQueue(data.notification));
+  socket.on('notification', data => {
+    addToNotificationQueue(data.notification);
+  });
 
   game.joinGame = (mode, room, createPrivate) => {
     mode = mode || 'joinGame';
@@ -204,7 +206,9 @@ angular.module('mean.system')
     socket.emit(mode, { userID, room, createPrivate });
   };
 
-  game.startGame = () => socket.emit('startGame');
+  game.startGame = () => {
+    socket.emit('startGame')
+  };
 
   game.saveGame = () => {
     socket.emit('startGame');
