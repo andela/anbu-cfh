@@ -74,17 +74,16 @@ angular.module('mean.system')
     if (game.gameID !== data.gameID) {
       game.gameID = data.gameID;
     }
-    console.log(!(/^\d+$/).test(game.gameID));
     game.joinOverride = false;
     clearTimeout(game.joinOverrideTimeout);
     // Cache the index of the player in the players array
-    for (let i = 0; i < data.players.length; i++) {
+    for (let i = 0; i < data.players.length; i += 1) {
       if (game.id === data.players[i].socketID) {
         game.playerIndex = i;
       }
     }
 
-    let newState = (data.state !== game.state);
+    const newState = (data.state !== game.state);
     //update our chat service properties
     game.gameChat.setChatUsername(data.players[game.playerIndex].username);
     game.gameChat.setChatGroup(data.gameID);
@@ -115,8 +114,10 @@ angular.module('mean.system')
     if (data.table.length === 0) {
       game.table = [];
     } else {
-      let added = _.difference(_.pluck(data.table,'player'), _.pluck(game.table,'player'));
-      let removed = _.difference(_.pluck(game.table,'player'), _.pluck(data.table,'player'));
+      let added = _.difference(_.pluck(data.table,'player'),
+        _.pluck(game.table,'player'));
+      let removed = _.difference(_.pluck(game.table,'player'),
+        _.pluck(data.table,'player'));
       for (let i = 0; i < added.length; i += 1) {
         for (let j = 0; j < data.table.length; j += 1) {
           if (added[i] === data.table[j].player) {
@@ -199,12 +200,12 @@ angular.module('mean.system')
     mode = mode || 'joinGame';
     room = room || '';
     createPrivate = createPrivate || false;
-    const userID = !!window.user ? user._id : 'unauthenticated';
-    socket.emit(mode, { userID: userID, room: room, createPrivate: createPrivate });
+    const userID = window.user ? user["_id"]: 'unauthenticated';
+    socket.emit(mode, { userID, room, createPrivate });
   };
 
   game.startGame = () => socket.emit('startGame');
-  
+
   game.saveGame = () => {
     socket.emit('startGame');
     if (window.user) {
@@ -235,7 +236,7 @@ angular.module('mean.system')
   };
 
   game.pickCards = cards => socket.emit('pickCards', {
-    cards: cards,
+    cards,
   });
 
   game.pickWinning = card => socket.emit('pickWinning', {
