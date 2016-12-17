@@ -197,11 +197,11 @@ angular.module('mean.system')
   socket.on('notification', data => addToNotificationQueue(data.notification));
 
   game.joinGame = (mode, room, createPrivate) => {
-      mode = mode || 'joinGame';
-      room = room || '';
-      createPrivate = createPrivate || false;
-      const userID = window.user ? user._id: 'unauthenticated';
-      socket.emit(mode, { userID, room, createPrivate });
+    mode = mode || 'joinGame';
+    room = room || '';
+    createPrivate = createPrivate || false;
+    const userID = window.user ? user._id: 'unauthenticated';
+    socket.emit(mode, { userID, room, createPrivate });
   };
 
   game.startGame = () => socket.emit('startGame');
