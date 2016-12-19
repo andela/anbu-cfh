@@ -1,79 +1,51 @@
-
-
-div ng=click>
-
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>repl.it</title>
-        <script src="index.js"></script>
-        <link href="index.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-        <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    </head>
-    <body>
-      <div>
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric">
-                GAME TIME
-              </th>
-              <th class="mdl-data-table__cell--non-numeric">
-                FRIENDS PLAYED
-              </th>
-              <th class="mdl-data-table__cell--non-numeric">
-                NO OF ROUNDS
-              </th>
-              <th class="mdl-data-table__cell--non-numeric">
-                WINNER
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric">
-                12-12-2016 12:06
-              </td>
-              <td class="mdl-data-table__cell--non-numeric">
-                <table>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      Oreoluwa
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      Ngozi
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      Uyiosa
-                    </td>
-                  </tr>
-
-                </table>
-
-              </td>
-              <td class="mdl-data-table__cell--non-numeric">
-                5
-              </td>
-              <td class="mdl-data-table__cell--non-numeric">
-                Ngozi
-              </td>
-            </tr>
-          </tbody>
-
-
-
-        </table>
-      </div>
-
+ <div ng-show="gamelogshow">
+         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+           <thead>
+             <tr>
+               <th class="mdl-data-table__cell--non-numeric">
+                 GAME TIME
+               </th>
+               <th class="mdl-data-table__cell--non-numeric">
+                 FRIENDS PLAYED
+               </th>
+               <th class="mdl-data-table__cell--non-numeric">
+                 NO OF ROUNDS
+               </th>
+               <th class="mdl-data-table__cell--non-numeric">
+                 WINNER
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr ng-repeat="toDisplay in allGames">
+               <td class="mdl-data-table__cell--non-numeric">
+                  {{toDisplay.gamedate}}
+               </td>
+               <td class="mdl-data-table__cell--non-numeric">
+                 <a ng-click="displayfriends = !displayfriends">{{toDisplay.players.length}} players...</a>
+                 <table ng-show='displayfriends'>
+                   <tr ng-repeat="name in toDisplay.players">
+                     <td class="mdl-data-table__cell--non-numeric">
+                       {{name}}
+                     </td>
+                   </tr>
+                 </table>
+ 
+               </td>
+               <td class="mdl-data-table__cell--non-numeric">
+                 {{toDisplay.rounds}}
+               </td>
+               <td class="mdl-data-table__cell--non-numeric">
+                 {{toDisplay.winner}}
+               </td>
+             </tr>
+           </tbody>
+ 
+ 
+ 
+         </table>
+       </div>
+       </div> 
 
 
     </body>
