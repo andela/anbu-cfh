@@ -1,18 +1,15 @@
 angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService','LocalStorage', '$routeParams', '$window',
-    function ($scope, Global, $location, socket, game, AvatarService, LocalStorage, $routeParams, $window) {
+  .controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService','Storage', '$routeParams',
+    function ($scope, Global, $location, socket, game, AvatarService, Storage, $routeParams) {
     $scope.global = Global;
 
+    if(window.user && !Storage.get('user')){
+      Storage.set('user', window.user);
+    }
     // Save Token if created
     if ($routeParams.token) {
-      LocalStorage.storeToken('token', $routeParams.token);
+      Storage.set('token', $routeParams.token);
       $location.path('/play-with');
-    }
-
-    // Delete token when user signs Out
-    if ($routeParams.remove) {
-      LocalStorage.clearToken('token');
-      $location.path('/');
     }
 
     $scope.playAsGuest = function() {
@@ -33,6 +30,6 @@ angular.module('mean.system')
       .then(function(data) {
         $scope.avatars = data;
       });
-    $scope.userName = $window.user;
+    $scope.userName = Storage.get('user');
+    console.log($scope.userName);
 }]);
-

@@ -1,7 +1,7 @@
 angular.module('mean.system')
 .controller('GameController', ['$scope', 'game', '$timeout',
-  '$location', '$window', 'MakeAWishFactsService', '$dialog',
-  function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog) {
+  '$location', '$window', 'MakeAWishFactsService', '$dialog', 'Storage',
+  function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog, Storage) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -11,7 +11,7 @@ angular.module('mean.system')
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
-    $scope.userName = $window.user;
+    $scope.userName = Storage.get('user');
     let dialog = document.getElementById('showMyDialog');
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -176,7 +176,7 @@ angular.module('mean.system')
     $scope.saveGame = function () {
       game.saveGame();
     }
-    
+
     $scope.closeModal = function () {
       $scope.modalInstance.close();
     };
