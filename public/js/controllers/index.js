@@ -31,5 +31,4 @@ angular.module('mean.system')
         $scope.avatars = data;
       });
     $scope.userName = Storage.get('user');
-    console.log($scope.userName);
 }]);

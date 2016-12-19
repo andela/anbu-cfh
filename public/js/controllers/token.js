@@ -3,6 +3,6 @@ angular.module('mean.system')
     function (Storage, $routeParams, $location) {
     // Delete token when user signs Out
     Storage.clear('token');
-    Storage.set('user', null);
+    Storage.clear('user');
     $location.path('/');
 }]);

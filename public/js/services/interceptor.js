@@ -1,9 +1,9 @@
 angular.module('mean.system')
-  .factory('AuthInterceptor', ['LocalStorage', function(LocalStorage) {
+  .factory('AuthInterceptor', ['Storage', function(Storage) {
     var AuthInterceptor = {
     request: function(config) {
-      if (LocalStorage.getToken('token')) {
-        config.headers['x-access-token'] = LocalStorage.getToken('token');
+      if (Storage.get('token')) {
+        config.headers['x-access-token'] = Storage.get('token');
       }
       return config;
     }

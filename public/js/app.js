@@ -14,8 +14,8 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
           when('/token/:token', {
             templateUrl: 'views/index.html'
           }).
-          when('/removeToken/:remove', {
-            templateUrl: 'views/index.html'
+          when('/remove-token', {
+            templateUrl: 'views/token.html'
           }).
           when('/bottom', {
             templateUrl: '/views/bottom.html'

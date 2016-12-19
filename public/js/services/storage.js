@@ -1,16 +1,16 @@
 
 angular.module('mean.system')
-  .factory('LocalStorage', ['localStorageService', function(localStorageService) {
+  .factory('Storage', ['localStorageService', function(localStorageService) {
     return {
-      storeToken: function(key, value) {
+      set: function(key, value) {
         return localStorageService.set(key, value);
       },
 
-      getToken: function(key) {
+      get: function(key) {
         return localStorageService.get(key);
       },
 
-      clearToken: function(key) {
+      clear: function(key) {
         return localStorageService.remove(key);
       },
     };
