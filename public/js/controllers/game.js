@@ -1,13 +1,48 @@
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+.controller('GameController', ['$scope', 'game', '$timeout',
+  '$location', '$window', 'MakeAWishFactsService', '$dialog',
+  function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
     $scope.modalShown = false;
     $scope.game = game;
     $scope.pickedCards = [];
-    var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
+    let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
+    $scope.chat = game.gameChat;
+    $scope.userName = $window.user;
+    let dialog = document.getElementById('showMyDialog');
+    if (!dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    /**
+    * Method to scroll the chat thread to the bottom
+    * so user can see latest message when messages overflow
+    * @return{undefined}
+    */
+    const scrollChatThread = () => {
+      const chatResults = document.getElementById('results');
+      if(chatResults){
+        chatResults.scrollTop = chatResults.scrollHeight;
+      }
+    };
+
+    $scope.$watchCollection('chat.messageArray', (newValue, oldValue) => {
+      $timeout(() => {
+        scrollChatThread();
+      }, 100);
+    });
+
+    /**
+    * Method to send messages
+    * @param{String} userMessage - String containing the message to be sent
+    * @return{undefined}
+    */
+    $scope.sendMessage = (userMessage) => {
+      $scope.chat.postGroupMessage(userMessage);
+      $scope.chatMessage = '';
+    };
 
     $scope.pickCard = function(card) {
       if (!$scope.hasPickedCards) {
@@ -27,8 +62,22 @@ angular.module('mean.system')
         }
       }
     };
+    $scope.keyPressed = function ($event) {
+      const keyCode = $event.which || $event.keyCode;
+      if (keyCode === 13) {
+        $scope.sendMessage($scope.chatMessage);
+      }
+    };
 
-    $scope.pointerCursorStyle = function() {
+    $scope.showChat = function () {
+      $scope.chat.chatWindowVisible = !$scope.chat.chatWindowVisible;
+      // enableChatWindow;
+      if ($scope.chat.chatWindowVisible) {
+        $scope.chat.unreadMessageCount = 0;
+      }
+    };
+
+    $scope.pointerCursorStyle = function () {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
         return {'cursor': 'pointer'};
       } else {
@@ -36,7 +85,7 @@ angular.module('mean.system')
       }
     };
 
-    $scope.sendPickedCards = function() {
+    $scope.sendPickedCards = function () {
       game.pickCards($scope.pickedCards);
       $scope.showTable = true;
     };
@@ -120,13 +169,21 @@ angular.module('mean.system')
       return game.winningCard !== -1;
     };
 
-    $scope.startGame = function() {
+    $scope.startGame = function () {
       game.startGame();
+    };
+
+    $scope.saveGame = function () {
+      game.saveGame();
+    }
+    
+    $scope.closeModal = function () {
+      $scope.modalInstance.close();
     };
 
     $scope.abandonGame = function() {
       game.leaveGame();
-      $location.path('/');
+      $window.location.href = '/#!/play-with';
     };
 
     // Catches changes to round to update when no players pick card
@@ -173,12 +230,27 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
-      game.joinGame('joinGame',$location.search().game);
+      if($scope.userName){
+        game.joinGame('joinGame',$location.search().game);
+      } else { $window.location.href = '/#!/signup';; }
     } else if ($location.search().custom) {
       game.joinGame('joinGame',null,true);
     } else {
       game.joinGame();
     }
 
+    if ($scope.isCustomGame() && $scope.isCzar) {
+      $scope.showDialog = true;
+      dialog.showModal();
+      dialog.querySelector('.proceed').addEventListener('click', function() {
+        dialog.close();
+        $scope.saveGame();
+      });
+    } else {
+      document.getElementById('showMyDialog').style.display = 'none';
+    }
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+      $window.location.href = '/#!/play-with';
+    });
 }]);

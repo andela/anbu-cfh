@@ -9,7 +9,7 @@ var avatars = require('./avatars').all();
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/chooseavatars');
+  res.redirect('/choose-avatars');
 };
 
 /**
@@ -46,7 +46,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-  res.redirect('/');
+  res.redirect('/#!/play-with');
 };
 
 /**
@@ -123,7 +123,7 @@ exports.avatars = function(req, res) {
       user.save();
     });
   }
-  return res.redirect('/#!/app');
+  return res.redirect('/#!/play-with');
 };
 
 exports.addDonation = function(req, res) {

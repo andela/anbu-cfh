@@ -1,12 +1,12 @@
 angular.module('mean.system')
-.controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService','LocalStorage', '$routeParams', '$http',
-    function ($scope, Global, $location, socket, game, AvatarService, LocalStorage, $routeParams, $http) {
+  .controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService','LocalStorage', '$routeParams', '$window',
+    function ($scope, Global, $location, socket, game, AvatarService, LocalStorage, $routeParams, $window) {
     $scope.global = Global;
 
     // Save Token if created
     if ($routeParams.token) {
       LocalStorage.storeToken('token', $routeParams.token);
-      $location.path('/');
+      $location.path('/play-with');
     }
 
     // Delete token when user signs Out
@@ -33,4 +33,6 @@ angular.module('mean.system')
       .then(function(data) {
         $scope.avatars = data;
       });
+    $scope.userName = $window.user;
 }]);
+
