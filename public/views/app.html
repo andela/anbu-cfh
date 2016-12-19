@@ -1,37 +1,110 @@
 </script>
-<div id="app-container" ng-controller="GameController">
-  <div id="menu-container">
-    <div id="logo">
-      <span id="first-word">Cards</span>
-      <span id="second-word"> for</span>
-      <span id="third-word">Humanity</span>
-    </div>
-    <div id = 'abandon-game-button' ng-click="abandonGame()">
-        Abandon Game
-    </div>
-        <span id="tweet-container">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </span>
-  </div>
-  <div id="gameplay-container">
-    <div id="upper-gameplay-container">
-      <div id="menu-timeremaining-container">
-        <div id="menu-container">
-          <span id="menu-button">Menu</span>
+<div id="app-container" style="margin: 0 auto" ng-controller="GameController">
+  <div class="mdl-layout__header mdl-layout__header--scroll">
+    <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title" style="font-family: Montserrat">Cards For Humanity</span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <div>
+           <a id="invite-friends-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Invite Friends
+        </a>
+         <a id='game-history-button' ng-click="gameLog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Game History
+        </a>
         </div>
-        <div id="timer-container">
+        <div>
+          <a id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Abandon Game
+        </a>
+        </div>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile"></span>
+    </div>
+  </div>
+
+
+  <div class="game mdl-grid">
+
+    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet time-remaining mdl-card mdl-shadow--4dp">
           <timer></timer>
         </div>
+
+        <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
+          <question></question>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col answer-box">
+          <div class="mdl-card mdl-shadow--4dp game-cards card-for-game">
+            <answers></answers>
+          </div>
+        </div>
       </div>
-      <div id="question-container-outer">
-        <question></question>
-      </div>
-    </div class="col-md-4">
-    <answers></answers>
-    <div> 
-      <chat> </chat>
     </div>
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
+      <player></player>
+    </div>
+
   </div>
-  <div ng-include='"./views/popups.html"'></div>
+  <chat></chat>
+  <!--<div ng-include='"popups.html"'></div>-->
+  <!--Dialog Displaying Search and Invite Users-->
+  <dialog class="mdl-dialog" id="searchModal">
+      <h4 class="mdl-dialog__title">Search and Invite Players</h4>
+      <div class="mdl-dialog__content">
+        <div>
+        <form>
+            <div class="mdl-textfield mdl-js-textfield">
+              <input type="text" class="mdl-textfield__input" id="search-query" placeholder="Search users..." ng-model="searchString" ng-keypress="searchDB(searchString)">
+            </div>
+          </form>
+          </div>
+          <div id="search-result">
+
+            <table class="table table-striped">
+              <tbody>
+                <tr ng-repeat="i in items">
+                  <td>{{i.name}} </td>
+                  <td ng-if="checkPlayer(i.email)" title="{{i.email}}"><button ng-click="sendInvite(i.email, i.name)" class="btn btn-info">Send Invite</button></td>
+                  <td ng-if="!checkPlayer(i.email)"><button ng-disabled="true" class="btn btn-info">User invited</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </dialog>
+    <!--Dialog for Minimum Players-->
+    <dialog class ="mdl-dialog" id="minAlertModal">
+      <h4 class="mdl-dialog__title">Alert message</h4>
+      <div class="mdl-dialog__content">
+        <p>A minimum of three players are required to start the game</p>
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+
+    </dialog>
+    <!--Dialog for Maximum Players-->
+    <dialog class ="mdl-dialog" id="maxAlertModal">
+      <h4 class="mdl-dialog__title">Alert message</h4>
+      <div class="mdl-dialog__content">
+        <p>You have exceeded the maximum allowed no of invites</p>
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+
+    </dialog>
+  <div ng-include='"./views/gamelog.html"'></div>
 </div>

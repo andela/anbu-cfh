@@ -594,11 +594,13 @@ div.chatpanel {
   right: 0;
   background: #f6f6f6;
   box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+  z-index: 2000;
 }
 
 @media screen and (max-width:650px){
   div.chatpanel {
     position: fixed;
+    z-index: 2000;
     bottom: 0px;
     width: 100%;
     right: 0;
