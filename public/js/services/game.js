@@ -207,7 +207,7 @@ angular.module('mean.system')
   };
 
   game.startGame = () => {
-    socket.emit('startGame')
+    socket.emit('startGame');
   };
 
   game.saveGame = () => {
@@ -236,7 +236,7 @@ angular.module('mean.system')
   game.leaveGame = () => {
     game.players = [];
     game.time = 0;
-    socket.emit('leaveGame');
+    socket.emit('leaveGame'); 
   };
 
   game.pickCards = cards => socket.emit('pickCards', {
