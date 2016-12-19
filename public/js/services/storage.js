@@ -13,5 +13,5 @@ angular.module('mean.system')
       clearToken: function(key) {
         return localStorageService.remove(key);
       },
-    }
+    };
 }]);
