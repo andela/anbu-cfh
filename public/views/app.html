@@ -1,36 +1,78 @@
-</script>
-<div id="app-container" ng-controller="GameController">
-  <div id="menu-container">
-    <div id="logo">
-      <span id="first-word">Cards</span>
-      <span id="second-word"> for</span>
-      <span id="third-word">Humanity</span>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="GameController">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
+    <style>
+      .cfh-header .mdl-navigation__link { color: #000;}
+    </style>
+    <div class="mdl-layout__header-row">
+      <span class="cfh-title mdl-layout-title text-logo">
+        <a href="/" style="text-decoration: none; color: #fff">Cards For Humanity</a>
+      </span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
+          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
+          <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+          <span ng-show="userName">
+            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          </span>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
+        <a href="#" id ='abandon-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin-left: 15px;">Abandon Game</a>
+      </span>
     </div>
-    <div id = 'abandon-game-button' ng-click="abandonGame()">
-        Abandon Game
-    </div>
-        <span id="tweet-container">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </span>
   </div>
-  <div id="gameplay-container">
-    <div id="upper-gameplay-container">
-      <div id="menu-timeremaining-container">
-        <div id="menu-container">
-          <span id="menu-button">Menu</span>
+  <div class="cfh-drawer mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
+      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
+      <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+      <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+    </nav>
+  </div>
+  <div class="cfh-content mdl-layout__content" style="margin-top: 60px">
+    <div id="app-container" style="margin: 0 auto">
+      <div class="game mdl-grid">
+        <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet time-remaining mdl-card mdl-shadow--4dp">
+              <timer></timer>
+            </div>
+          
+            <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
+              <question></question>
+            </div>
+
+            <div class="mdl-cell mdl-cell--12-col answer-box">
+              <div class="mdl-card mdl-shadow--4dp game-cards card-for-game">
+                <answers></answers>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="timer-container">
-          <timer></timer>
-        </div>
+      
+        <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
+          <player></player>
+        </div> 
+     
       </div>
-      <div id="question-container-outer">
-        <question></question>
-      </div>
-    </div class="col-md-4">
-    <answers></answers>
-    <div> 
-      <chat> </chat>
+
+      <chat></chat>
     </div>
   </div>
 </div>
+<dialog class="mdl-dialog" id="showMyDialog">
+  <div class="mdl-dialog__content">
+    <p>You are about to start a game that will be saved</p>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button proceed">PROCEED</button>
+    <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
+  </div>
+</dialog>

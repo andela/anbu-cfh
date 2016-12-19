@@ -1,9 +1,10 @@
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', 'chat', function (socket, $timeout, chat) {
-
+  .factory('game', ['socket', '$timeout', 'chat', '$http', function (socket, $timeout, chat, $http) {
+  
   var game = {
     id: null, // This player's socket ID, so we know who this player is
     gameID: null,
+    creator: null,
     players: [],
     playerIndex: 0,
     winningCard: -1,
@@ -12,7 +13,7 @@ angular.module('mean.system')
     table: [],
     czar: null,
     playerMinLimit: 3,
-    playerMaxLimit: 6,
+    playerMaxLimit: 12,
     pointLimit: null,
     state: null,
     round: 0,
@@ -24,18 +25,18 @@ angular.module('mean.system')
     gameChat: chat
   };
 
-  var notificationQueue = [];
-  var timeout = false;
-  var self = this;
-  var joinOverrideTimeout = 0;
+  let notificationQueue = [];
+  let timeout = false;
+  let self = this;
+  let joinOverrideTimeout = 0;
 
-  var addToNotificationQueue = function(msg) {
+  let addToNotificationQueue = function(msg) {
     notificationQueue.push(msg);
     if (!timeout) { // Start a cycle if there isn't one
       setNotification();
     }
   };
-  var setNotification = function() {
+  let setNotification = function() {
     if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
       clearInterval(timeout);
       timeout = false;
@@ -46,8 +47,8 @@ angular.module('mean.system')
     }
   };
 
-  var timeSetViaUpdate = false;
-  var decrementTime = function() {
+  let timeSetViaUpdate = false;
+  let decrementTime = function() {
     if (game.time > 0 && !timeSetViaUpdate) {
       game.time--;
     } else {
@@ -85,7 +86,7 @@ angular.module('mean.system')
       }
     }
 
-    var newState = (data.state !== game.state);
+    let newState = (data.state !== game.state);
     //update our chat service properties
     game.gameChat.setChatUsername(data.players[game.playerIndex].username);
     game.gameChat.setChatGroup(data.gameID);
@@ -116,8 +117,8 @@ angular.module('mean.system')
     if (data.table.length === 0) {
       game.table = [];
     } else {
-      var added = _.difference(_.pluck(data.table,'player'), _.pluck(game.table,'player'));
-      var removed = _.difference(_.pluck(game.table,'player'), _.pluck(data.table,'player'));
+      let added = _.difference(_.pluck(data.table,'player'), _.pluck(game.table,'player'));
+      let removed = _.difference(_.pluck(game.table,'player'), _.pluck(data.table,'player'));
       for (i = 0; i < added.length; i++) {
         for (var j = 0; j < data.table.length; j++) {
           if (added[i] === data.table[j].player) {
@@ -171,12 +172,34 @@ angular.module('mean.system')
       joinOverrideTimeout = $timeout(function() {
         game.joinOverride = true;
       }, 15000);
-    } else if (data.state === 'game dissolved' || data.state === 'game ended') {
+    } 
+    else if (data.state === 'game dissolved' || data.state === 'game ended') {
+      if(!(/^\d+$/).test(game.gameID)){
+        $http({
+          method: 'PUT',
+          url: `/api/games/${game.gameID}/end`,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            gameID: game.gameID,
+            completed: true,
+            rounds: game.rounds,
+            winner: game.players[game.gameWinner].id
+          }
+        })
+        .success(function (res) {
+          return res.body.gameID;
+        })
+        .error(function (res) {
+          return res;
+        });
+      }
       game.players[game.playerIndex].hand = [];
       game.time = 0;
     }
   });
-
+  
   socket.on('notification', function(data) {
     addToNotificationQueue(data.notification);
   });
@@ -189,9 +212,36 @@ angular.module('mean.system')
     socket.emit(mode,{userID: userID, room: room, createPrivate: createPrivate});
   };
 
-  game.startGame = function() {
+  game.startGame = function () {
     socket.emit('startGame');
   };
+  
+  game.saveGame = function () {
+    socket.emit('startGame');
+    if (window.user) {
+      $http({
+          method: 'POST',
+          url: `/api/games/${game.gameID}/start`,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            gameID: game.gameID,
+            creator: game.players[0].id,
+            players: game.players,
+            completed: false,
+            rounds: 0,
+            winner: ''
+          }
+        })
+        .success(function (res) {
+           return 'game created successfully';
+        })
+        .error(function (res) {
+          return res;
+        });
+    }
+  }
 
   game.leaveGame = function() {
     game.players = [];
