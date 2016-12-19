@@ -1,7 +1,8 @@
+/* eslint-disable */
 angular.module('mean.system')
     .controller('GameController', ['$scope', 'game', '$timeout',
         '$location', '$window', 'MakeAWishFactsService', '$dialog',
-        function($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog) {
+        function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog) {
             $scope.hasPickedCards = false;
             $scope.winningCardPicked = false;
             $scope.showTable = false;
@@ -61,7 +62,7 @@ angular.module('mean.system')
                 userWon: function() {
                     return game.gameWinner === game.playerIndex;
                 },
-                userLost: function() {
+                userLost: function () {
                     return game.gameWinner !== game.playerIndex;
                 }
             };
