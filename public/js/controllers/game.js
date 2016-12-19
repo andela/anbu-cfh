@@ -34,7 +34,7 @@ angular.module('mean.system')
                 }, 100);
             });
 
-          $scope.gameState = {
+            $scope.gameState = {
                 awaitingPlayers: function() {
                     return $scope.game.state === 'awaiting players';
                 },
@@ -65,7 +65,6 @@ angular.module('mean.system')
                     return game.gameWinner !== game.playerIndex;
                 }
             };
-
 
             /**
             * Method to send messages
@@ -208,7 +207,7 @@ angular.module('mean.system')
 
             $scope.saveGame = function() {
                 game.saveGame();
-            };
+            }
 
             $scope.closeModal = function() {
                 $scope.modalInstance.close();
@@ -263,7 +262,9 @@ angular.module('mean.system')
             });
 
             if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-                game.joinGame('joinGame', $location.search().game);
+                if ($scope.userName) {
+                    game.joinGame('joinGame', $location.search().game);
+                } else { $window.location.href = '/#!/signup';; }
             } else if ($location.search().custom) {
                 game.joinGame('joinGame', null, true);
             } else {
