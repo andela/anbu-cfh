@@ -16,7 +16,6 @@ module.exports = function(app, passport, auth) {
   app.get('/signout', users.signout);
 
   // Setting up the users api
-  var jwt = require('./jwt');
   app.post('/users', users.create, jwt.authToken);
   app.post('/users/avatars', users.avatars);
 
@@ -104,7 +103,7 @@ module.exports = function(app, passport, auth) {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
 
-  // game history 
+  // game history
   app.get('/api/games/history', GameHistory.getAllGames);
   app.get('/api/games/:id/history', GameHistory.getGame);
   app.post('/api/games/:id/start', GameHistory.createGame);
