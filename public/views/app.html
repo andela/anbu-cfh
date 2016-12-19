@@ -7,9 +7,19 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          <div>
+           <a id="invite-friends-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Invite Friends
+        </a>
+         <a id='game-history-button' ng-click="gameLog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Game History
+        </a>
+        </div>
+        <div>
+          <a id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Abandon Game
         </a>
+        </div>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile"></span>
@@ -43,6 +53,58 @@
 
   </div>
   <chat></chat>
+  <!--<div ng-include='"popups.html"'></div>-->
+  <!--Dialog Displaying Search and Invite Users-->
+  <dialog class="mdl-dialog" id="searchModal">
+      <h4 class="mdl-dialog__title">Search and Invite Players</h4>
+      <div class="mdl-dialog__content">
+        <div>
+        <form>
+            <div class="mdl-textfield mdl-js-textfield">
+              <input type="text" class="mdl-textfield__input" id="search-query" placeholder="Search users..." ng-model="searchString" ng-keypress="searchDB(searchString)">
+            </div>
+          </form>
+          </div>
+          <div id="search-result">
+
+            <table class="table table-striped">
+              <tbody>
+                <tr ng-repeat="i in items">
+                  <td>{{i.name}} </td>
+                  <td ng-if="checkPlayer(i.email)" title="{{i.email}}"><button ng-click="sendInvite(i.email, i.name)" class="btn btn-info">Send Invite</button></td>
+                  <td ng-if="!checkPlayer(i.email)"><button ng-disabled="true" class="btn btn-info">User invited</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </dialog>
+    <!--Dialog for Minimum Players-->
+    <dialog class ="mdl-dialog" id="minAlertModal">
+      <h4 class="mdl-dialog__title">Alert message</h4>
+      <div class="mdl-dialog__content">
+        <p>A minimum of three players are required to start the game</p>
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+
+    </dialog>
+    <!--Dialog for Maximum Players-->
+    <dialog class ="mdl-dialog" id="maxAlertModal">
+      <h4 class="mdl-dialog__title">Alert message</h4>
+      <div class="mdl-dialog__content">
+        <p>You have exceeded the maximum allowed no of invites</p>
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+
+    </dialog>
+  <div ng-include='"./views/gamelog.html"'></div>
 </div>
-<div ng-include='"./views/popups.html"'></div>
-<div ng-include='"./views/gamelog.html"'></div>

@@ -172,12 +172,29 @@ angular.module('mean.system')
         $location.path('/');
       };
 
+//   Controllers for Min and Max Dialogs
+      var minModal = document.getElementById('minAlertModal');
+      if (! minModal.showModal) {
+        dialogPolyfill.registerDialog(minModal);
+      }
+      var maxModal = document.getElementById('maxAlertModal');
+      if (! maxModal.showModal) {
+        dialogPolyfill.registerDialog(maxModal);
+      }
+
+      minModal.querySelector('.close').addEventListener('click', function() {
+        minModal.close();
+      });
+       maxModal.querySelector('.close').addEventListener('click', function() {
+        maxModal.close();
+      });
+
+
     $scope.startGame = function () {
-      const element = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
         game.startGame();
       } else {
-        element.modal('show');
+        minModal.showModal();
       }
 
     };
@@ -249,7 +266,7 @@ angular.module('mean.system')
                 // var txt = 'Give the following link to your friends so they can join your game: ';
                 // $('#lobby-how-to-play').text(txt);
                 // $('#oh-el').css({ 'text-align': 'center', 'font-size': '22px', 'background': 'white', 'color': 'black' }).text(link);
-                $('#lobby-how-to-play').html("<button class='btn btn-info btn-lg' data-toggle='modal' data-target='#searchModal'> Invite Friends</button>");
+                //$('#lobby-how-to-play').html("<button class='btn btn-info btn-lg' data-toggle='modal' data-target='#searchModal'> Invite Friends</button>");
               }, 200);
               $scope.modalShown = true;
             }
@@ -265,6 +282,24 @@ angular.module('mean.system')
       } else {
         game.joinGame();
       }
+      //Definition for Search and Invite Dialog
+      var dialog = document.getElementById('searchModal');
+      var showDialogButton = document.querySelector('#invite-friends-button');
+      if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+      }
+      showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+      });
+      dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+      });
+    
+    
+    // $scope.showSearchDialog = () => {
+      
+
+    // }
 
     $scope.searchDB = (searchString) => {
       console.log(searchString);
@@ -279,7 +314,6 @@ angular.module('mean.system')
     }
     $scope.sendInvite = (email, name) => {
       console.log(email, name, 'testfrom angulars')
-      const element = angular.element('#alertMaxModal');
       if ($scope.numberOfInvites <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
@@ -297,7 +331,7 @@ angular.module('mean.system')
           console.log('User Already Invited');
         }
       } else {
-        element.modal('show');
+        maxModal.showModal();
       }
     }
     $scope.checkPlayer = (email) => {
