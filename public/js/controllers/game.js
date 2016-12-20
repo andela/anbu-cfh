@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 angular.module('mean.system')
   .controller('GameController', ['$scope', 'game', '$http', '$timeout',
-    '$location', '$window', 'MakeAWishFactsService', '$dialog',
+    '$location', '$window', 'MakeAWishFactsService', '$dialog', 'Storage',
     ($scope, game, $http, $timeout, $location, $window,
-      MakeAWishFactsService, $dialog) => {
+      MakeAWishFactsService, $dialog, Storage) => {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
       $scope.showTable = false;
@@ -13,11 +13,11 @@ angular.module('mean.system')
       $scope.pickedCards = [];
       let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
       $scope.makeAWishFact = makeAWishFacts.pop();
-      $scope.numberOfInvites = 0;
-      $scope.invitedPlayersList = [];
+      $scope.numberOfInvites = 0;		
+      $scope.invitedPlayersList = [];		
       $scope.checkExist = true;
       $scope.chat = game.gameChat;
-      $scope.userName = $window.user;
+      $scope.userName = Storage.get('user');
       const dialog = document.getElementById('showMyDialog');
       if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -65,145 +65,9 @@ angular.module('mean.system')
             }
           } else {
             $scope.pickedCards.pop();
+          }
         }
       };
-      $scope.keyPressed = function ($event) {
-        const keyCode = $event.which || $event.keyCode;
-        if (keyCode === 13) {
-          $scope.sendMessage($scope.chatMessage);
-        }
-      };
-
-      $scope.showChat = function () {
-        $scope.chat.chatWindowVisible = !$scope.chat.chatWindowVisible;
-        // enableChatWindow;
-        if ($scope.chat.chatWindowVisible) {
-          $scope.chat.unreadMessageCount = 0;
-        }
-      };
-
-//   Controllers for Min and Max Dialogs
-      var minModal = document.getElementById('minAlertModal');
-      if (! minModal.showModal) {
-        dialogPolyfill.registerDialog(minModal);
-      }
-      var maxModal = document.getElementById('maxAlertModal');
-      if (! maxModal.showModal) {
-        dialogPolyfill.registerDialog(maxModal);
-      }
-
-      minModal.querySelector('.close').addEventListener('click', function() {
-        minModal.close();
-      });
-       maxModal.querySelector('.close').addEventListener('click', function() {
-        maxModal.close();
-      });
-
-      $scope.gameState = {
-        awaitingPlayers: function() {
-          return $scope.game.state === 'awaiting players';
-        },
-        ended: function() {
-          return $scope.game.state === 'game ended';
-        },
-
-        dissolved: function() {
-          return $scope.game.state === 'game dissolved';
-        },
-
-        awaitingCzar: function() {
-          return $scope.game.state === 'waiting for czar to decide';
-        },
-
-        winnerChosen: function() {
-          return $scope.game.state === 'winner has been chosen';
-        },
-
-        noWinner: function() {
-          return game.gameWinner === -1;
-        },
-        userWon: function() {
-          return game.gameWinner === game.playerIndex;
-        },
-        userLost: function() {
-          return game.gameWinner !== game.playerIndex;
-        }
-      };
-
-      if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-        console.log('joining custom game');
-        game.joinGame('joinGame', $location.search().game);
-      } else if ($location.search().custom) {
-        game.joinGame('joinGame', null, true);
-      } else {
-        game.joinGame();
-      }
-      //Definition for Search and Invite Dialog
-      var searchDialog = document.getElementById('searchModal');
-      var showDialogButton = document.querySelector('#invite-friends-button');
-      if (! searchDialog.showModal) {
-        dialogPolyfill.registerDialog(searchDialog);
-      }
-      showDialogButton.addEventListener('click', function() {
-        searchDialog.showModal();
-      });
-      searchDialog.querySelector('.close').addEventListener('click', function() {
-        searchDialog.close();
-      });
-
-    $scope.searchDB = (searchString) => {
-      console.log(searchString);
-      $scope.searchResult = [];
-      $http.get('/api/search/users/' + searchString)
-        .success((res) => {
-          $scope.items = res;
-        })
-        .error((err) => {
-          console.log(err);
-        });
-    }
-    $scope.sendInvite = (email, name) => {
-      console.log(email, name, 'testfrom angulars')
-      if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
-        if ($scope.invitedPlayersList.indexOf(email) === -1) {
-          $scope.invitedPlayersList.push(email);
-          $http.post('/api/send/userinvite', { 'email': email, 'name': name, 'link': document.URL })
-            .success((res) => {
-              console.log(res);
-            })
-            .error((err) => {
-              console.log(err);
-            });
-          $scope.numberOfInvites += 1;
-        
-        } else {
-          console.log('User Already Invited');
-        }
-      } else {
-        maxModal.showModal();
-      }
-    }
-    $scope.checkPlayer = (email) => {
-      if ($scope.invitedPlayersList.indexOf(email) === -1) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    $scope.gamelogshow = false;
-    $scope.displayfriends = false;
-
-    $scope.gameLog = () => {
-      if (!$scope.gamelogshow) {
-        console.log('Yay it works');
-        $scope.gamelogshow = true;
-        $scope.allGames = demodata;
-        return demodata;
-      }
-      $scope.gamelogshow = false;
-    };
-
       $scope.keyPressed = ($event) => {
         const keyCode = $event.which || $event.keyCode;
         if (keyCode === 13) {
@@ -290,14 +154,30 @@ angular.module('mean.system')
           $scope.winningCardPicked = true;
         }
       };
+      //   Controllers for Min and Max Dialogs
+      const minModal = document.getElementById('minAlertModal');
+      if (!minModal.showModal) {
+        dialogPolyfill.registerDialog(minModal);
+      }
+      const maxModal = document.getElementById('maxAlertModal');
+      if (!maxModal.showModal) {
+        dialogPolyfill.registerDialog(maxModal);
+      }
+
+      minModal.querySelector('.close').addEventListener('click', () => {
+        minModal.close();
+      });
+      maxModal.querySelector('.close').addEventListener('click', () => {
+        maxModal.close();
+      });
 
       $scope.winnerPicked = () => game.winningCard !== -1;
 
       $scope.startGame = () => {
         if (game.players.length >= game.playerMinLimit) {
-        game.startGame();
+          game.startGame();
         } else {
-        minModal.showModal();
+          minModal.showModal();
         }
       };
 
@@ -380,5 +260,98 @@ angular.module('mean.system')
         dialog.close();
         $window.location.href = '/#!/play-with';
       });
+
+    //Definition for Search and Invite Dialog
+      const searchDialog = document.getElementById('searchModal');
+      const showDialogButton = document.querySelector('#invite-friends-button');
+      if (!searchDialog.showModal) {
+        dialogPolyfill.registerDialog(searchDialog);
+      }
+      showDialogButton.addEventListener('click', () => {
+        searchDialog.showModal();
+      });
+      searchDialog.querySelector('.close').addEventListener('click', function() {
+        searchDialog.close();
+      });
+
+    $scope.searchDB = (searchString) => {
+      console.log(searchString);
+      $scope.searchResult = [];
+      $http.get('/api/search/users/' + searchString)
+        .success((res) => {
+          $scope.items = res;
+        })
+        .error((err) => {
+          console.log(err);
+        });
+    }
+    $scope.sendInvite = (email, name) => {
+      console.log(email, name, 'testfrom angulars')
+      if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
+        if ($scope.invitedPlayersList.indexOf(email) === -1) {
+          $scope.invitedPlayersList.push(email);
+          console.log($scope.invitedPlayersList);
+          $http.post('/api/send/userinvite', { 'email': email, 'name': name, 'link': document.URL })
+            .success((res) => {
+              console.log(res);
+            })
+            .error((err) => {
+              console.log(err);
+            });
+          $scope.numberOfInvites += 1;
+        
+        } else {
+          console.log('User Already Invited');
+        }
+      } else {
+        maxModal.showModal();
+      }
+      console.log($scope.numberOfInvites, game.playerMaxLimit)
+    }
+    $scope.checkPlayer = (email) => {
+      if ($scope.invitedPlayersList.indexOf(email) === -1) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+const demodata =
+      [
+        {
+          gameID: 33333,
+          players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 20,
+          winner: 'hound@hound.com',
+          gamedate: Date.now()
+        },
+        {
+          gameID: 333553,
+          players: ['oreoluwa@ymail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 19,
+          winner: 'wale@wale.com',
+          gamedate: Date.now()
+        },
+        {
+          gameID: 34433,
+          players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+          rounds: 24,
+          winner: 'oreoluwa@yahoo.com',
+          gamedate: Date.now()
+        }
+      ];
+
+    $scope.gamelogshow = false;
+    $scope.displayfriends = false;
+
+    $scope.gameLog = () => {
+      if (!$scope.gamelogshow) {
+        console.log('Yay it works');
+        $scope.gamelogshow = true;
+        $scope.allGames = demodata;
+        return demodata;
+      }
+      $scope.gamelogshow = false;
+    };
     }
   ]);

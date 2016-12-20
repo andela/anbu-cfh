@@ -101,7 +101,7 @@ module.exports = function(app, passport, auth) {
   app.get('/api', jwt.checkToken, (req, res) => {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
-  
+
 // Search Route
   const search = require('../app/controllers/searchUser');
   app.get('/api/search/users/:email', search);
@@ -109,7 +109,6 @@ module.exports = function(app, passport, auth) {
   // Send Invite Route
   const sendInvite = require('../app/controllers/sendInvite');
   app.post('/api/send/userinvite', sendInvite);
-};
 
   // game history 
   app.get('/api/games/history', GameHistory.getAllGames);
