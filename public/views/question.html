@@ -1,6 +1,6 @@
 <div id="question-container-inner">
   <div class="card longBlack">
-    <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
+    <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players' || game.state === 'waiting for czar to draw cards'"></span>
 
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}" style="margin-bottom: 20px">{{game.notification}}</div>
 
@@ -17,7 +17,7 @@
 
       </div>
       <div class="start-game-container">
-      <button id=" start-game-button start-game-container" 
+      <button id=" start-game-button start-game-container"
         class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"
         ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride) && game.players.length >= game.playerMinLimit">
           Start with {{game.players.length}} players
@@ -40,4 +40,3 @@
     </div>
   </div>
 </div>
-
