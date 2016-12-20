@@ -25,7 +25,6 @@ angular.module('mean.system')
 
         // Add listener for invite_status events
         socket.on('invite_status', (message) => {
-          console.log(message.status);
         });
       }
 
@@ -37,7 +36,6 @@ angular.module('mean.system')
       */
       setUserEmail(userEmail) {
         this.userEmail = userEmail;
-        console.log('user Email - ' + userEmail);
       }
 
       /**
@@ -58,7 +56,6 @@ angular.module('mean.system')
       */
       findRegisteredUser(userName) {
         // we don't want to search for an empty user
-        console.log('userName - ' + userName);
         if (!userName && userName.length <= 0) {
           this.registeredUsers = {};
           return;
@@ -69,10 +66,8 @@ angular.module('mean.system')
         }).then((successResponse) => {
           // on sucess, update all users
           this.registeredUsers = successResponse.data;
-          console.log('friends found = ' + successResponse.data);
         }, (errorResponse) => {
           // error occured
-          console.log('Error Occured while trying to fetch all users from server\n' + errorResponse);
         });
       }
 
@@ -104,10 +99,8 @@ angular.module('mean.system')
         }).then((successResponse) => {
           // on sucess, update all users
           this.userFriends = successResponse.data;
-          console.log('fetchFriends() successful. length => ' + this.userFriends.length);
         }, (errorResponse) => {
           // error occured
-          console.log('Error Occured while trying to fetch all users from server\n' + errorResponse);
         });
       }
 
@@ -124,11 +117,10 @@ angular.module('mean.system')
             friend_email: friendEmail
           })
           .then((successResponse) => {
-            console.log('addFriend() successful. length => ' + successResponse.data.length);
             // update the user friends
             this.fetchFriends();
           }, (errorResponse) => {
-            console.log('Error occured while trying to add a new friend');
+            // error occurred when trying to add friend
           });
       }
 
@@ -154,7 +146,6 @@ angular.module('mean.system')
       * @return{undefined}
       */
       gameInviteRecieved(message){
-        console.log('game invite received: \nFrom: ' + message.senderEmail, '\nGame Url: ', message.location);
         this.gameInvites.push({
           message
         });

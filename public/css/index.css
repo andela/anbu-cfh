@@ -623,11 +623,11 @@ div.panel-heading {
   color: #64ffda;
 }
 
-li.message:hover, li.user:hover, li.notification:hover {
+li.message:hover, li.friends:hover {
   background: #f2f3f4;
 }
 
-li.message, li.user, li.notification {
+li.message{
   padding: 0px 10px;
 }
 
@@ -711,7 +711,8 @@ div.notifications {
 }
 
 div.notification_body {
-  max-height: 160px;
+  height: 160px;
+  min-height: 160px;
   overflow-y: scroll;
   cursor: default;
 }
@@ -735,12 +736,14 @@ i.friends {
   font-size: 20px;
   vertical-align: text-bottom;
   float: right;
+  margin-right: 15px;
   cursor: pointer;
 }
 i.notification {
   font-size: 16px;
   vertical-align: text-bottom;
   float: right;
+  margin-right: 15px;
   cursor: pointer;
 }
 
@@ -750,6 +753,7 @@ i.notifier {
 
 input.search-friends {
   outline: none;
+  margin: 10px;
 }
 
 /*
