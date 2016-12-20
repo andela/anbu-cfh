@@ -7,3 +7,4 @@ bower_components
 coverage
 npm-debug.log
 .env
+.vscode

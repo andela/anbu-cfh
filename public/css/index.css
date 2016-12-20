@@ -752,7 +752,7 @@ i.notification {
 }
 
 i.notifier {
-  font-size: 30px;
+  margin: 12px 5px 0 5px;
 }
 
 input.search {
@@ -763,26 +763,3 @@ i.search {
   float: left;
   margin-top: -25px;
 }
-
-
-/*
-div.chatpanel {
-  position: fixed;
-  width: 320px;
-  height: 400px;
-  right: 0;
-  bottom: 0;
-}
-
-div.panel-heading {
-  background: black;
-  height: 30px;
-  color: white;
-  padding: 5px;
-}
-
-div.chatthread {
-  background: red;
-  height: 340px;
-  width: 320px;
-}*/

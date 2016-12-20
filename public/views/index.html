@@ -17,11 +17,14 @@
             <a href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a>
           </span>
           <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-          <a ng-show="userName" href id="notifications" style="margin-left: 10px;" ng-click="openNotifications()">
-            <div ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap notifier" data-badge="{{friends.gameInvites.length}}">
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
               notifications
-            </div> 
-            <i ng-hide="friends.gameInvites.length > 0" class="material-icons notifier">notifications</i>
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
           </a>
         </nav>
       </div>
@@ -120,6 +123,9 @@
   <h4 class="mdl-dialog__title">Notifications</h4>
   <div class="mdl-dialog__content">
     <div class="notification_body">
+    <div ng-show="friends.gameInvites.length <= 0"> 
+      <h6>There are no Game Invites</h6>
+    </div>
       <ul class="demo-list-item mdl-list">
         <li class="notification" ng-repeat="invite in friends.gameInvites">
           <div class="notification_content">

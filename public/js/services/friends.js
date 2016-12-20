@@ -1,5 +1,5 @@
 angular.module('mean.system')
- .factory('friends', ['$http', 'socket', ($http, socket) => {
+ .factory('friends', ['$http', 'socket', 'Storage', ($http, socket, Storage) => {
     class Friends {
       /**
       * Constructor for this class
@@ -7,25 +7,18 @@ angular.module('mean.system')
       constructor() {
         // user email
         this.userEmail = '';
-
         // user name
         this.userName = '';
         // all registered users
         this.registeredUsers = {};
         // all my friends
         this.userFriends = {};
-
         // all unclicked game invites
         this.gameInvites = [];
-
-        // we need a test token to test our module
-        // we would do this using cookies ngCookies :)
-        this.userToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRvbmF0aW9ucyI6ImluaXQiLCJmcmllbmRzIjoiaW5pdCIsIl9fdiI6ImluaXQiLCJhdmF0YXIiOiJpbml0IiwiaGFzaGVkX3Bhc3N3b3JkIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwicHJvdmlkZXIiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiZnJpZW5kcyI6dHJ1ZSwiX192Ijp0cnVlLCJkb25hdGlvbnMiOnRydWUsImF2YXRhciI6dHJ1ZSwiaGFzaGVkX3Bhc3N3b3JkIjp0cnVlLCJlbWFpbCI6dHJ1ZSwibmFtZSI6dHJ1ZSwicHJvdmlkZXIiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfX0sImlzTmV3IjpmYWxzZSwiX2RvYyI6eyJkb25hdGlvbnMiOltdLCJmcmllbmRzIjpbImF6ZWV6Lm9sYW5pcmFuQGFuZGVsYS5jb20iLCJvbGF3YWxlYXp5c3NAZ21haWwuY29tIiwiZnJlYWtAeWFob28uY29tIiwidGVzdHVzZXIzQGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjJAYW5kZWxhLmNvbSIsInRlc3R1c2VyNEBhbmRlbGEuY29tIiwidGVzdHVzZXI1QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjFAYW5kZWxhLmNvbSIsInRlc3R1c2VyNkBhbmRlbGEuY29tIiwidGVzdHVzZXI3QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjhAYW5kZWxhLmNvbSIsIm9sYUBvbGEuY29tIiwiYmF5QHd3LmNvbSJdLCJfX3YiOjEzLCJhdmF0YXIiOiIvaW1nL2Nob3Nlbi9GMDEucG5nIiwiaGFzaGVkX3Bhc3N3b3JkIjoiJDJhJDEwJHZxT2JOWUtMc0lKMklLeXJNb3RlN2VDeG1PNHNldUlVUlNDVTZ4eWJQem5kSHowZ1N1NTBhIiwiZW1haWwiOiJ0ZXN0dXNlcjNAYW5kZWxhLmNvbSIsIm5hbWUiOiJ0ZXN0IHVzZXIgMiIsInByb3ZpZGVyIjoibG9jYWwiLCJfaWQiOiI1ODRhNTJmMTFmZWIyMzFmZjUwODE4NmYifSwiX3ByZXMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W251bGwsbnVsbCxudWxsXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltudWxsXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbbnVsbF19LCJfcG9zdHMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W10sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbXX0sImlhdCI6MTQ4MjI1Nzc2NiwiZXhwIjoxNDgyMzQ0MTY2fQ.-QZCnHd3HEl5yvTlHoH0ewnCcEtVNVb_2lvSL9C5o9M`;    
         // Add listener for game_invite socket events
         socket.on('game_invite', (message) => {
           this.gameInviteRecieved(message);
         });
-
         // Add listener for invite_status events
         socket.on('invite_status', (message) => {
         // do something with the status message
@@ -76,7 +69,7 @@ angular.module('mean.system')
         }
         $http({
           method: 'GET',
-          url: `/api/friends/search_users?name=${userName}&token=${this.userToken}`
+          url: `/api/friends/search_users?name=${userName}&token=${Storage.get('token')}`
         }).then((successResponse) => {
           // on sucess, update all users
           this.registeredUsers = successResponse.data;
@@ -89,7 +82,7 @@ angular.module('mean.system')
       * method to remove repeated friends
       * in the friends list
       * @param{String} email - email to check
-      * return{Boolean} True if email is part of the users list
+      * @return{Boolean} True if email is part of the users list
       * False if it is not.
       */
       checkFriendInUsers(email){
@@ -109,9 +102,10 @@ angular.module('mean.system')
       fetchFriends() {
         $http({
           method: 'GET',
-          url: `/api/friends/get_friends?token=${this.userToken}`
+          url: `/api/friends/get_friends?token=${Storage.get('token')}`
         }).then((successResponse) => {
           // on sucess, update all users
+          console.log('User Friends ' - successResponse.data);
           this.userFriends = successResponse.data;
         }, (errorResponse) => {
           // error occured
@@ -127,7 +121,7 @@ angular.module('mean.system')
       addFriend(friendEmail) {
         $http.post('/api/friends/add_friend',
           {
-            token: this.userToken,
+            token: Storage.get('token'),
             friend_email: friendEmail
           })
           .then((successResponse) => {

@@ -1,7 +1,9 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="GameController">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <style>
-      .cfh-header .mdl-navigation__link { color: #000;}
+      .cfh-header .mdl-navigation__link {
+        color: #000;
+      }
     </style>
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
@@ -12,38 +14,65 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-          <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
-          <span ng-show="userName">
-            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-          </span>
-          <a ng-show="userName" href id="notifications" style="margin-left: 10px;" ng-click="openNotifications()">
-            <div ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap notifier" data-badge="{{friends.gameInvites.length}}">
-              notifications
-            </div> 
-            <i ng-hide="friends.gameInvites.length > 0" class="material-icons notifier">notifications</i>
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
+            <div class="mdl-tooltip" data-mdl-for="home">
+              <strong>Home</strong>
+            </div>
           </a>
-          <a href ng-show="userName" id="requests" style="margin-left: 10px;"
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
+          </a>
+          <a href ng-show="userName" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase"
           ng-click="openFriends()">
-            <i class="material-icons notifier">people</i>
+            <i class="material-icons">people</i>
+            <div class="mdl-tooltip" data-mdl-for="requests">
+              <strong>Send Invites</strong>
+            </div>
+          </a>
+          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+            <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
+              Abandon <strong>Game</strong>
+            </div>
+          </a>
+          <a ng-show="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons" style="background-color:#fff;" >&#xE879;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
           </a>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
         <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
-        <a href="#" id ='abandon-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin-left: 15px;">Abandon Game
+        <a href="#" id ='abandon-button' ng-click="abandonGame()">
+          <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+          <div class="mdl-tooltip" data-mdl-for="abandon-button">
+            Abandon <strong>Game</strong>
+          </div>
         </a>
+        <span ng-show="userName">
+          <a id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE879;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
+          </a>
+        </span>
       </span>
     </div>
   </div>
   <div class="cfh-drawer mdl-layout__drawer">
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
-      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
-      <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+      <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
       <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
       
       <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
@@ -63,7 +92,7 @@
             <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet time-remaining mdl-card mdl-shadow--4dp">
               <timer></timer>
             </div>
-          
+
             <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
               <question></question>
             </div>
@@ -75,11 +104,11 @@
             </div>
           </div>
         </div>
-      
+
         <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
           <player></player>
-        </div> 
-     
+        </div>
+
       </div>
 
       <chat></chat>
@@ -173,5 +202,3 @@
     <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
   </div>
 </dialog>
-
-

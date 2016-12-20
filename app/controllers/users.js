@@ -39,7 +39,7 @@ exports.signup = function(req, res) {
  */
 exports.signout = function(req, res) {
   req.logout();
-  res.redirect('/signin');
+  res.redirect('/#!/remove-token');
 };
 
 /**
@@ -54,6 +54,7 @@ exports.session = function(req, res) {
  * already has an avatar. If they don't have one, redirect them
  * to our Choose an Avatar page.
  */
+
 exports.checkAvatar = function(req, res) {
   if (req.user && req.user._id) {
     User.findOne({
@@ -76,7 +77,7 @@ exports.checkAvatar = function(req, res) {
 /**
  * Create user
  */
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   if (req.body.name && req.body.password && req.body.email) {
     User.findOne({
       email: req.body.email
@@ -95,7 +96,7 @@ exports.create = function(req, res) {
           }
           req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/#!/play-with');
+            return next();
           });
         });
       } else {
@@ -186,5 +187,3 @@ exports.user = function(req, res, next, id) {
       next();
     });
 };
-
-

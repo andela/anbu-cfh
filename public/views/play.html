@@ -10,16 +10,17 @@
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
           <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
           <span ng-show="userName">
             <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
           </span>
-          <a ng-show="userName" href id="notifications" style="margin-left: 10px;" ng-click="openNotifications()">
-            <div ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap notifier" data-badge="{{friends.gameInvites.length}}">
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
               notifications
-            </div> 
-            <i ng-hide="friends.gameInvites.length > 0" class="material-icons notifier">notifications</i>
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
           </a>
         </nav>
       </div>
@@ -31,8 +32,6 @@
   <div class="cfh-drawer mdl-layout__drawer">
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
-      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
       <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
       <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
         <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
@@ -45,10 +44,10 @@
         <div style="width: 120px;margin: 0 auto">
           <!-- Avatar change Tooltip -->
           <a href="/#!/choose-avatar">
-            <img ng-src={{userName.avatar}} style="width:70px;height:70;border-radius: 100%; border: 5px solid #000;"/>
+            <img ng-src={{userName.avatar}} style="width:70px;height:70;border-radius: 100%; border: 5px solid #000;" />
             <div id="tt3" class="icon material-icons">image</div>
             <div class="mdl-tooltip" data-mdl-for="tt3">
-            change your <strong>avatar</strong>
+              change your <strong>avatar</strong>
             </div>
           </a>
         </div>
@@ -66,6 +65,9 @@
   <h4 class="mdl-dialog__title">Notifications</h4>
   <div class="mdl-dialog__content">
     <div class="notification_body">
+    <div ng-show="friends.gameInvites.length <= 0"> 
+      <h6>There are no Game Invites</h6>
+    </div>
       <ul class="demo-list-item mdl-list">
         <li class="notification" ng-repeat="invite in friends.gameInvites">
           <div class="notification_content">
