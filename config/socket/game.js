@@ -140,7 +140,6 @@ Game.prototype.startGame = function() {
   console.log(this.gameID,this.state);
   this.shuffleCards(this.questions);
   this.shuffleCards(this.answers);
-  // this.stateDrawCards(this);
   this.stateChoosing(this);
 };
 
@@ -171,7 +170,7 @@ Game.prototype.stateChoosing = function(self) {
   }
   self.round++;
   self.dealAnswers();
-  // // Rotate card czar
+  // Rotate card czar
   if (self.czar >= self.players.length - 1) {
     self.czar = 0;
   } else {
