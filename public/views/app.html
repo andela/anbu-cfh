@@ -97,12 +97,18 @@
       <chat></chat>
     </div>
 
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
-      <player></player>
-    </div>
-    </div>
+ </div>
+</div>
 
-  <chat></chat>
+<dialog class="mdl-dialog" id="showMyDialog">
+  <div class="mdl-dialog__content">
+    <p>You are about to start a game that will be saved</p>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button proceed">PROCEED</button>
+    <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
+  </div>
+</dialog>
   <!--Dialog Displaying Search and Invite Users-->
   <dialog class="mdl-dialog" id="searchModal">
       <h4 class="mdl-dialog__title">Search and Invite Players</h4>
@@ -219,14 +225,3 @@
     <button type="button" class="mdl-button close">Close</button>
   </div>
 </dialog>
-
-<dialog class="mdl-dialog" id="showMyDialog">
-  <div class="mdl-dialog__content">
-    <p>You are about to start a game that will be saved</p>
-  </div>
-  <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button proceed">PROCEED</button>
-    <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
-  </div>
-</dialog>
-</div>
