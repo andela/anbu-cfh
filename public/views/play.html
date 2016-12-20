@@ -1,0 +1,52 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="IndexController">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row">
+      <span class="cfh-title mdl-layout-title text-logo">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <span ng-show="userName">
+            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          </span>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
+    </div>
+  </div>
+  <div class="cfh-drawer mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+    </nav>
+  </div>
+  <section class="play-with">
+    <main class="mdl-layout__content">
+      <div ng-if="userName">
+        <div style="width: 120px;margin: 0 auto">
+          <!-- Avatar change Tooltip -->
+          <a href="/#!/choose-avatar">
+            <img ng-src={{userName.avatar}} style="width:70px;height:70;border-radius: 100%; border: 5px solid #000;" />
+            <div id="tt3" class="icon material-icons">image</div>
+            <div class="mdl-tooltip" data-mdl-for="tt3">
+              change your <strong>avatar</strong>
+            </div>
+          </a>
+        </div>
+        <h2 style="font-size: 18px;text-align: center;text-transform: capitalize;">Welcome <span style="color: #3004e0">{{userName.name}}</span></h2>
+      </div>
+      <div class="play-with-card">
+        <a href="/#!/app" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Play With Strangers </a>
+        <a href="/#!/app?custom" ng-if="userName" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"> Play With Friends </a>
+      </div>
+    </main>
+  </section>
+  <div class="cfh-content mdl-layout__content">
+  </div>
+</div>
