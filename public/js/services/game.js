@@ -176,7 +176,8 @@ angular.module('mean.system')
           }, 15000);
         } else if (data.state === 'game dissolved' ||
           data.state === 'game ended') {
-          if (!(/^\d+$/).test(game.gameID) && data.state === 'game ended') {
+          if (!(/^\d+$/)
+            .test(game.gameID) && data.state === 'game ended') {
             $http({
               method: 'PUT',
               url: `/api/games/${game.gameID}/end`,
@@ -184,14 +185,13 @@ angular.module('mean.system')
                 'Content-Type': 'application/json'
               },
               data: {
-                gameID: game.gameID,
                 ended: true,
                 rounds: game.rounds,
                 winner: game.players[game.gameWinner].id
               }
             })
-              .success(res => res.body.gameID)
-              .error(res => res);
+            .success(res => res.body.gameID)
+            .error(res => res);
           }
           game.players[game.playerIndex].hand = [];
           game.time = 0;
@@ -225,7 +225,6 @@ angular.module('mean.system')
               'Content-Type': 'application/json'
             },
             data: {
-              gameID: game.gameID,
               creator: game.players[0].id,
               players: game.players,
               ended: false,
@@ -233,8 +232,8 @@ angular.module('mean.system')
               winner: ''
             }
           })
-            .success(res => res)
-            .error(res => res);
+          .success(res => res)
+          .error(res => res);
         }
       };
 
@@ -255,4 +254,5 @@ angular.module('mean.system')
       decrementTime();
 
       return game;
-    }]);
+    }
+  ]);

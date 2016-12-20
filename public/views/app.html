@@ -14,10 +14,25 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
+            <div class="mdl-tooltip" data-mdl-for="home">
+              <strong>Home</strong>
+            </div>
+          </a>
+          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+            <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
+              Abandon <strong>Game</strong>
+            </div>
+          </a>
           <span ng-show="userName">
-            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+            <a id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE879;</i>
+              <div class="mdl-tooltip" data-mdl-for="signout">
+                <strong>Signout</strong>
+              </div>
+            </a>
           </span>
         </nav>
       </div>
