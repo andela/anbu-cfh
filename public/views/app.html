@@ -1,7 +1,9 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="GameController">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <style>
-      .cfh-header .mdl-navigation__link { color: #000;}
+      .cfh-header .mdl-navigation__link {
+        color: #000;
+      }
     </style>
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
@@ -13,9 +15,7 @@
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
           <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-          <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
           <span ng-show="userName">
             <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
           </span>
@@ -30,9 +30,7 @@
   <div class="cfh-drawer mdl-layout__drawer">
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
-      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
-      <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+      <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
       <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
@@ -44,7 +42,7 @@
             <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet time-remaining mdl-card mdl-shadow--4dp">
               <timer></timer>
             </div>
-          
+
             <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
               <question></question>
             </div>
@@ -56,11 +54,11 @@
             </div>
           </div>
         </div>
-      
+
         <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
           <player></player>
-        </div> 
-     
+        </div>
+
       </div>
 
       <chat></chat>
@@ -76,4 +74,3 @@
     <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
   </div>
 </dialog>
-
