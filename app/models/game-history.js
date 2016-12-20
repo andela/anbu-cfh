@@ -14,7 +14,7 @@ const GameHistorySchema = new Schema({
   started: { type: Date, default: Date.now },
   ended: { type: Boolean, default: false },
   rounds: { type: Number, default: 0 },
-  creator: { type: String, default: '', required: true },
+  creator: { type: String, required: true },
   winner: { type: String, default: '' },
   players: { type: Array, default: [] },
 });
