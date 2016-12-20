@@ -75,6 +75,7 @@ angular.module('mean.system')
             $scope.sendMessage = (userMessage) => {
                 $scope.chat.postGroupMessage(userMessage);
                 $scope.chatMessage = '';
+                document.getElementsByClassName('emoji-wysiwyg-editor')[0].innerHTML = '';
             };
 
             $scope.pickCard = function(card) {
@@ -98,7 +99,7 @@ angular.module('mean.system')
             $scope.keyPressed = function($event) {
                 const keyCode = $event.which || $event.keyCode;
                 if (keyCode === 13) {
-                    $scope.sendMessage($scope.chatMessage);
+                    $scope.sendMessage(document.getElementById('text').value);
                 }
             };
 
