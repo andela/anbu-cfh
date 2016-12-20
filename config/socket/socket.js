@@ -74,6 +74,12 @@ module.exports = function(io) {
       console.log('Rooms on Disconnect ', io.sockets);
       exitGame(socket);
     });
+
+    socket.on('drawCard', function() {
+      if (allGames[socket.gameID]) {
+        allGames[socket.gameID].drawCard();
+      }
+    });
   });
 
   var joinGame = function(socket,data) {
@@ -231,5 +237,4 @@ module.exports = function(io) {
     }
     socket.leave(socket.gameID);
   };
-
 };
