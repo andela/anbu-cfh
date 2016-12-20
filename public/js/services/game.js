@@ -176,8 +176,7 @@ angular.module('mean.system')
           }, 15000);
         } else if (data.state === 'game dissolved' ||
           data.state === 'game ended') {
-          if (!(/^\d+$/)
-            .test(game.gameID) && data.state === 'game ended') {
+          if (!(/^\d+$/).test(game.gameID) && data.state === 'game ended') {
             $http({
               method: 'PUT',
               url: `/api/games/${game.gameID}/end`,
