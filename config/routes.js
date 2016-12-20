@@ -1,6 +1,7 @@
 var async = require('async');
 const secret = process.env.JWT_KEY;
 
+
 module.exports = function(app, passport, auth) {
   // User Routes
   var users = require('../app/controllers/users');
@@ -107,4 +108,12 @@ module.exports = function(app, passport, auth) {
   // Send Invite Route
   const sendInvite = require('../app/controllers/sendInvite');
   app.post('/api/send/userinvite', sendInvite);
+
+  // game history
+  const GameHistory = require('../app/controllers/game-history');
+  app.get('/api/games/history/:email', GameHistory.getUserGames);
+  app.get('/api/games/:id/history', GameHistory.getGame);
+  app.post('/api/games/:id/start', GameHistory.createGame);
+  app.put('/api/games/:id/end', GameHistory.updateGame);
 };
+

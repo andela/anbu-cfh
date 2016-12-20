@@ -296,13 +296,9 @@ angular.module('mean.system')
       });
     
     
-    // $scope.showSearchDialog = () => {
-      
-
-    // }
 
     $scope.searchDB = (searchString) => {
-      console.log(searchString);
+      searchString = searchString.toLowerCase();
       $scope.searchResult = [];
       $http.get('/api/search/users/' + searchString)
         .success((res) => {
@@ -334,7 +330,7 @@ angular.module('mean.system')
         maxModal.showModal();
         console.log('Why no display)');
       }
-    }
+    };
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;
@@ -342,6 +338,16 @@ angular.module('mean.system')
         return false;
       }
     };
+
+
+    var gameHistoryModal = document.getElementById('gameHistoryModal');
+      if (! gameHistoryModal.showModal) {
+        dialogPolyfill.registerDialog(gameHistoryModal);
+      }
+
+      gameHistoryModal.querySelector('.close').addEventListener('click', function() {
+        gameHistoryModal.close();
+      });
 
 const demodata =
       [
@@ -373,6 +379,7 @@ const demodata =
 
     $scope.gameLog = () => {
       if (!$scope.gamelogshow) {
+        gameHistoryModal.showModal();
         console.log('Yay it works');
         $scope.gamelogshow = true;
         $scope.allGames = demodata;

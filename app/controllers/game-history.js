@@ -55,8 +55,8 @@ exports.getGame = (request, response) => {
     } else {
       response.status(200).json(savedGame);
     }
-  })
-}
+  });
+};
 
 /*
 * Find Game Records by id
@@ -74,5 +74,18 @@ exports.getAllGames = (request, response) => {
     } else {
       response.status(200).json(savedGames);
     }
-  })
-}
+  });
+};
+
+/*
+* Get Played Games for Logged-in Users
+*/
+exports.getUserGames = (request, response) => {
+  gameHistory.find({ 'players.email': request.params.email }, (error, gameLogs) => {
+    if (error) {
+      response.status(404).json(error);
+    } else {
+      response.status(200).json(gameLogs);
+    }
+  });
+};
