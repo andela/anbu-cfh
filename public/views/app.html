@@ -27,7 +27,7 @@
           </a>
           <a href ng-show="userName" id="requests" style="margin-left: 10px;"
           ng-click="openFriends()">
-            <i class="material-icons notifier">group_add</i>
+            <i class="material-icons notifier">people</i>
           </a>
         </nav>
       </div>
@@ -87,50 +87,43 @@
   </div>
   <dialog class="mdl-dialog" id="friendsDialog">
     <p class="mdl-dialog__title">Send Invites</p>
-    <div class="mdl-dialog__content">
+    <div class="mdl-dialog__content friends-panel">
       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
           <a href="#friends-panel" class="mdl-tabs__tab is-active">Friends</a>
-          <a href="#users-panel" class="mdl-tabs__tab">All Users</a>
+          <a href="#users-panel" class="mdl-tabs__tab">Everyone</a>
         </div>
-        <div class="mdl-tabs__panel is-active notification_body" id="friends-panel">
+        <div class="mdl-tabs__panel is-active friends-results" id="friends-panel">
           <ul class="demo-list-item mdl-list">
-            <li class="friends" ng-repeat="(key, value) in friends.userFriends" >
+            <li class="friends" ng-hide="value.email === friends.userEmail" ng-repeat="(key, value) in friends.userFriends" >
               <div class="user_content">
-                <span class="mdl-list__item-primary-content">
+                <p class="mdl-list__item-primary-content">
                   <strong class="username">{{value.name}}</strong>
                   <i ng-hide="friends.checkFriendInUsers(value.email)" title="Add Friend" class="material-icons friends" ng-click="addFriend(value)">person_add</i>
-                  <i ng-show="friends.checkFriendInUsers(value.email) && value.email !== friends.userEmail" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
-                </span>
-                <p class="user_email">
-                  <small class="text-muted time-content">
-                    {{value.email}}
-                  </small>
+                  <i ng-show="friends.checkFriendInUsers(value.email)" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
                 </p>
               </div>
             </li>
           </ul>
         </div>
-        <div class="mdl-tabs__panel notification_body" id="users-panel">
-          <input class="mdl-textfield__input search-friends" type="text" placeholder="Search Players" ng-model="searchQuery" ng-change="findRegisteredUser(searchQuery)">
-          <div>
-            <ul class="demo-list-item mdl-list">
-              <li class="friends" ng-repeat="(key, value) in friends.registeredUsers" >
+        <div id="users-panel" class="mdl-tabs__panel">
+          <div class="search-results">
+            <ul class="demo-list-item mdl-list" >
+              <li class="friends" ng-hide="value.email === friends.userEmail" ng-repeat="(key, value) in friends.registeredUsers" >
                 <div class="user_content">
-                  <span class="mdl-list__item-primary-content">
+                  <p class="mdl-list__item-primary-content">
                     <strong class="username">{{value.name}}</strong>
                     <i ng-hide="friends.checkFriendInUsers(value.email)" title="Add Friend" class="material-icons friends" ng-click="addFriend(value)">person_add</i>
-                    <i ng-show="friends.checkFriendInUsers(value.email) && value.email !== friends.userEmail" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
-                  </span>
-                  <p class="user_email">
-                    <small class="text-muted time-content">
-                      {{value.email}}
-                    </small>
+                    <i ng-show="friends.checkFriendInUsers(value.email)" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
                   </p>
                 </div>
               </li>
             </ul>
-          </div> 
+          </div>
+          <div> 
+          <input class="mdl-textfield__input search" type="text" placeholder="Search Players" ng-model="searchQuery" ng-change="findRegisteredUser(searchQuery)">
+          <i class="material-icons search">search</i>
+          </div>
         </div>
       </div>
     </div>
@@ -150,9 +143,9 @@
         <li class="notification" ng-repeat="invite in friends.gameInvites">
           <div class="notification_content">
             <span class="mdl-list__item-primary-content">
-              <small class="text-muted time-content">
-                {{ invite.message.senderEmail}}
-              </small>
+              <strong class="username">
+                {{ invite.message.senderName}}
+              </strong>
                 <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
                 <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
             </span>

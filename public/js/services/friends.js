@@ -7,6 +7,9 @@ angular.module('mean.system')
       constructor() {
         // user email
         this.userEmail = '';
+
+        // user name
+        this.userName = '';
         // all registered users
         this.registeredUsers = {};
         // all my friends
@@ -25,7 +28,18 @@ angular.module('mean.system')
 
         // Add listener for invite_status events
         socket.on('invite_status', (message) => {
+        // do something with the status message
         });
+      }
+
+      /**
+      * Set this user Email address
+      * @param{String}userName - name of the currently
+      * logged in user
+      * @return{undefined}
+      */
+      setUserName(userName) {
+        this.userName = userName;
       }
 
       /**
@@ -133,7 +147,7 @@ angular.module('mean.system')
       sendInAppGameInvite(destinationEmail, gameUrl) {
         if (destinationEmail) {
           socket.emit('game_invite', {
-            senderEmail: this.userEmail,
+            senderName: this.userName,
             friendEmail: destinationEmail,
             location: gameUrl
           });

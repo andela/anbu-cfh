@@ -33,6 +33,8 @@ angular.module('mean.system')
     if ($window.user) {
       $scope.friends = friends;
       $scope.friends.setUserEmail($window.user.email);
+      console.log('user name - ' + $window.user.name);
+      $scope.friends.setUserName($window.user.name);
       // fetch this user friends
       $scope.friends.fetchFriends();
     }

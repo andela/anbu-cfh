@@ -70,9 +70,9 @@
         <li class="notification" ng-repeat="invite in friends.gameInvites">
           <div class="notification_content">
             <span class="mdl-list__item-primary-content">
-              <small class="text-muted time-content">
-                Join Game
-              </small>
+              <strong class="username">
+                {{ invite.message.senderName}}
+              </strong>
                 <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
                 <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
             </span>
