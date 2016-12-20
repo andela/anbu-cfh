@@ -38,7 +38,20 @@
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
         <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
-        <a href="#" id ='abandon-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin-left: 15px;">Abandon Game</a>
+        <a href="#" id ='abandon-button' ng-click="abandonGame()">
+          <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+          <div class="mdl-tooltip" data-mdl-for="abandon-button">
+            Abandon <strong>Game</strong>
+          </div>
+        </a>
+        <span ng-show="userName">
+          <a id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE879;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
+          </a>
+        </span>
       </span>
     </div>
   </div>
