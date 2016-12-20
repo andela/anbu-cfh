@@ -1,6 +1,6 @@
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', 'chat', '$http', (socket, $timeout, chat, $http) => {
-  
+
   let game = {
     id: null, // This player's socket ID, so we know who this player is
     gameID: null,
@@ -89,10 +89,13 @@ angular.module('mean.system')
     game.gameChat.setChatGroup(data.gameID);
     game.gameChat.listenForMessages();
     game.gameChat.clearMessageHistory();
-    
+
     if (data.round !== game.round && data.state !== 'awaiting players' &&
       data.state !=='game ended' && data.state !== 'game dissolved') {
       game.time = game.timeLimits.stateChoosing - 1;
+      timeSetViaUpdate = true;
+    } else if (newState && data.state === 'waiting for czar to draw cards') {
+      game.time = game.timeLimits.stateDrawCards - 1;
       timeSetViaUpdate = true;
     } else if (newState && data.state === 'waiting for czar to decide') {
       game.time = game.timeLimits.stateJudging - 1;
@@ -161,10 +164,14 @@ angular.module('mean.system')
     } else if (data.state === 'waiting for czar to decide') {
       if (game.czar === game.playerIndex) {
         addToNotificationQueue("Everyone's done. Choose the winner!");
-        // Prompt Czar
-        //$('#prompCzar').modal('show');
       } else {
         addToNotificationQueue("The czar is contemplating...");
+      }
+    } else if (data.state === 'waiting for czar to draw cards') {
+      if (game.czar === game.playerIndex) {
+        addToNotificationQueue("Click to Draw the Cards!");
+      } else {
+        addToNotificationQueue("The czar is drawing the cards...");
       }
     } else if (data.state === 'winner has been chosen' &&
               game.curQuestion.text.indexOf('<u></u>') > -1) {
@@ -248,6 +255,10 @@ angular.module('mean.system')
   game.pickWinning = card => socket.emit('pickWinning', {
     card: card.id,
   });
+
+  game.drawCard = () => {
+    socket.emit('drawCard');
+  };
 
   decrementTime();
 
