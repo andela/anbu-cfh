@@ -253,4 +253,8 @@ angular.module('mean.system')
       dialog.close();
       $window.location.href = '/#!/play-with';
     });
+
+    $scope.drawCard = function(){
+      game.drawCard();
+    }
 }]);
