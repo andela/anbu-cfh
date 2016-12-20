@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', 'chat', '$http', function (socket, $timeout, chat, $http) {
+  .factory('game', ['socket', '$timeout', 'chat', '$http', '$window', function (socket, $timeout, chat, $http, $window) {
   
   var game = {
     id: null, // This player's socket ID, so we know who this player is
@@ -59,6 +59,13 @@ angular.module('mean.system')
 
   socket.on('id', function(data) {
     game.id = data.id;
+
+    // request to join if you are authenticated
+    if ($window.user) {
+      socket.emit('join', {
+        userEmail: $window.user.email
+      });
+    }
   });
 
   socket.on('prepareGame', function(data) {

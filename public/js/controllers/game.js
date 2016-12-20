@@ -11,15 +11,31 @@ angular.module('mean.system')
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
     $scope.chat = game.gameChat;
+    $scope.userName = $window.user;
 
-    // add friends service
-    $scope.friends = friends;
-    // fetch this user friends
-    $scope.friends.fetchFriends();
-    // bind to registered users
-    // $scope.registeredUsers = $scope.friends.registeredUsers;
-    // bind to this user friends
-    // $scope.userFriends = $scope.friends.userFriends;
+    let notificationsDialog = document.getElementById('notificationsDialog');
+    if (!notificationsDialog.showModal) {
+      dialogPolyfill.registerDialog(notificationsDialog);
+    }
+    notificationsDialog.querySelector('.close').addEventListener('click', function() {
+      notificationsDialog.close();
+    });
+
+    let friendsDialog = document.getElementById('friendsDialog');
+    if (!friendsDialog.showModal) {
+      dialogPolyfill.registerDialog(friendsDialog);
+    }
+    friendsDialog.querySelector('.close').addEventListener('click', function() {
+      friendsDialog.close();
+    });
+
+    // add friends service if user is authenticated
+    if ($window.user) {
+      $scope.friends = friends;
+      $scope.friends.setUserEmail($window.user.email);
+      // fetch this user friends
+      $scope.friends.fetchFriends();
+    }
 
     /**
     * Add a new friend
@@ -27,10 +43,47 @@ angular.module('mean.system')
     * @return{undefined}
     */
     $scope.addFriend = (selectedUser) => {
-      console.log('addFriend() - ' + selectedUser);
       if (selectedUser) {
         $scope.friends.addFriend(selectedUser.email);
       }
+    };
+
+    /**
+    * Opens or closes the friends panel
+    * Closes the notifications panel
+    * @return{undefined}
+    */
+    $scope.openFriends = () => {
+      friendsDialog.showModal();
+    };
+
+    /**
+    * Opens the notifications panel
+    * Closes the friends panel
+    * @return{undefined}
+    */
+    $scope.openNotifications = () => {
+      notificationsDialog.showModal();
+    };
+
+    /**
+    * Delete a notification Item
+    * @param{Number} index - Index of the item to be deleted
+    * @return{undefined}
+    */
+    $scope.deleteGameInvite = (index) => {
+      $scope.friends.gameInvites.splice(index, 1);
+    };
+
+    /**
+    * Join invited game
+    * @param{String} url - url of the game to join
+    * @return{undefined}
+    */
+    $scope.joinGame = (index, url) => {
+      $window.location.href = url;
+      $scope.deleteGameInvite(index);
+      notificationsDialog.close();
     };
 
     /**
@@ -40,7 +93,6 @@ angular.module('mean.system')
     */
     $scope.sendInvite = (selectedUser) => {
       if (selectedUser) {
-        console.log(`sendInvite(${selectedUser.email}) - ${$location.absUrl()}`);
         $scope.friends
           .sendInAppGameInvite(selectedUser.email, $location.absUrl());
       }
@@ -52,11 +104,11 @@ angular.module('mean.system')
     * @param{String} friendName - name of friend to find
     * @return{undefined}
     */
-    $scope.findRegisteredUser = (userName) => {
-      $scope.friends.findRegisteredUser(userName);
+    $scope.findRegisteredUser = (searchQuery) => {
+      console.log('find Friends')
+      $scope.friends.findRegisteredUser(searchQuery);
     };
 
-    $scope.userName = $window.user;
     let dialog = document.getElementById('showMyDialog');
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);

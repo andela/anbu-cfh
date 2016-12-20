@@ -6,7 +6,7 @@ angular.module('mean.system')
       */
       constructor() {
         // user email
-        this.userEmail = 'testuser3@andela.com';
+        this.userEmail = '';
         // all registered users
         this.registeredUsers = {};
         // all my friends
@@ -15,38 +15,64 @@ angular.module('mean.system')
         // all unclicked game invites
         this.gameInvites = [];
 
-        // lets publish a join event so the server can keep track of us
-        socket.emit('join', {
-          userEmail: this.userEmail
-        });
-
         // we need a test token to test our module
         // we would do this using cookies ngCookies :)
-        this.userToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRvbmF0aW9ucyI6ImluaXQiLCJmcmllbmRzIjoiaW5pdCIsIl9fdiI6ImluaXQiLCJhdmF0YXIiOiJpbml0IiwiaGFzaGVkX3Bhc3N3b3JkIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwicHJvdmlkZXIiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiZnJpZW5kcyI6dHJ1ZSwiX192Ijp0cnVlLCJkb25hdGlvbnMiOnRydWUsImF2YXRhciI6dHJ1ZSwiaGFzaGVkX3Bhc3N3b3JkIjp0cnVlLCJlbWFpbCI6dHJ1ZSwibmFtZSI6dHJ1ZSwicHJvdmlkZXIiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfX0sImlzTmV3IjpmYWxzZSwiX2RvYyI6eyJkb25hdGlvbnMiOltdLCJmcmllbmRzIjpbImF6ZWV6Lm9sYW5pcmFuQGFuZGVsYS5jb20iLCJvbGF3YWxlYXp5c3NAZ21haWwuY29tIiwiZnJlYWtAeWFob28uY29tIiwidGVzdHVzZXIzQGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjJAYW5kZWxhLmNvbSIsInRlc3R1c2VyNEBhbmRlbGEuY29tIiwidGVzdHVzZXI1QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjFAYW5kZWxhLmNvbSJdLCJfX3YiOjgsImF2YXRhciI6Ii9pbWcvY2hvc2VuL0YwMS5wbmciLCJoYXNoZWRfcGFzc3dvcmQiOiIkMmEkMTAkdnFPYk5ZS0xzSUoySUt5ck1vdGU3ZUN4bU80c2V1SVVSU0NVNnh5YlB6bmRIejBnU3U1MGEiLCJlbWFpbCI6InRlc3R1c2VyM0BhbmRlbGEuY29tIiwibmFtZSI6InRlc3QgdXNlciAyIiwicHJvdmlkZXIiOiJsb2NhbCIsIl9pZCI6IjU4NGE1MmYxMWZlYjIzMWZmNTA4MTg2ZiJ9LCJfcHJlcyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbbnVsbCxudWxsLG51bGxdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W251bGxdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltudWxsXX0sIl9wb3N0cyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltdfSwiaWF0IjoxNDgxNzIwODM1LCJleHAiOjE0ODE4MDcyMzV9.lGt6AByGBRK9JuBg-0ntqCqM5Qe5Av0SiKcdkh65erk`;
+        this.userToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRvbmF0aW9ucyI6ImluaXQiLCJmcmllbmRzIjoiaW5pdCIsIl9fdiI6ImluaXQiLCJhdmF0YXIiOiJpbml0IiwiaGFzaGVkX3Bhc3N3b3JkIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwicHJvdmlkZXIiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiZnJpZW5kcyI6dHJ1ZSwiX192Ijp0cnVlLCJkb25hdGlvbnMiOnRydWUsImF2YXRhciI6dHJ1ZSwiaGFzaGVkX3Bhc3N3b3JkIjp0cnVlLCJlbWFpbCI6dHJ1ZSwibmFtZSI6dHJ1ZSwicHJvdmlkZXIiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfX0sImlzTmV3IjpmYWxzZSwiX2RvYyI6eyJkb25hdGlvbnMiOltdLCJmcmllbmRzIjpbImF6ZWV6Lm9sYW5pcmFuQGFuZGVsYS5jb20iLCJvbGF3YWxlYXp5c3NAZ21haWwuY29tIiwiZnJlYWtAeWFob28uY29tIiwidGVzdHVzZXIzQGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjJAYW5kZWxhLmNvbSIsInRlc3R1c2VyNEBhbmRlbGEuY29tIiwidGVzdHVzZXI1QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjFAYW5kZWxhLmNvbSIsInRlc3R1c2VyNkBhbmRlbGEuY29tIiwidGVzdHVzZXI3QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjhAYW5kZWxhLmNvbSJdLCJfX3YiOjExLCJhdmF0YXIiOiIvaW1nL2Nob3Nlbi9GMDEucG5nIiwiaGFzaGVkX3Bhc3N3b3JkIjoiJDJhJDEwJHZxT2JOWUtMc0lKMklLeXJNb3RlN2VDeG1PNHNldUlVUlNDVTZ4eWJQem5kSHowZ1N1NTBhIiwiZW1haWwiOiJ0ZXN0dXNlcjNAYW5kZWxhLmNvbSIsIm5hbWUiOiJ0ZXN0IHVzZXIgMiIsInByb3ZpZGVyIjoibG9jYWwiLCJfaWQiOiI1ODRhNTJmMTFmZWIyMzFmZjUwODE4NmYifSwiX3ByZXMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W251bGwsbnVsbCxudWxsXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltudWxsXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbbnVsbF19LCJfcG9zdHMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W10sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbXX0sImlhdCI6MTQ4MjE2ODkyNiwiZXhwIjoxNDgyMjU1MzI2fQ.mrYBH04McPEwp0ToTBjcATkfwfuLHqHFeUEAPu7rfNw`;    
+        // Add listener for game_invite socket events
+        socket.on('game_invite', (message) => {
+          this.gameInviteRecieved(message);
+        });
+
+        // Add listener for invite_status events
+        socket.on('invite_status', (message) => {
+          console.log(message.status);
+        });
+      }
+
+      /**
+      * Set this user Email address
+      * @param{String}userEmail - email of the currently
+      * logged in user
+      * @return{undefined}
+      */
+      setUserEmail(userEmail) {
+        this.userEmail = userEmail;
+        console.log('user Email - ' + userEmail);
+      }
+
+      /**
+      * Send pulish a join event
+      * @return{Object} - Object containing
+      * the content of this message
+      */
+      requestJoin() {
+        return socket.emit('join', {
+          userEmail: this.userEmail
+        });
       }
 
       /**
       * Find a registered user
       * @param{String}userName - name of user to search for
-      * returns{undefined}
+      * @return{undefined}
       */
       findRegisteredUser(userName) {
         // we don't want to search for an empty user
+        console.log('userName - ' + userName);
         if (!userName && userName.length <= 0) {
           this.registeredUsers = {};
           return;
         }
         $http({
           method: 'GET',
-          url: `/api/friends/search_users?name=${userName}&token=${this.userToken}`
+          url: `/api/friends/search_users?name=${userName}&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRvbmF0aW9ucyI6ImluaXQiLCJmcmllbmRzIjoiaW5pdCIsIl9fdiI6ImluaXQiLCJhdmF0YXIiOiJpbml0IiwiaGFzaGVkX3Bhc3N3b3JkIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwicHJvdmlkZXIiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiZnJpZW5kcyI6dHJ1ZSwiX192Ijp0cnVlLCJkb25hdGlvbnMiOnRydWUsImF2YXRhciI6dHJ1ZSwiaGFzaGVkX3Bhc3N3b3JkIjp0cnVlLCJlbWFpbCI6dHJ1ZSwibmFtZSI6dHJ1ZSwicHJvdmlkZXIiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7fSwiX2V2ZW50c0NvdW50IjowLCJfbWF4TGlzdGVuZXJzIjowfX0sImlzTmV3IjpmYWxzZSwiX2RvYyI6eyJkb25hdGlvbnMiOltdLCJmcmllbmRzIjpbImF6ZWV6Lm9sYW5pcmFuQGFuZGVsYS5jb20iLCJvbGF3YWxlYXp5c3NAZ21haWwuY29tIiwiZnJlYWtAeWFob28uY29tIiwidGVzdHVzZXIzQGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjJAYW5kZWxhLmNvbSIsInRlc3R1c2VyNEBhbmRlbGEuY29tIiwidGVzdHVzZXI1QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjFAYW5kZWxhLmNvbSIsInRlc3R1c2VyNkBhbmRlbGEuY29tIiwidGVzdHVzZXI3QGFuZGVsYS5jb20iLCJ0ZXN0dXNlcjhAYW5kZWxhLmNvbSJdLCJfX3YiOjExLCJhdmF0YXIiOiIvaW1nL2Nob3Nlbi9GMDEucG5nIiwiaGFzaGVkX3Bhc3N3b3JkIjoiJDJhJDEwJHZxT2JOWUtMc0lKMklLeXJNb3RlN2VDeG1PNHNldUlVUlNDVTZ4eWJQem5kSHowZ1N1NTBhIiwiZW1haWwiOiJ0ZXN0dXNlcjNAYW5kZWxhLmNvbSIsIm5hbWUiOiJ0ZXN0IHVzZXIgMiIsInByb3ZpZGVyIjoibG9jYWwiLCJfaWQiOiI1ODRhNTJmMTFmZWIyMzFmZjUwODE4NmYifSwiX3ByZXMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W251bGwsbnVsbCxudWxsXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltudWxsXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbbnVsbF19LCJfcG9zdHMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W10sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbXX0sImlhdCI6MTQ4MjE2ODkyNiwiZXhwIjoxNDgyMjU1MzI2fQ.mrYBH04McPEwp0ToTBjcATkfwfuLHqHFeUEAPu7rfNw`
         }).then((successResponse) => {
           // on sucess, update all users
           this.registeredUsers = successResponse.data;
-          console.log(this.registeredUsers);
-          console.log(this.userFriends);
+          console.log('friends found = ' + successResponse.data);
         }, (errorResponse) => {
           // error occured
-          console.log('Error Occured while trying to fetch all users from server');
+          console.log('Error Occured while trying to fetch all users from server\n' + errorResponse);
         });
       }
 
@@ -62,7 +88,6 @@ angular.module('mean.system')
         this.userFriends.forEach((friend) => {
           if (friend.email === email) {
             exists = true;
-            // break;
           }
         });
         return exists;
@@ -101,7 +126,6 @@ angular.module('mean.system')
           .then((successResponse) => {
             console.log('addFriend() successful. length => ' + successResponse.data.length);
             // update the user friends
-            //this.userFriends = successResponse.data;
             this.fetchFriends();
           }, (errorResponse) => {
             console.log('Error occured while trying to add a new friend');
@@ -137,12 +161,9 @@ angular.module('mean.system')
       }
 
     }
-    // Initialize new friends object
-    const friends = new Friends();
-    // Add listener for game_invite socket events
-    socket.on('game_invite', (message) => {
-      friends.gameInviteRecieved(message);
-    });
-    // return friends object
-    return friends;
+  // Initialize new friends object
+   const friends = new Friends();
+
+  // return friends object
+   return friends;
   }]);

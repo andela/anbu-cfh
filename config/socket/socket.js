@@ -16,26 +16,31 @@ module.exports = function(io) {
   var allPlayers = {};
   var gamesNeedingPlayers = [];
   var gameID = 0;
-  var connectedUsers = {};
+  const connectedUsers = {};
 
   io.sockets.on('connection', function (socket) {
-    console.log(socket.id +  ' Connected');
-    socket.emit('id', {id: socket.id});
+    socket.emit('id', {
+      id: socket.id
+    });
 
     socket.on('game_invite', (data) => {
       const socketTo = connectedUsers[data.friendEmail];
       if (socketTo) {
         socketTo.emit('game_invite', data);
-        console.log('game invite to ', data.friendEmail, ' successful');
+        socket.emit('invite_status', {
+          status: 'success'
+        });
       } else {
-        console.log('game invite to ' + data.friendEmail + ' failed');
+        socket.emit('invite_status', {
+          status: 'failed'
+        });
       }
     });
 
     socket.on('join', (data) => {
-      console.log(data.userEmail + ' joined');
-      // attach an email to this user so we can remove it on disconnect
+      // attach an email to this user socket so we can remove it on disconnect
       socket.userEmail = data.userEmail;
+      // refrence this user socket by email
       connectedUsers[data.userEmail] = socket;
     });
 
@@ -90,8 +95,8 @@ module.exports = function(io) {
 
     socket.on('disconnect', function(){
       console.log('Rooms on Disconnect ', io.sockets);
-      // set this users as null
-      connectedUsers[socket.email] = null;
+      // set this user as undefined so we can't send him game invites
+      connectedUsers[socket.userEmail] = undefined;
       exitGame(socket);
     });
   });

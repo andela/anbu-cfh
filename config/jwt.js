@@ -37,6 +37,7 @@ var mongoose = require('mongoose'),
   // route middleware to verify a token
   exports.checkToken = function(req, res, next){
     // check header or url parameters or post parameters for token
+    console.log('checkToken called');
     var token = req.body.token || req.query.token ||
       req.headers['x-access-token'];
     // decode token

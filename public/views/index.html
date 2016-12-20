@@ -17,6 +17,12 @@
             <a href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a>
           </span>
           <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          <a ng-show="userName" href id="notifications" style="margin-left: 10px;" ng-click="openNotifications()">
+            <div ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap notifier" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </div> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons notifier">notifications</i>
+          </a>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
@@ -34,6 +40,9 @@
         <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
       </span>
       <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
     </nav>
   </div>
 
@@ -107,5 +116,33 @@
       </div>
     </footer>
   </div>
+  <dialog class="mdl-dialog" id="notificationsDialog">
+  <h4 class="mdl-dialog__title">Notifications</h4>
+  <div class="mdl-dialog__content">
+    <div class="notification_body">
+      <ul class="demo-list-item mdl-list">
+        <li class="notification" ng-repeat="invite in friends.gameInvites">
+          <div class="notification_content">
+            <span class="mdl-list__item-primary-content">
+              <small class="text-muted time-content">
+                Join Game
+              </small>
+                <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
+                <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
+            </span>
+            <p class="gamelink">
+              <small class="text-muted time-content">
+                {{invite.message.location}}
+              </small>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">Close</button>
+  </div>
+  </dialog>
 </div>
 <a id="view-source" href="#!/play-with" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>

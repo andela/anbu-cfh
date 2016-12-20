@@ -623,11 +623,11 @@ div.panel-heading {
   color: #64ffda;
 }
 
-li.message:hover {
+li.message:hover, li.user:hover, li.notification:hover {
   background: #f2f3f4;
 }
 
-li.message {
+li.message, li.user, li.notification {
   padding: 0px 10px;
 }
 
@@ -639,10 +639,10 @@ div.chatthread {
   background: white;
 }
 
-div.chat_body {
+div.chat_body, div.user_content, div.notification_content {
   margin-top: -15px;
 }
-p.message_content {
+p.message_content, p.user_email {
   margin-top: -8px;
 }
 
@@ -686,17 +686,70 @@ a.send_icon {
   color: #909497;
 }
 
-p.message_content {
+p.message_content, p.user-name {
   font-family: Verdana, Geneva, sans-serif;
 }
 
 strong.username {
-  text-transform: capitalize;
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
-small.time-content {
+small.time-content, small.email, small.gamelink {
   font-family: "Courier New", Courier, monospace;
+}
+
+
+/*friend stuff*/
+div.notifications { 
+  right: 70px;
+  position: absolute;
+  top: 64px;
+  max-height: 200px;
+  padding: 0px 10px;
+  width: 250px;
+  background: #000000;
+}
+
+div.notification_body {
+  max-height: 160px;
+  overflow-y: scroll;
+  cursor: default;
+}
+
+
+p.user_email, p.gamelink {  
+  margin-top: -15px;
+}
+
+div.friends{
+  position: absolute;
+  right: 30px;
+  top: 304px;
+  max-height: 200px;
+  padding: 0px 10px;
+  width: 250px;
+  background: #000000;
+}
+
+i.friends {
+  font-size: 20px;
+  vertical-align: text-bottom;
+  float: right;
+  cursor: pointer;
+}
+i.notification {
+  font-size: 16px;
+  vertical-align: text-bottom;
+  float: right;
+  cursor: pointer;
+}
+
+i.notifier {
+  font-size: 30px;
+}
+
+input.search-friends {
+  outline: none;
 }
 
 /*

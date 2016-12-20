@@ -22,7 +22,6 @@ exports.searchUsers = (req, res) => {
       return res.json(users);
     });
   }
-  //res.send();
 };
 
 /**
