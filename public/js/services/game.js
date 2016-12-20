@@ -190,8 +190,8 @@ angular.module('mean.system')
                 winner: game.players[game.gameWinner].id
               }
             })
-            .success(res => res.body.gameID)
-            .error(res => res);
+            .success(response => response)
+            .error(response => response);
           }
           game.players[game.playerIndex].hand = [];
           game.time = 0;
@@ -232,8 +232,8 @@ angular.module('mean.system')
               winner: ''
             }
           })
-          .success(res => res)
-          .error(res => res);
+          .success(response => response)
+          .error(response => response);
         }
       };
 
