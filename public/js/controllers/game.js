@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 angular.module('mean.system')
   .controller('GameController', ['$scope', 'game', '$timeout',
-    '$location', '$window', 'MakeAWishFactsService', '$dialog',
+    '$location', '$window', 'MakeAWishFactsService', '$dialog', 'Storage',
     ($scope, game, $timeout, $location, $window,
-      MakeAWishFactsService, $dialog) => {
+      MakeAWishFactsService, $dialog, Storage) => {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
       $scope.showTable = false;
@@ -14,7 +14,7 @@ angular.module('mean.system')
       let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
       $scope.makeAWishFact = makeAWishFacts.pop();
       $scope.chat = game.gameChat;
-      $scope.userName = $window.user;
+      $scope.userName = Storage.get('user');
       const dialog = document.getElementById('showMyDialog');
       if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
