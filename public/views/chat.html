@@ -18,10 +18,11 @@
     </div>
     <div>
       <div class="chatinput">
-        <input id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message" ng-model="chatMessage"
-          ng-keypress="keyPressed($event)" />
-        <a class="send_icon" href="" ng-click="sendMessage(chatMessage)"><i class="material-icons">send</i></a>
+        <input data-emojiable="true" id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message"
+          ng-model="chatMessage" ng-keypress="keyPressed($event)" />
       </div>
     </div>
+    <a class="send_icon" href="" onclick="angular.element(document.getElementById('text')).scope().sendMessage(document.getElementById('text').value)"><i class="material-icons">send</i></a>
+
   </div>
-</div>
+  <script src="/js/emoji-init.js"></script>
