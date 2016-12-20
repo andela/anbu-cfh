@@ -184,6 +184,7 @@ angular.module('mean.system')
                 'Content-Type': 'application/json'
               },
               data: {
+                creator: game.players[0].id,
                 ended: true,
                 rounds: game.rounds,
                 winner: game.players[game.gameWinner].id

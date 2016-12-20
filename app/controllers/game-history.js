@@ -32,18 +32,28 @@ exports.updateGame = (request, response) => {
     $and: [
       { gameID: gameId }, { creator: gameCreator }
     ]
-  };
-  gameHistory.update(query, {
-    winner: request.body.winner,
-    completed: request.body.ended,
-    rounds: request.body.rounds
-  }, (error, result) => {
+  }
+  gameHistory.findOne(query, (error, history) => {
     if (error) {
       return response.status(500)
         .json({ message: 'An error occured while updating this data' });
+    } 
+    if (!history) {
+      return response.status(404)
+        .json({ message: 'data not found' });
     }
-    return response.status(200)
-      .json({ message: 'Game updated sucessfully', result });
+
+    history.winner = request.body.winner;
+    history.ended = request.body.ended;
+    history.rounds = request.body.rounds;
+    history.save((error, history) => {
+      if (error) {
+        return response.status(500)
+          .json({ message: 'An error occured while updating this data' });
+      }
+      return response.status(200)
+      .json({ message: 'Game updated sucessfully', history});
+    });
   });
 };
 
