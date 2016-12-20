@@ -11,7 +11,7 @@ angular.module('mean.system')
       $scope.pickedCards = [];
       let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
       $scope.makeAWishFact = makeAWishFacts.pop();
-      $scope.numberOfInvites = 1;
+      $scope.numberOfInvites = 0;
       $scope.invitedPlayersList = [];
       $scope.checkExist = true;
       $scope.chat = game.gameChat;
@@ -314,7 +314,7 @@ angular.module('mean.system')
     }
     $scope.sendInvite = (email, name) => {
       console.log(email, name, 'testfrom angulars')
-      if ($scope.numberOfInvites <= game.playerMaxLimit) {
+      if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
           console.log($scope.invitedPlayersList);
@@ -326,14 +326,14 @@ angular.module('mean.system')
               console.log(err);
             });
           $scope.numberOfInvites += 1;
-          console.log($scope.numberOfInvites);
+        
         } else {
           console.log('User Already Invited');
         }
       } else {
         maxModal.showModal();
-        console.log('Why no display)');
       }
+      console.log($scope.numberOfInvites, game.playerMaxLimit)
     }
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
