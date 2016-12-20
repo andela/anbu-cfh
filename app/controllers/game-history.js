@@ -1,8 +1,8 @@
 const gameHistory = require('../models/game-history.js');
 
 /*
-* Create New Game Record
-*/
+ * Create New Game Record
+ */
 exports.createGame = (request, response) => {
   const game = new gameHistory();
   game.gameID = request.body.gameID;
@@ -11,19 +11,18 @@ exports.createGame = (request, response) => {
   game.rounds = request.body.rounds;
   game.winner = request.body.winner;
   game.ended = request.body.ended;
-  
   game.save((error, data) => {
-    if(error) response.send(error);
+    if (error) response.status(400).json(error);
     response.status(201).json(data);
   });
 };
 
 
 /*
-* Update Game Record
-*/
+ * Update Game Record
+ */
 exports.updateGame = (request, response) => {
-  gameHistory.update({
+  gameHistory.findOneAndUpdate({
     gameID: request.body.gameID
   }, {
     $set: {
@@ -32,14 +31,14 @@ exports.updateGame = (request, response) => {
       winner: request.body.winner
     }
   }, (error, data) => {
-    if(error) response.send(error);
+    if (error) response.status(500).json(error);
     response.status(201).json(data);
   });
-}
+};
 
 /*
-* Find Game Records by id
-*/
+ * Find Game Records by id
+ */
 exports.getGame = (request, response) => {
   gameHistory.findOne({
     gameID: request.params.id
@@ -55,16 +54,16 @@ exports.getGame = (request, response) => {
     } else {
       response.status(200).json(savedGame);
     }
-  })
-}
+  });
+};
 
 /*
-* Find Game Records by id
-*/
+ * Find Game Records by id
+ */
 exports.getAllGames = (request, response) => {
   gameHistory.find({}, (error, savedGames) => {
     if (error) {
-      response.send(error);
+      response.status(404).json(error);
     }
     if (!savedGames) {
       response.status(400).json({
@@ -74,5 +73,5 @@ exports.getAllGames = (request, response) => {
     } else {
       response.status(200).json(savedGames);
     }
-  })
-}
+  });
+};
