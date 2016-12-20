@@ -1,9 +1,7 @@
 <div id="question-container-inner">
   <div class="card longBlack">
     <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="gameState.ended() || gameState.dissolved() || gameState.awaitingPlayers()"></span>
-
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}" style="margin-bottom: 20px">{{game.notification}}</div>
-
     <div id="startGame" ng-show="gameState.awaitingPlayers()">
       <div id="finding-players">Finding Players</div>
       <div id="player-count-container">
@@ -12,7 +10,6 @@
       <div id="loading-container">
         <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate is-active">
         </div>
-
       </div>
       <div class="start-game-container">
         <button id=" start-game-button start-game-container" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"
