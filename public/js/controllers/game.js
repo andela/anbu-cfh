@@ -11,7 +11,7 @@ angular.module('mean.system')
       $scope.pickedCards = [];
       let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
       $scope.makeAWishFact = makeAWishFacts.pop();
-      $scope.numberOfInvites = 1;
+      $scope.numberOfInvites = 0;
       $scope.invitedPlayersList = [];
       $scope.checkExist = true;
       $scope.chat = game.gameChat;
@@ -296,7 +296,7 @@ angular.module('mean.system')
       });
     
     
-
+    //Method to Query Database for Registered Users
     $scope.searchDB = (searchString) => {
       searchString = searchString.toLowerCase();
       $scope.searchResult = [];
@@ -308,9 +308,9 @@ angular.module('mean.system')
           console.log(err);
         });
     }
+    //Method to send out e-mail notifications
     $scope.sendInvite = (email, name) => {
-      console.log(email, name, 'testfrom angulars')
-      if ($scope.numberOfInvites <= game.playerMaxLimit) {
+      if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
           console.log($scope.invitedPlayersList);
@@ -331,6 +331,7 @@ angular.module('mean.system')
         console.log('Why no display)');
       }
     };
+    //Check if user already invited
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;
@@ -339,7 +340,7 @@ angular.module('mean.system')
       }
     };
 
-
+    //Definition for Game History Modal
     var gameHistoryModal = document.getElementById('gameHistoryModal');
       if (! gameHistoryModal.showModal) {
         dialogPolyfill.registerDialog(gameHistoryModal);
@@ -348,6 +349,7 @@ angular.module('mean.system')
       gameHistoryModal.querySelector('.close').addEventListener('click', function() {
         gameHistoryModal.close();
       });
+      
 
 const demodata =
       [
@@ -378,16 +380,20 @@ const demodata =
     $scope.displayfriends = false;
 
     $scope.gameLog = () => {
-      if (!$scope.gamelogshow) {
+      $http({
+        method: 'GET',
+        url: `/api/games/history/${window.user.email}`
+        })
+        .then(function successCallback(response) {
+        console.log(response.data)
+        $scope.allGames = response.data
+        console.log(typeof($scope.allGames));
+        }, function errorCallback(response) {
+        
+      });
         gameHistoryModal.showModal();
-        console.log('Yay it works');
-        $scope.gamelogshow = true;
-        $scope.allGames = demodata;
-        return demodata;
-      }
-      $scope.gamelogshow = false;
-
-
+        
     };
+    $scope.regexx = /\d+-\d+-\d+/;
 
 }]);
