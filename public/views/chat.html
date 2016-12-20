@@ -18,9 +18,11 @@
     </div>
     <div>
       <div class="chatinput">
-        <input data-emojiable="true" id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message"
+        <p class="lead emoji-picker-container">
+          <input data-emojiable="true" id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message"
           ng-model="chatMessage" ng-keypress="keyPressed($event)" />
-        <a class="send_icon" href="" onclick="angular.element(document.getElementById('text')).scope().sendMessage(document.getElementById('text').value)"><i class="material-icons">send</i></a>
+          <a class="send_icon" href="" onclick="angular.element(document.getElementById('text')).scope().sendMessage(document.getElementById('text').value)"><i class="material-icons">send</i></a>
+        </p>
       </div>
     </div>
   </div>
