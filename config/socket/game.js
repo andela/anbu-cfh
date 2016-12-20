@@ -157,7 +157,6 @@ Game.prototype.stateDrawCards = function(self) {
 
 Game.prototype.stateChoosing = function(self) {
   self.state = "waiting for players to pick";
-  // console.log(self.gameID,self.state);
   self.table = [];
   self.winningCard = -1;
   self.winningCardPlayer = -1;
@@ -194,14 +193,12 @@ Game.prototype.selectFirst = function() {
     this.sendNotification(this.players[winnerIndex].username+' has won the round!');
     this.sendUpdate();
   } else {
-    // console.log(this.gameID,'no cards were picked!');
     this.stateDrawCards(this);
   }
 };
 
 Game.prototype.stateJudging = function(self) {
   self.state = "waiting for czar to decide";
-  // console.log(self.gameID,self.state);
 
   if (self.table.length <= 1) {
     // Automatically select a card if only one card was submitted
