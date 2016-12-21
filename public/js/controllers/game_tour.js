@@ -37,7 +37,7 @@ angular.module('mean.system')
       },
       {
         element: '#player-star',
-        intro: `Icon to for you to easily identify yourself amongst
+        intro: `Icon for you to easily identify yourself amongst
          other players.`
       },
       {

@@ -50,7 +50,6 @@ angular.module('mean.system')
     // Save Token if created
     if ($routeParams.token) {
       Storage.set('token', $routeParams.token);
-      console.log('token set to ' - $routeParams.token);
       $location.path('/play-with');
     }
 
