@@ -19,7 +19,9 @@ html,body,p {
   padding: 20px;
   margin: 5px
   }
-
+.answer-box{
+  min-width: 229px;
+}
 
 .button-default {
   background-color: #46B6AC;
@@ -40,7 +42,7 @@ html,body,p {
 }
 
 .the-card{
-  background-image:url('../img/card.png');
+  background-image:url('https://res.cloudinary.com/iykyvic/image/upload/v1482308825/card_dbdst8.png');
   background-repeat:no-repeat;
   background-size:contain;
   background-position:center;
@@ -72,6 +74,7 @@ html,body,p {
   padding: 20px;
   color: #fff;
   background-color: #000;
+  min-width: 229px;
 }
 #question-container-inner {
   margin: 0 auto;

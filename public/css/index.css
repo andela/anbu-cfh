@@ -50,13 +50,22 @@ a img{
 }
 
 .text-logo-mobile{
+  position: absolute;
   display: none;
+  height: 25px;
   color: #46B6AC;
   text-transform: uppercase;
   text-align: center;
   font-size: 18px;
   font-weight: 900;
   margin-top: 3px;
+  width: 75%;
+}
+
+.text-logo-mobile a{
+  display: inline-block;
+  width: auto;
+  margin: 0 10px 10px;
 }
 
 .cfh-search-box .mdl-textfield__input {
@@ -201,7 +210,7 @@ a img{
   height: 620px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('../img/slide01.jpg') center 50% no-repeat;
+  background: url('https://res.cloudinary.com/iykyvic/image/upload/v1482259514/slide01_hyj9g6.jpg') center 50% no-repeat;
   background-size: cover;
 }
 
@@ -268,7 +277,7 @@ a img{
 .cfh-how-card > .mdl-card__title {
   color: #fff;
   background:
-    url('../img/github.png') bottom right 15% no-repeat #46B6AC;
+    url('https://res.cloudinary.com/iykyvic/image/upload/v1482308825/github_havfoq.png') bottom right 15% no-repeat #46B6AC;
 }
 
 .cfh-image-link {
@@ -343,7 +352,7 @@ a img{
 
 .cfh-charity-section {
   position: relative;
-  background: url('../img/make-a-wish.jpg') center top no-repeat;
+  background: url('https://res.cloudinary.com/iykyvic/image/upload/v1482259728/make-a-wish_zvuo8j.jpg') center top no-repeat;
   background-size: cover;
   height: 800px;
 }
@@ -613,6 +622,17 @@ div.chatpanel {
     right: 0;
     background: #f6f6f6;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+}
+
+@media screen and (max-width:479px){
+  .time-remaining{
+    min-width: 229px;
+    width: 100%;
+  }
+
+  .players{
+    min-width: 229px;
   }
 }
 

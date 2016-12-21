@@ -54,42 +54,42 @@
         <h2 style="font-size: 18px;text-align: center;text-transform: capitalize;">Welcome <span style="color: #3004e0">{{userName.name}}</span></h2>
       </div>
       <div class="play-with-card">
-        <a href="/#!/app" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Play With Strangers </a>
-        <a href="/#!/app?custom" ng-if="userName" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"> Play With Friends </a>
+        <a href="/#!/gametour" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Play With Strangers </a>
+        <a href="/#!/gametour?custom" ng-if="userName" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"> Play With Friends </a>
       </div>
     </main>
   </section>
   <div class="cfh-content mdl-layout__content">
-  </div>
+  </div> 
   <dialog class="mdl-dialog" id="notificationsDialog">
-  <h4 class="mdl-dialog__title">Notifications</h4>
-  <div class="mdl-dialog__content">
-    <div class="notification_body">
-    <div ng-show="friends.gameInvites.length <= 0"> 
-      <h6>There are no Game Invites</h6>
-    </div>
-      <ul class="demo-list-item mdl-list">
-        <li class="notification" ng-repeat="invite in friends.gameInvites">
-          <div class="notification_content">
-            <span class="mdl-list__item-primary-content">
-              <strong class="username">
-                {{ invite.message.senderName}}
-              </strong>
+    <h4 class="mdl-dialog__title">Notifications</h4>
+    <div class="mdl-dialog__content">
+      <div class="notification_body">
+        <div ng-show="friends.gameInvites.length <= 0"> 
+          <h6>There are no Game Invites</h6>
+        </div>
+        <ul class="demo-list-item mdl-list">
+          <li class="notification" ng-repeat="invite in friends.gameInvites">
+            <div class="notification_content">
+              <span class="mdl-list__item-primary-content">
+                <strong class="username">
+                  {{ invite.message.senderName}}
+                </strong>
                 <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
                 <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
-            </span>
-            <p class="gamelink">
-              <small class="text-muted time-content">
-                {{invite.message.location}}
-              </small>
-            </p>
-          </div>
-        </li>
-      </ul>
+              </span>
+              <p class="gamelink">
+                <small class="text-muted time-content">
+                  {{invite.message.location}}
+                </small>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button close">Close</button>
-  </div>
-</dialog>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
+  </dialog>
 </div>

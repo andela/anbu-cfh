@@ -6,12 +6,14 @@ angular.module('mean.system')
     $scope.friends = friends;
 
     let notificationsDialog = document.getElementById('notificationsDialog');
-    if (!notificationsDialog.showModal) {
-      dialogPolyfill.registerDialog(notificationsDialog);
+    if (notificationsDialog) {
+      if (!notificationsDialog.showModal) {
+        dialogPolyfill.registerDialog(notificationsDialog);
+      }
+      notificationsDialog.querySelector('.close').addEventListener('click', function() {
+        notificationsDialog.close();
+      });
     }
-    notificationsDialog.querySelector('.close').addEventListener('click', function() {
-      notificationsDialog.close();
-    });
 
     /**
     * Opens the notifications panel
@@ -48,7 +50,6 @@ angular.module('mean.system')
     // Save Token if created
     if ($routeParams.token) {
       Storage.set('token', $routeParams.token);
-      console.log('token set to ' - $routeParams.token);
       $location.path('/play-with');
     }
 
