@@ -7,6 +7,8 @@ const questions = require('../app/controllers/questions');
 const answers = require('../app/controllers/answers');
 const avatars = require('../app/controllers/avatars');
 const GameHistory = require('../app/controllers/game-history');
+const search = require('../app/controllers/searchUser');
+const sendInvite = require('../app/controllers/sendInvite');
 
 module.exports = function(app, passport, auth) {
   // User Routes
@@ -91,6 +93,7 @@ module.exports = function(app, passport, auth) {
   app.get('/avatars', avatars.allJSON);
 
   // Home route
+  var index = require('../app/controllers/index');
   app.get('/play', index.play);
   app.get('/', index.render);
 
@@ -102,18 +105,20 @@ module.exports = function(app, passport, auth) {
   app.get('/api', jwt.checkToken, (req, res) => {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
-
-// Search Route
-  const search = require('../app/controllers/searchUser');
-  app.get('/api/search/users/:email', search);
-
-  // Send Invite Route
-  const sendInvite = require('../app/controllers/sendInvite');
-  app.post('/api/send/userinvite', sendInvite);
-
+  // friends route
+  const friends = require('../app/controllers/api/friends');
+  app.post('/api/friends/add_friend', jwt.checkToken, friends.addFriend);
+  app.get('/api/friends/search_users', jwt.checkToken, friends.searchUsers);
+  app.get('/api/friends/get_friends', jwt.checkToken, friends.getFriends);
   // game history
   app.get('/api/games/history', GameHistory.getAllGames);
   app.get('/api/games/:id/history', GameHistory.getGame);
   app.post('/api/games/:id/start', GameHistory.createGame);
   app.put('/api/games/:id/end', GameHistory.updateGame);
+
+  // Search Route
+  app.get('/api/search/users/:email', search);
+
+  // Send Invite Route
+  app.post('/api/send/userinvite', sendInvite);
 };
