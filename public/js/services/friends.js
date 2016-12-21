@@ -1,9 +1,9 @@
 angular.module('mean.system')
- .factory('friends', ['$http', 'socket', 'Storage', ($http, socket, Storage) => {
+  .factory('friends', ['$http', 'socket', 'Storage', ($http, socket, Storage) => {
     class Friends {
       /**
-      * Constructor for this class
-      */
+       * Constructor for this class
+       */
       constructor() {
         // user email
         this.userEmail = '';
@@ -21,35 +21,35 @@ angular.module('mean.system')
         });
         // Add listener for invite_status events
         socket.on('invite_status', (message) => {
-        // do something with the status message
+          // do something with the status message
         });
       }
 
       /**
-      * Set this user Email address
-      * @param{String}userName - name of the currently
-      * logged in user
-      * @return{undefined}
-      */
+       * Set this user Email address
+       * @param{String}userName - name of the currently
+       * logged in user
+       * @return{undefined}
+       */
       setUserName(userName) {
         this.userName = userName;
       }
 
       /**
-      * Set this user Email address
-      * @param{String}userEmail - email of the currently
-      * logged in user
-      * @return{undefined}
-      */
+       * Set this user Email address
+       * @param{String}userEmail - email of the currently
+       * logged in user
+       * @return{undefined}
+       */
       setUserEmail(userEmail) {
         this.userEmail = userEmail;
       }
 
       /**
-      * Send pulish a join event
-      * @return{Object} - Object containing
-      * the content of this message
-      */
+       * Send pulish a join event
+       * @return{Object} - Object containing
+       * the content of this message
+       */
       requestJoin() {
         return socket.emit('join', {
           userEmail: this.userEmail
@@ -57,10 +57,10 @@ angular.module('mean.system')
       }
 
       /**
-      * Find a registered user
-      * @param{String}userName - name of user to search for
-      * @return{undefined}
-      */
+       * Find a registered user
+       * @param{String}userName - name of user to search for
+       * @return{undefined}
+       */
       findRegisteredUser(userName) {
         // we don't want to search for an empty user
         if (!userName && userName.length <= 0) {
@@ -79,13 +79,13 @@ angular.module('mean.system')
       }
 
       /**
-      * method to remove repeated friends
-      * in the friends list
-      * @param{String} email - email to check
-      * @return{Boolean} True if email is part of the users list
-      * False if it is not.
-      */
-      checkFriendInUsers(email){
+       * method to remove repeated friends
+       * in the friends list
+       * @param{String} email - email to check
+       * @return{Boolean} True if email is part of the users list
+       * False if it is not.
+       */
+      checkFriendInUsers(email) {
         let exists = false;
         this.userFriends.forEach((friend) => {
           if (friend.email === email) {
@@ -96,16 +96,15 @@ angular.module('mean.system')
       }
 
       /**
-      * Fetch this user friend
-      * @returns{undefined}
-      */
+       * Fetch this user friend
+       * @returns{undefined}
+       */
       fetchFriends() {
         $http({
           method: 'GET',
           url: `/api/friends/get_friends?token=${Storage.get('token')}`
         }).then((successResponse) => {
           // on sucess, update all users
-          console.log('User Friends ' - successResponse.data);
           this.userFriends = successResponse.data;
         }, (errorResponse) => {
           // error occured
@@ -113,14 +112,13 @@ angular.module('mean.system')
       }
 
       /**
-      * Adds a new friend and updates the user
-      * friend list.
-      * @param{String} friendEmail - Email of new friend to be added
-      * @returns{undefined}
-      */
+       * Adds a new friend and updates the user
+       * friend list.
+       * @param{String} friendEmail - Email of new friend to be added
+       * @returns{undefined}
+       */
       addFriend(friendEmail) {
-        $http.post('/api/friends/add_friend',
-          {
+        $http.post('/api/friends/add_friend', {
             token: Storage.get('token'),
             friend_email: friendEmail
           })
@@ -133,11 +131,11 @@ angular.module('mean.system')
       }
 
       /**
-      * Send in App game Invites to friends
-      * @param{String} destinationEmail - Email of invited friend
-      * @param{String} gameUrl - Url to this game
-      * @return{undefined}
-      */
+       * Send in App game Invites to friends
+       * @param{String} destinationEmail - Email of invited friend
+       * @param{String} gameUrl - Url to this game
+       * @return{undefined}
+       */
       sendInAppGameInvite(destinationEmail, gameUrl) {
         if (destinationEmail) {
           socket.emit('game_invite', {
@@ -149,20 +147,20 @@ angular.module('mean.system')
       }
 
       /**
-      * Recieve a game invite
-      * @param{Object} message - Object containing the game invite data
-      * @return{undefined}
-      */
-      gameInviteRecieved(message){
+       * Recieve a game invite
+       * @param{Object} message - Object containing the game invite data
+       * @return{undefined}
+       */
+      gameInviteRecieved(message) {
         this.gameInvites.push({
           message
         });
       }
 
     }
-  // Initialize new friends object
-   const friends = new Friends();
+    // Initialize new friends object
+    const friends = new Friends();
 
-  // return friends object
-   return friends;
+    // return friends object
+    return friends;
   }]);
