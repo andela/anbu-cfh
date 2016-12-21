@@ -91,6 +91,7 @@ module.exports = function(app, passport, auth) {
   app.get('/avatars', avatars.allJSON);
 
   // Home route
+  var index = require('../app/controllers/index');
   app.get('/play', index.play);
   app.get('/', index.render);
 
@@ -102,7 +103,11 @@ module.exports = function(app, passport, auth) {
   app.get('/api', jwt.checkToken, (req, res) => {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
-
+  // friends route
+  const friends = require('../app/controllers/api/friends');
+  app.post('/api/friends/add_friend', jwt.checkToken, friends.addFriend);
+  app.get('/api/friends/search_users', jwt.checkToken, friends.searchUsers);
+  app.get('/api/friends/get_friends', jwt.checkToken, friends.getFriends);
   // game history
   app.get('/api/games/history', GameHistory.getAllGames);
   app.get('/api/games/:id/history', GameHistory.getGame);

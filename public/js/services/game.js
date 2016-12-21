@@ -110,7 +110,6 @@ angular.module('mean.system')
           game.time = game.timeLimits.stateResults - 1;
           timeSetViaUpdate = true;
         }
-
         // Set these properties on each update
         game.round = data.round;
         game.winningCard = data.winningCard;
