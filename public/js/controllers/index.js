@@ -6,12 +6,14 @@ angular.module('mean.system')
     $scope.friends = friends;
 
     let notificationsDialog = document.getElementById('notificationsDialog');
-    if (!notificationsDialog.showModal) {
-      dialogPolyfill.registerDialog(notificationsDialog);
+    if (notificationsDialog) {
+      if (!notificationsDialog.showModal) {
+        dialogPolyfill.registerDialog(notificationsDialog);
+      }
+      notificationsDialog.querySelector('.close').addEventListener('click', function() {
+        notificationsDialog.close();
+      });
     }
-    notificationsDialog.querySelector('.close').addEventListener('click', function() {
-      notificationsDialog.close();
-    });
 
     /**
     * Opens the notifications panel

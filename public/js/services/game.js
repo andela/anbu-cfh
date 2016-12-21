@@ -27,6 +27,39 @@ angular.module('mean.system')
         gameChat: chat
       };
 
+/*<<<<<<< HEAD
+  let notificationQueue = [];
+  let timeout = false;
+  let self = this;
+  let joinOverrideTimeout = 0;
+  
+  let addToNotificationQueue = function(msg) {
+    notificationQueue.push(msg);
+    if (!timeout) { // Start a cycle if there isn't one
+      setNotification();
+    }
+  };
+  let setNotification = function() {
+    if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
+      clearInterval(timeout);
+      timeout = false;
+      game.notification = '';
+    } else {
+      game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
+      timeout = $timeout(setNotification, 1300);
+    }
+  };
+
+  let timeSetViaUpdate = false;
+  let decrementTime = function() {
+    if (game.time > 0 && !timeSetViaUpdate) {
+      game.time--;
+    } else {
+      timeSetViaUpdate = false;
+    }
+    $timeout(decrementTime, 950);
+  };
+=======*/
       const notificationQueue = [];
       let timeout = false;
       const self = this;
@@ -47,6 +80,7 @@ angular.module('mean.system')
           setNotification();
         }
       };
+// >>>>>>> 35b897679f9fd65fe240c7f2978f2ea1e69ceebb
 
     socket.on('id', function(data) {
       game.id = data.id;
