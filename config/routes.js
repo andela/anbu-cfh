@@ -16,16 +16,17 @@ module.exports = function(app, passport, auth) {
   app.get('/signout', users.signout);
 
   // Setting up the users api
-  app.post('/users', users.create);
+  app.post('/users', users.create, jwt.authToken);
   app.post('/users/avatars', users.avatars);
 
   // Donation Routes
   app.post('/donations', users.addDonation);
 
+  // Authenticate user and generate JWT token
   app.post('/users/session', passport.authenticate('local', {
     failureRedirect: '/signin',
     failureFlash: 'Invalid email or password.'
-  }), users.session);
+  }), jwt.authToken);
 
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
@@ -103,7 +104,7 @@ module.exports = function(app, passport, auth) {
     res.status(200).json({ message: 'Welcome to the CFH JWT API' });
   });
 
-  // game history 
+  // game history
   app.get('/api/games/history', GameHistory.getAllGames);
   app.get('/api/games/:id/history', GameHistory.getGame);
   app.post('/api/games/:id/start', GameHistory.createGame);

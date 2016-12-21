@@ -105,7 +105,18 @@ angular.module('mean.system')
       {
         element: '#abandon-game-button',
         intro: 'You can also abandon a game at any point in the game.'
+      },
+      {
+        element: '#signout',
+        intro: 'You could also signout here',
+        position: 'top'
+      },
+      {
+        element: '#home',
+        intro: 'You could also return to the homepage',
+        position: 'bottom'
       }
+
     ]
   });
 
