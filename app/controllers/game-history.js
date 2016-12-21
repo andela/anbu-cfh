@@ -101,3 +101,16 @@ exports.getAllGames = (request, response) => {
     }
   });
 };
+
+/*
+* Get Played Games for Logged-in Users
+*/
+exports.getUserGames = (request, response) => {
+  gameHistory.find({ 'players.email': request.params.email }, (error, gameLogs) => {
+    if (error) {
+      response.status(404).json(error);
+    } else {
+      response.status(200).json(gameLogs);
+    }
+  });
+};

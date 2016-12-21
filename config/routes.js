@@ -6,7 +6,7 @@ const users = require('../app/controllers/users');
 const questions = require('../app/controllers/questions');
 const answers = require('../app/controllers/answers');
 const avatars = require('../app/controllers/avatars');
-const GameHistory = require('../app/controllers/game-history');
+
 
 
 module.exports = function(app, passport, auth) {
@@ -110,11 +110,6 @@ module.exports = function(app, passport, auth) {
   app.post('/api/friends/add_friend', jwt.checkToken, friends.addFriend);
   app.get('/api/friends/search_users', jwt.checkToken, friends.searchUsers);
   app.get('/api/friends/get_friends', jwt.checkToken, friends.getFriends);
-  // game history
-  app.get('/api/games/history', GameHistory.getAllGames);
-  app.get('/api/games/:id/history', GameHistory.getGame);
-  app.post('/api/games/:id/start', GameHistory.createGame);
-  app.put('/api/games/:id/end', GameHistory.updateGame);
 
   // Search Route
   const search = require('../app/controllers/searchUser');
@@ -123,4 +118,12 @@ module.exports = function(app, passport, auth) {
   // Send Invite Route
   const sendMailInvite = require('../app/controllers/sendMailInvite');
   app.post('/api/send/userinvite', sendMailInvite);
+
+  // game history
+  const GameHistory = require('../app/controllers/game-history');
+  app.get('/api/games/history/:email', GameHistory.getUserGames);
+  app.get('/api/games/:id/history', GameHistory.getGame);
+  app.post('/api/games/:id/start', GameHistory.createGame);
+  app.put('/api/games/:id/end', GameHistory.updateGame);
 };
+
