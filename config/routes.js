@@ -8,6 +8,7 @@ const answers = require('../app/controllers/answers');
 const avatars = require('../app/controllers/avatars');
 const GameHistory = require('../app/controllers/game-history');
 
+
 module.exports = function(app, passport, auth) {
   // User Routes
   app.get('/signin', users.signin);
@@ -114,4 +115,12 @@ module.exports = function(app, passport, auth) {
   app.get('/api/games/:id/history', GameHistory.getGame);
   app.post('/api/games/:id/start', GameHistory.createGame);
   app.put('/api/games/:id/end', GameHistory.updateGame);
+
+  // Search Route
+  const search = require('../app/controllers/searchUser');
+  app.get('/api/search/users/:email', search);
+
+  // Send Invite Route
+  const sendMailInvite = require('../app/controllers/sendMailInvite');
+  app.post('/api/send/userinvite', sendMailInvite);
 };

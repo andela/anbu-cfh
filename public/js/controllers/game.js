@@ -1,9 +1,9 @@
 /* eslint-disable no-undef, indent, max-len, prefer-const,*/
 /* eslint-disable no-unused-vars, object-shorthand, func-names */
 angular.module('mean.system')
-    .controller('GameController', ['$scope', 'game', '$timeout',
+    .controller('GameController', ['$scope', 'game', '$http', '$timeout',
         '$location', '$window', 'MakeAWishFactsService', '$dialog', 'friends', 'Storage',
-        function($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog, friends, Storage) {
+        function($scope, game, $http, $timeout, $location, $window, MakeAWishFactsService, $dialog, friends, Storage) {
             $scope.hasPickedCards = false;
             $scope.winningCardPicked = false;
             $scope.showTable = false;
@@ -14,6 +14,9 @@ angular.module('mean.system')
             $scope.makeAWishFact = makeAWishFacts.pop();
             $scope.chat = game.gameChat;
             $scope.userName = Storage.get('user');
+            $scope.numberOfInvites = 0;
+            $scope.invitedPlayersList = [];
+            $scope.checkExist = true;
 
             let notificationsDialog = document.getElementById('notificationsDialog');
             if (!notificationsDialog.showModal) {
@@ -286,8 +289,47 @@ angular.module('mean.system')
 
             $scope.winnerPicked = () => game.winningCard !== -1;
 
-            $scope.startGame = () => {
+            //   Definitions for Min and Max Dialogs
+              var minModal = document.getElementById('minAlertModal');
+              if (!minModal.showModal) {
+                dialogPolyfill.registerDialog(minModal);
+              }
+              var maxModal = document.getElementById('maxAlertModal');
+              if (!maxModal.showModal) {
+                dialogPolyfill.registerDialog(maxModal);
+              }
+
+              minModal.querySelector('.close').addEventListener('click', function() {
+                minModal.close();
+              });
+              maxModal.querySelector('.close').addEventListener('click', function() {
+                maxModal.close();
+              });
+
+              //Definition for Search and Invite Dialog
+              var searchDialog = document.getElementById('searchModal');
+              var showDialogButtonDesktop = document.querySelector('#invite-players-button-desktop');
+              var showDialogButtonMobile = document.querySelector('#invite-players-button-mobile');
+              if (!searchDialog.showModal) {
+                dialogPolyfill.registerDialog(searchDialog);
+              }
+              showDialogButtonDesktop.addEventListener('click', function() {
+                searchDialog.showModal();
+              });
+              showDialogButtonMobile.addEventListener('click', function() {
+                searchDialog.showModal();
+              });
+
+              searchDialog.querySelector('.close').addEventListener('click', function() {
+                searchDialog.close();
+              });
+
+            $scope.startGame = function () {
+              if (game.players.length >= game.playerMinLimit) {
                 game.startGame();
+              } else {
+                minModal.showModal();
+              }
             };
 
             $scope.saveGame = () => {
@@ -302,6 +344,7 @@ angular.module('mean.system')
                 game.leaveGame();
                 $window.location.href = '/#!/play-with';
             };
+
 
             // Catches changes to round to update when no players pick card
             // (because game.state remains the same)
@@ -338,16 +381,6 @@ angular.module('mean.system')
                         if (!$scope.modalShown) {
                             setTimeout(() => {
                                 const link = document.URL;
-                                const txt = `Give the following link to your
-                 friends so they can join your game: `;
-                                $('#lobby-how-to-play').text(txt);
-                                $('#oh-el').css({
-                                    'text-align': 'center',
-                                    'font-size': '22px',
-                                    background: 'white',
-                                    color: 'black'
-                                })
-                                    .text(link);
                             }, 200);
                             $scope.modalShown = true;
                         }
@@ -364,7 +397,6 @@ angular.module('mean.system')
             } else {
                 game.joinGame();
             }
-
             if ($scope.isCustomGame() && $scope.isCzar) {
                 $scope.showDialog = true;
                 dialog.showModal();
@@ -379,6 +411,87 @@ angular.module('mean.system')
                 dialog.close();
                 $window.location.href = '/#!/play-with';
             });
+
+            $scope.searchDB = (searchString) => {
+              console.log(searchString);
+              $scope.searchResult = [];
+              $http.get('/api/search/users/' + searchString)
+                .success((res) => {
+                  $scope.items = res;
+                })
+                .error((err) => {
+                  console.log(err);
+                });
+            };
+
+            $scope.sendMailInvite = (email, name) => {
+              console.log(email, name, 'testfrom angulars')
+              if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
+                if ($scope.invitedPlayersList.indexOf(email) === -1) {
+                  $scope.invitedPlayersList.push(email);
+                  console.log($scope.invitedPlayersList);
+                  $http.post('/api/send/userinvite', { 'email': email, 'name': name, 'link': document.URL })
+                    .success((res) => {
+                      console.log(res);
+                    })
+                    .error((err) => {
+                      console.log(err);
+                    });
+                  $scope.numberOfInvites += 1;
+                
+                } else {
+                  console.log('User Already Invited');
+                }
+              } else {
+                maxModal.showModal();
+              }
+              console.log($scope.numberOfInvites, game.playerMaxLimit)
+            }
+            $scope.checkPlayer = (email) => {
+              if ($scope.invitedPlayersList.indexOf(email) === -1) {
+                return true;
+              } else {
+                return false;
+              }
+            };
+            const demodata =
+              [
+                {
+                  gameID: 33333,
+                  players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+                  rounds: 20,
+                  winner: 'hound@hound.com',
+                  gamedate: Date.now()
+                },
+                {
+                  gameID: 333553,
+                  players: ['oreoluwa@ymail.com', 'hound@hound.com', 'wale@wale.com'],
+                  rounds: 19,
+                  winner: 'wale@wale.com',
+                  gamedate: Date.now()
+                },
+                {
+                  gameID: 34433,
+                  players: ['oreoluwa@gmail.com', 'hound@hound.com', 'wale@wale.com'],
+                  rounds: 24,
+                  winner: 'oreoluwa@yahoo.com',
+                  gamedate: Date.now()
+                }
+              ];
+            $scope.gamelogshow = false;
+            $scope.displayfriends = false;
+
+            $scope.gameLog = () => {
+              if (!$scope.gamelogshow) {
+                console.log('Yay it works');
+                $scope.gamelogshow = true;
+                $scope.allGames = demodata;
+                return demodata;
+              }
+              $scope.gamelogshow = false;
+
+
+            };
     
         $scope.drawCard = () => {
           game.drawCard();

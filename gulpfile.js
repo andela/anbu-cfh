@@ -60,6 +60,7 @@ gulp.task('serve', ['nodemon'], () => {
     ui: {
       port: 5001
     },
+    ghostMode: false,
     reloadOnRestart: true
   });
 });
