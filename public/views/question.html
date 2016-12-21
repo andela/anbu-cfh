@@ -1,6 +1,6 @@
 <div id="question-container-inner">
   <div class="card longBlack">
-    <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="gameState.ended() || gameState.dissolved() || gameState.awaitingPlayers()"></span>
+    <span ng-bind-html-unsafe="game.curQuestion.text" ng-hide="gameState.ended() || gameState.dissolved() || gameState.awaitingPlayers() || gameState.awaitingDrawCard()"></span>
     <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}" style="margin-bottom: 20px">{{game.notification}}</div>
     <div id="startGame" ng-show="gameState.awaitingPlayers()">
       <div id="finding-players">Finding Players</div>

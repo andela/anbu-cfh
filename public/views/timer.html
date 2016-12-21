@@ -1,4 +1,5 @@
-<span id="timer-status-round" ng-hide="gameState.winnerChosen || gameState.awaitingCzar"> Time Remaining</span>
-<span id="timer-status-czar-choosing" ng-show="gameState.winnerChosen"> Next Round In</span>
-<span id="timer-status-czar-choosing" ng-show="gameState.awaitingCzar"> Czar Choosing</span>
+<span id="timer-status-round" ng-hide="gameState.awaitingDrawCard() || gameState.winnerChosen() || gameState.awaitingCzar()"> Time Remaining</span>
+<span id="timer-status-czar-choosing" ng-show="gameState.winnerChosen()"> Next Round In</span>
+<span id="timer-status-czar-choosing" ng-show="gameState.awaitingCzar()"> Czar Choosing</span>
+<span id="timer-status-czar-choosing" ng-show="gameState.awaitingDrawCard()"> Czar Drawing Cards</span>
 <div id="time" ng-bind="game.time"></div>
