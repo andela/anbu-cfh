@@ -651,7 +651,7 @@ div.chatinput {
   position: absolute;
   padding: 5px;
   background: #212f3c; 
-  bottom: 0;
+  bottom: -16px;
   left: 0;
 }
 
