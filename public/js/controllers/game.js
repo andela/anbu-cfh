@@ -162,7 +162,11 @@ angular.module('mean.system')
                 },
                 userLost: function () {
                     return game.gameWinner !== game.playerIndex;
+                },
+                awaitingDrawCard: function () {
+                    return $scope.game.state === 'waiting for czar to draw cards';
                 }
+
             };
 
             /**
@@ -375,5 +379,8 @@ angular.module('mean.system')
                 dialog.close();
                 $window.location.href = '/#!/play-with';
             });
-        }
-    ]);
+    
+        $scope.drawCard = () => {
+          game.drawCard();
+        };
+}]);

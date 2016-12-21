@@ -37,6 +37,7 @@ function Game(gameID, io) {
   this.timeLimits = {
     stateChoosing: 21,
     stateJudging: 16,
+    stateDrawCards: 11,
     stateResults: 6
   };
   // setTimeout ID that triggers the czar judging state
@@ -48,6 +49,7 @@ function Game(gameID, io) {
   // Gets cleared if czar finishes judging before time limit.
   this.judgingTimeout = 0;
   this.resultsTimeout = 0;
+  this.drawCardsTimeout = 0;
   this.guestNames = guestNames.slice();
 }
 
@@ -145,9 +147,16 @@ Game.prototype.sendUpdate = function() {
   this.io.sockets.in(this.gameID).emit('gameUpdate', this.payload());
 };
 
+Game.prototype.stateDrawCards = function(self) {
+  self.state = "waiting for czar to draw cards";
+  self.sendUpdate();
+  self.drawCardsTimeout = setTimeout(function() {
+    self.stateChoosing(self);
+  }, self.timeLimits.stateDrawCards*1000);
+}
+
 Game.prototype.stateChoosing = function(self) {
   self.state = "waiting for players to pick";
-  // console.log(self.gameID,self.state);
   self.table = [];
   self.winningCard = -1;
   self.winningCardPlayer = -1;
@@ -181,15 +190,15 @@ Game.prototype.selectFirst = function() {
     this.players[winnerIndex].points++;
     this.winnerAutopicked = true;
     this.stateResults(this);
+    this.sendNotification(this.players[winnerIndex].username+' has won the round!');
+    this.sendUpdate();
   } else {
-    // console.log(this.gameID,'no cards were picked!');
-    this.stateChoosing(this);
+    this.stateDrawCards(this);
   }
 };
 
 Game.prototype.stateJudging = function(self) {
   self.state = "waiting for czar to decide";
-  // console.log(self.gameID,self.state);
 
   if (self.table.length <= 1) {
     // Automatically select a card if only one card was submitted
@@ -218,7 +227,7 @@ Game.prototype.stateResults = function(self) {
     if (winner !== -1) {
       self.stateEndGame(winner);
     } else {
-      self.stateChoosing(self);
+      self.stateDrawCards(self);
     }
   }, self.timeLimits.stateResults*1000);
 };
@@ -424,6 +433,12 @@ Game.prototype.killGame = function() {
   clearTimeout(this.resultsTimeout);
   clearTimeout(this.choosingTimeout);
   clearTimeout(this.judgingTimeout);
+  clearTimeout(this.drawCardsTimeout);
+};
+
+Game.prototype.drawCard = function() {
+  clearTimeout(this.drawCardsTimeout);
+  this.stateChoosing(this);
 };
 
 module.exports = Game;
