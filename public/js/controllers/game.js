@@ -1,24 +1,121 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 angular.module('mean.system')
-  .controller('GameController', ['$scope', 'game', '$timeout',
-    '$location', '$window', 'MakeAWishFactsService', '$dialog', 'Storage',
-    ($scope, game, $timeout, $location, $window,
-      MakeAWishFactsService, $dialog, Storage) => {
-      $scope.hasPickedCards = false;
-      $scope.winningCardPicked = false;
-      $scope.showTable = false;
-      $scope.modalShown = false;
-      $scope.game = game;
-      $scope.pickedCards = [];
-      let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
-      $scope.makeAWishFact = makeAWishFacts.pop();
-      $scope.chat = game.gameChat;
-      $scope.userName = Storage.get('user');
-      const dialog = document.getElementById('showMyDialog');
-      if (!dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
+.controller('GameController', ['$scope', 'game', '$timeout',
+  '$location', '$window', 'MakeAWishFactsService', '$dialog', 'friends', 'Storage',
+  function ($scope, game, $timeout, $location, $window, MakeAWishFactsService, $dialog, friends, Storage) {
+    $scope.hasPickedCards = false;
+    $scope.winningCardPicked = false;
+    $scope.showTable = false;
+    $scope.modalShown = false;
+    $scope.game = game;
+    $scope.pickedCards = [];
+    let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
+    $scope.makeAWishFact = makeAWishFacts.pop();
+    $scope.chat = game.gameChat;
+    console.log(Storage.get('user'));
+    $scope.userName = Storage.get('user'); 
+
+    let notificationsDialog = document.getElementById('notificationsDialog');
+    if (!notificationsDialog.showModal) {
+      dialogPolyfill.registerDialog(notificationsDialog);
+    }
+    notificationsDialog.querySelector('.close').addEventListener('click', function() {
+      notificationsDialog.close();
+    });
+
+    let friendsDialog = document.getElementById('friendsDialog');
+    if (!friendsDialog.showModal) {
+      dialogPolyfill.registerDialog(friendsDialog);
+    }
+    friendsDialog.querySelector('.close').addEventListener('click', function() {
+      friendsDialog.close();
+    });
+
+    // add friends service if user is authenticated
+    if ($scope.userName) {
+      $scope.friends = friends;
+      $scope.friends.setUserEmail($scope.userName.email);
+      $scope.friends.setUserName($scope.userName.name);
+      // fetch this user friends
+      $scope.friends.fetchFriends();
+    }
+
+    /**
+    * Add a new friend
+    * @param{Object} selectedUser
+    * @return{undefined}
+    */
+    $scope.addFriend = (selectedUser) => {
+      if (selectedUser) {
+        $scope.friends.addFriend(selectedUser.email);
       }
+    };
+
+    /**
+    * Opens or closes the friends panel
+    * Closes the notifications panel
+    * @return{undefined}
+    */
+    $scope.openFriends = () => {
+      friendsDialog.showModal();
+    };
+
+    /**
+    * Opens the notifications panel
+    * Closes the friends panel
+    * @return{undefined}
+    */
+    $scope.openNotifications = () => {
+      notificationsDialog.showModal();
+    };
+
+    /**
+    * Delete a notification Item
+    * @param{Number} index - Index of the item to be deleted
+    * @return{undefined}
+    */
+    $scope.deleteGameInvite = (index) => {
+      $scope.friends.gameInvites.splice(index, 1);
+    };
+
+    /**
+    * Join invited game
+    * @param{String} url - url of the game to join
+    * @return{undefined}
+    */
+    $scope.joinGame = (index, url) => {
+      $window.location.href = url;
+      $scope.deleteGameInvite(index);
+      notificationsDialog.close();
+    };
+
+    /**
+    * Send in app invite to a friend
+    * @param{Object} selectedUser
+    * @return{undefined}
+    */
+    $scope.sendInvite = (selectedUser) => {
+      if (selectedUser) {
+        $scope.friends
+          .sendInAppGameInvite(selectedUser.email, $location.absUrl());
+      }
+    };
+
+
+    /**
+    * Method to find a friend as the user types
+    * @param{String} friendName - name of friend to find
+    * @return{undefined}
+    */
+    $scope.findRegisteredUser = (searchQuery) => {
+      $scope.friends.findRegisteredUser(searchQuery);
+    };
+
+    let dialog = document.getElementById('showMyDialog');
+    if (!dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
       /**
        * Method to scroll the chat thread to the bottom
        * so user can see latest message when messages overflow
