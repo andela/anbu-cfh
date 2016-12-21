@@ -11,6 +11,7 @@ script(type='text/javascript', src='https://code.angularjs.org/1.1.5/angular-coo
 //Angular UI
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js')
 script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js')
+script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.5.0/angular-local-storage.min.js')
 
 //Application Init
 script(type='text/javascript', src='/js/init.js')
@@ -28,10 +29,17 @@ script(type='text/javascript', src='/js/services/global.js')
 script(type='text/javascript', src='/js/services/socket.js')
 script(type='text/javascript', src='/js/services/game.js')
 script(type='text/javascript', src='/js/services/chat.js')
+script(type='text/javascript', src='/js/services/friends.js')
+
+// Angular Storage
+script(type='text/javascript', src='/js/services/storage.js')
+script(type='text/javascript', src='/js/services/interceptor.js')
+
 
 //Application Controllers
 script(type='text/javascript', src='/js/controllers/index.js')
 script(type='text/javascript', src='/js/controllers/game.js')
+script(type='text/javascript', src='/js/controllers/token.js')
 script(type='text/javascript', src='/js/init.js')
 
 //Socket.io Client Library

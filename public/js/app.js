@@ -1,4 +1,4 @@
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives'])
+angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives', 'LocalStorageModule'])
   .config(['$routeProvider',
       function($routeProvider) {
           $routeProvider.
@@ -10,6 +10,12 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
           }).
           when('/privacy', {
             templateUrl: '/views/privacy.html',
+          }).
+          when('/token/:token', {
+            templateUrl: 'views/index.html'
+          }).
+          when('/remove-token', {
+            templateUrl: 'views/token.html'
           }).
           when('/bottom', {
             templateUrl: '/views/bottom.html'
@@ -51,5 +57,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
     };
   }]);
 
-angular.module('mean.system', []);
+angular.module('mean.system', [])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('AuthInterceptor');
+  }]);
+
 angular.module('mean.directives', []);

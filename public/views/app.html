@@ -20,20 +20,34 @@
               <strong>Home</strong>
             </div>
           </a>
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
+          </a>
+          <a href ng-show="userName" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase"
+          ng-click="openFriends()">
+            <i class="material-icons">people</i>
+            <div class="mdl-tooltip" data-mdl-for="requests">
+              <strong>Send Invites</strong>
+            </div>
+          </a>
           <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
             <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
               Abandon <strong>Game</strong>
             </div>
           </a>
-          <span ng-show="userName">
-            <a id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
-              <i class="material-icons">&#xE879;</i>
-              <div class="mdl-tooltip" data-mdl-for="signout">
-                <strong>Signout</strong>
-              </div>
-            </a>
-          </span>
+          <a ng-show="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons" style="background-color:#fff;" >&#xE879;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
+          </a>
         </nav>
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
@@ -60,6 +74,14 @@
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
       <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
       <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+      
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
+      <a href class="mdl-navigation__link" ng-show="userName" id="requests"
+      ng-click="openFriends()">
+      SEND INVITES
+      </a>
     </nav>
   </div>
   <div class="cfh-content mdl-layout__content" style="margin-top: 60px">
@@ -92,6 +114,84 @@
       <chat></chat>
     </div>
   </div>
+  <dialog class="mdl-dialog" id="friendsDialog">
+    <p class="mdl-dialog__title">Send Invites</p>
+    <div class="mdl-dialog__content friends-panel">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+          <a href="#friends-panel" class="mdl-tabs__tab is-active">Friends</a>
+          <a href="#users-panel" class="mdl-tabs__tab">Everyone</a>
+        </div>
+        <div class="mdl-tabs__panel is-active friends-results" id="friends-panel">
+          <ul class="demo-list-item mdl-list">
+            <li class="friends" ng-hide="value.email === friends.userEmail" ng-repeat="(key, value) in friends.userFriends" >
+              <div class="user_content">
+                <p class="mdl-list__item-primary-content">
+                  <strong class="username">{{value.name}}</strong>
+                  <i ng-hide="friends.checkFriendInUsers(value.email)" title="Add Friend" class="material-icons friends" ng-click="addFriend(value)">person_add</i>
+                  <i ng-show="friends.checkFriendInUsers(value.email)" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="users-panel" class="mdl-tabs__panel">
+          <div class="search-results">
+            <ul class="demo-list-item mdl-list" >
+              <li class="friends" ng-hide="value.email === friends.userEmail" ng-repeat="(key, value) in friends.registeredUsers" >
+                <div class="user_content">
+                  <p class="mdl-list__item-primary-content">
+                    <strong class="username">{{value.name}}</strong>
+                    <i ng-hide="friends.checkFriendInUsers(value.email)" title="Add Friend" class="material-icons friends" ng-click="addFriend(value)">person_add</i>
+                    <i ng-show="friends.checkFriendInUsers(value.email)" title="Send Invite" class="material-icons friends" ng-click="sendInvite(value)">record_voice_over</i>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div> 
+          <input class="mdl-textfield__input search" type="text" placeholder="Search Players" ng-model="searchQuery" ng-change="findRegisteredUser(searchQuery)">
+          <i class="material-icons search">search</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
+  </dialog>
+
+<dialog class="mdl-dialog" id="notificationsDialog">
+  <p class="mdl-dialog__title">Game Invites</p>
+  <div class="mdl-dialog__content">
+    <div class="notification_body">
+    <div ng-show="friends.gameInvites.length <= 0"> 
+      <h6>There are no Game Invites</h6>
+    </div>
+      <ul class="demo-list-item mdl-list">
+        <li class="notification" ng-repeat="invite in friends.gameInvites">
+          <div class="notification_content">
+            <span class="mdl-list__item-primary-content">
+              <strong class="username">
+                {{ invite.message.senderName}}
+              </strong>
+                <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
+                <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
+            </span>
+            <p class="gamelink">
+              <small class="text-muted time-content">
+                {{invite.message.location}}
+              </small>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">Close</button>
+  </div>
+</dialog>
 </div>
 <dialog class="mdl-dialog" id="showMyDialog">
   <div class="mdl-dialog__content">
