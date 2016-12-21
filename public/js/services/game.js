@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', 'chat', '$http',
-    (socket, $timeout, chat, $http) => {
+  .factory('game', ['socket', '$timeout', 'chat', '$http', 'Storage',
+    (socket, $timeout, chat, $http, Storage) => {
       const game = {
         id: null, // This player's socket ID, so we know who this player is
         gameID: null,
@@ -82,6 +82,16 @@ angular.module('mean.system')
       };
 // >>>>>>> 35b897679f9fd65fe240c7f2978f2ea1e69ceebb
 
+    socket.on('id', function(data) {
+      game.id = data.id;
+      // request to join if you are authenticated
+      if (Storage.get('user')) {
+        socket.emit('join', {
+          userEmail: Storage.get('user').email
+        });
+      }
+    });
+
       let timeSetViaUpdate = false;
       const decrementTime = () => {
         if (game.time > 0 && !timeSetViaUpdate) {
@@ -91,11 +101,6 @@ angular.module('mean.system')
         }
         $timeout(decrementTime, 950);
       };
-
-      socket.on('id', (data) => {
-        game.id = data.id;
-      });
-
       socket.on('prepareGame', (data) => {
         game.playerMinLimit = data.playerMinLimit;
         game.playerMaxLimit = data.playerMaxLimit;
