@@ -1,6 +1,6 @@
 <div class="chatpanel">
   <div class="panel-heading">
-    <i class="material-icons">forum</i><small class="message_notification" ng-show="chat.unreadMessageCount > 0">{{chat.unreadMessageCount + ' new message'}}</small>
+    <i class="material-icons">forum</i><span class="mdl-badge" data-badge="{{chat.unreadMessageCount}}" ng-show="chat.unreadMessageCount > 0">new message</span>
     <a href="" class="retract_button" ng-click="showChat()"><i class="material-icons">expand_{{chat.chatWindowVisible ? 'more': 'less' }}</i></a>
   </div>
   <div ng-show="chat.chatWindowVisible">
@@ -18,10 +18,12 @@
     </div>
     <div>
       <div class="chatinput">
-        <input id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message" ng-model="chatMessage"
-          ng-keypress="keyPressed($event)" />
-        <a class="send_icon" href="" ng-click="sendMessage(chatMessage)"><i class="material-icons">send</i></a>
+        <p class="lead emoji-picker-container">
+          <input data-emojiable="true" id="text" type="text" class="mdl-textfield__input chat_message" placeholder="Enter Message"
+          ng-model="chatMessage" ng-keypress="keyPressed($event)" />
+          <a class="send_icon" href="" onclick="angular.element(document.getElementById('text')).scope().sendMessage(document.getElementById('text').value)"><i class="material-icons">send</i></a>
+        </p>
       </div>
     </div>
   </div>
-</div>
+  <script src="/js/emoji-init.js"></script>

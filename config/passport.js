@@ -48,6 +48,7 @@ module.exports = function(passport) {
                     });
                 }
                 //user.email = null;
+                user.hello = 'hello world';
                 user.hashed_password = null;
                 return done(null, user);
             });

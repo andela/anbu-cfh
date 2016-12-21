@@ -2,8 +2,11 @@ body {
   margin: 0;
 }
 body, text-logo, p, h1, h2, h3, h4, h5, h6, .mdl-typography--subhead, .mdl-typography--subhead-color-contrast,
-.mdl-typography--display-1, .mdl-typography--display-1-color-contrast {
+.mdl-typography--display-1, .mdl-typography--display-1-color-contrast,.text-logo {
   font-family: Montserrat;
+}
+.text-logo{
+  text-decoration: none;
 }
 /* Disable ugly boxes around images in IE10 */
 a img{
@@ -47,13 +50,22 @@ a img{
 }
 
 .text-logo-mobile{
+  position: absolute;
   display: none;
+  height: 25px;
   color: #46B6AC;
   text-transform: uppercase;
   text-align: center;
   font-size: 18px;
   font-weight: 900;
   margin-top: 3px;
+  width: 75%;
+}
+
+.text-logo-mobile a{
+  display: inline-block;
+  width: auto;
+  margin: 0 10px 10px;
 }
 
 .cfh-search-box .mdl-textfield__input {
@@ -198,7 +210,7 @@ a img{
   height: 620px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('../img/slide01.jpg') center 50% no-repeat;
+  background: url('https://res.cloudinary.com/iykyvic/image/upload/v1482259514/slide01_hyj9g6.jpg') center 50% no-repeat;
   background-size: cover;
 }
 
@@ -265,7 +277,7 @@ a img{
 .cfh-how-card > .mdl-card__title {
   color: #fff;
   background:
-    url('../img/github.png') bottom right 15% no-repeat #46B6AC;
+    url('https://res.cloudinary.com/iykyvic/image/upload/v1482308825/github_havfoq.png') bottom right 15% no-repeat #46B6AC;
 }
 
 .cfh-image-link {
@@ -340,7 +352,7 @@ a img{
 
 .cfh-charity-section {
   position: relative;
-  background: url('../img/make-a-wish.jpg') center top no-repeat;
+  background: url('https://res.cloudinary.com/iykyvic/image/upload/v1482259728/make-a-wish_zvuo8j.jpg') center top no-repeat;
   background-size: cover;
   height: 800px;
 }
@@ -485,10 +497,14 @@ a img{
   cursor: pointer;
 }
 
-
+@media (min-width: 901px) {
+  .mdl-layout__header .mdl-layout__drawer-button, #abandon-button{
+    display: none;
+  }
+}
 /**** Mobile layout ****/
 @media (max-width: 900px) {
-  .cfh-navigation-container {
+  .cfh-navigation-container, #abandon-game-button {
     display: none;
   }
 
@@ -593,7 +609,7 @@ div.chatpanel {
   width: 340px;
   right: 0;
   background: #f6f6f6;
-  box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   z-index: 2000;
 }
 
@@ -605,7 +621,18 @@ div.chatpanel {
     width: 100%;
     right: 0;
     background: #f6f6f6;
-    box-shadow: 3px 0px 3px 0px rgba(50, 50, 50, 0.5);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+}
+
+@media screen and (max-width:479px){
+  .time-remaining{
+    min-width: 229px;
+    width: 100%;
+  }
+
+  .players{
+    min-width: 229px;
   }
 }
 
@@ -616,11 +643,11 @@ div.panel-heading {
   color: #64ffda;
 }
 
-li.message:hover {
+li.message:hover, li.friends:hover {
   background: #f2f3f4;
 }
 
-li.message {
+li.message{
   padding: 0px 10px;
 }
 
@@ -632,10 +659,10 @@ div.chatthread {
   background: white;
 }
 
-div.chat_body {
+div.chat_body, div.user_content, div.notification_content {
   margin-top: -15px;
 }
-p.message_content {
+p.message_content, p.user_email {
   margin-top: -8px;
 }
 
@@ -644,7 +671,7 @@ div.chatinput {
   position: absolute;
   padding: 5px;
   background: #212f3c; 
-  bottom: 0;
+  bottom: -16px;
   left: 0;
 }
 
@@ -679,33 +706,35 @@ a.send_icon {
   color: #909497;
 }
 
-p.message_content {
+p.message_content, p.user-name {
   font-family: Verdana, Geneva, sans-serif;
 }
 
 strong.username {
-  text-transform: capitalize;
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
-small.time-content {
+small.time-content, small.email, small.gamelink {
   font-family: "Courier New", Courier, monospace;
 }
 
-/*
-div.chatpanel {
-  position: fixed;
-  width: 320px;
-  height: 400px;
-  right: 0;
-  bottom: 0;
+
+/*friend stuff*/
+div.notifications { 
+  right: 70px;
+  position: absolute;
+  top: 64px;
+  max-height: 200px;
+  padding: 0px 10px;
+  width: 250px;
+  background: #000000;
 }
 
-div.panel-heading {
-  background: black;
-  height: 30px;
-  color: white;
-  padding: 5px;
+div.notification_body {
+  height: 160px;
+  min-height: 160px;
+  overflow-y: scroll;
+  cursor: default;
 }
 
 div.chatthread {
@@ -767,4 +796,50 @@ div.chatthread {
     width: auto;
     max-width: 653px !important;
     min-width: 300px;
+}
+
+p.user_email, p.gamelink {  
+  margin-top: -15px;
+}
+
+div.friends-panel {
+  height: 230px;
+}
+
+div.friends-results {
+  height: 180px;
+  overflow-y: scroll;
+}
+
+div.search-results {
+  height: 160px;
+  overflow-y: scroll;
+}
+
+i.friends {
+  font-size: 20px;
+  vertical-align: text-bottom;
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+}
+i.notification {
+  font-size: 16px;
+  vertical-align: text-bottom;
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+i.notifier {
+  margin: 12px 5px 0 5px;
+}
+
+input.search {
+  text-indent: 25px;
+}
+
+i.search {
+  float: left;
+  margin-top: -25px;
 }

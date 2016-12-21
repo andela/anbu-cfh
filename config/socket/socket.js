@@ -16,10 +16,33 @@ module.exports = function(io) {
   var allPlayers = {};
   var gamesNeedingPlayers = [];
   var gameID = 0;
+  const connectedUsers = {};
 
   io.sockets.on('connection', function (socket) {
-    console.log(socket.id +  ' Connected');
-    socket.emit('id', {id: socket.id});
+    socket.emit('id', {
+      id: socket.id
+    });
+
+    socket.on('game_invite', (data) => {
+      const socketTo = connectedUsers[data.friendEmail];
+      if (socketTo) {
+        socketTo.emit('game_invite', data);
+        socket.emit('invite_status', {
+          status: 'success'
+        });
+      } else {
+        socket.emit('invite_status', {
+          status: 'failed'
+        });
+      }
+    });
+
+    socket.on('join', (data) => {
+      // attach an email to this user socket so we can remove it on disconnect
+      socket.userEmail = data.userEmail;
+      // refrence this user socket by email
+      connectedUsers[data.userEmail] = socket;
+    });
 
     socket.on('pickCards', function(data) {
       console.log(socket.id,"picked",data);
@@ -72,6 +95,8 @@ module.exports = function(io) {
 
     socket.on('disconnect', function(){
       console.log('Rooms on Disconnect ', io.sockets);
+      // set this user as undefined so we can't send him game invites
+      connectedUsers[socket.userEmail] = undefined;
       exitGame(socket);
     });
   });
@@ -94,6 +119,8 @@ module.exports = function(io) {
           player.avatar = avatars[Math.floor(Math.random()*4)+12];
         } else {
           player.username = user.name;
+          player.id = user.id;
+          player.email = user.email;
           player.premium = user.premium || 0;
           player.avatar = user.avatar || avatars[Math.floor(Math.random()*4)+12];
         }

@@ -1,100 +1,154 @@
-<div class="cfh-header mdl-layout__header mdl-layout__header--scroll">
-  <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title text-logo">Cards For Humanity</span>
-    <!-- Add spacer, to align navigation to the right in desktop-->
-    <div class="cfh-header-spacer mdl-layout-spacer"></div>
-    <!-- Navigation-->
-    <div class="cfh-navigation-container">
-      <nav class="cfh-navigation mdl-navigation">
-        <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-        <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-        <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-        <a ng-hide="showOptions" href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN UP</a>
-        <a ng-hide="showOptions" href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a>
-        <a ng-show="showOptions" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-      </nav>
+<div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row">
+      <span class="cfh-title mdl-layout-title text-logo">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a href="/#!/top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
+          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
+          <span ng-if="!userName">
+            <a href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN UP</a>
+            <a href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN IN</a>
+          </span>
+          <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
     </div>
-    <span class="android-mobile-title mdl-layout-title text-logo-mobile">Cards For Humanity</span>
   </div>
-</div>
-<div class="cfh-drawer mdl-layout__drawer">
-  <nav class="mdl-navigation">
-    <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-    <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
-    <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
-    <a ng-hide="showOptions" href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
-    <a ng-hide="showOptions" href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
-    <a ng-show="showOptions" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-  </nav>
-</div>
+  <div class="cfh-drawer mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
+      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
+      <span ng-if="!userName">
+        <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
+        <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
+      </span>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
+    </nav>
+  </div>
 
-<div class="cfh-content mdl-layout__content">
-  <a id="top" name="top"></a>
-  <div class="cfh-horrible-people-section mdl-typography--text-center">
-    <div class="logo-font cfh-slogan">Cards For Humanity.</div>
-    <div class="logo-font cfh-sub-slogan">a game for horrible people desperately trying to do good.</div>
+  <div class="cfh-content mdl-layout__content" style="margin-top:59px;">
+    <a id="top" name="top"></a>
+    <div class="cfh-horrible-people-section mdl-typography--text-center">
+      <div class="logo-font cfh-slogan">Cards For Humanity.</div>
+      <div class="logo-font cfh-sub-slogan">a game for horrible people desperately trying to do good.</div>
+    </div>
+    <div class="cfh-how-section mdl-typography--text-center cfh-how-panel--text">
+      <a id="how" name="how"></a>
+      <div class="mdl-typography--display-1-color-contrast">What is Cards for Humanity?
+        <p class="cfh-how-text mdl-color-text--grey-600">Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you
+          the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.</p>
+        <p class="cfh-how-text mdl-color-text--grey-600">Warning! This game contains offensive, profane, explicit content created by Cards Against Humanity and provided here,
+          uncensored and complete, in digital form. Human Resources made us say that.</p>
+      </div>
+      <div class="mdl-grid cfh-how-cards">
+        <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Step 1</h2>
+          </div>
+          <div class="mdl-card__supporting-text">Each player begins with, and will always have, 10 white answer cards.</div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Step 2</h2>
+          </div>
+          <div class="mdl-card__supporting-text">For each round, one player is randomly chosen as the Card Czar.</div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Step 3</h2>
+          </div>
+          <div class="mdl-card__supporting-text">Everyone else answers the black question card, clicks on the answer card they want.</div>
+        </div>
+        <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Step 4</h2>
+          </div>
+          <div class="mdl-card__supporting-text">The Card Czar picks a favorite answer, and whoever played that answer wins the round.</div>
+        </div>
+      </div>
+    </div>
+    <a id="charity" name="charity"></a>
+    <div class="cfh-charity-section mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--9-col cfh-charity-band">
+        <div style="display: inline-block" class="cfh-charity-band-text">
+          <div class="mdl-typography--display-2 mdl-typography--font-thin">CHARITY</div><span>if you don't give no one one will like you</span><br/>
+          <p class="mdl-typography--headline mdl-typography--font-thin"><span class="left"><a id="crowdriseStaticLink-fundraiser-121142" href="http://www.crowdrise.com/cfhio/fundraiser/cards4humanity" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
+              <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script></span>We're
+            quite sure you feel the same way, so we've integrated donation widgets (via crowdrise.com), along with some not-so-subtle
+            reminders throughout the game to give you the opportunity to donate. If you're signed in when you donate, we'll
+            even upgrade your account and place a crown on your avatar's head (to remind other players how much better you
+            are than them).</p>
+          <p><a href="https://www.make-a-wish.org.uk/" class="mdl-typography--font-regular mdl-typography--text-uppercase cfh-alt-link">All donations go to the Make-a-Wish Foundation and benefit children in need.<i class="material-icons">chevron_right</i></a></p>
+        </div>
+      </div>
+    </div>
+    <footer class="cfh-footer mdl-mega-footer">
+      <div class="mdl-mega-footer--top-section">
+        <div class="mdl-mega-footer--right-section"><a href="/#!/top" ssclass="mdl-typography--font-light">Back to Top<i class="material-icons">expand_less</i></a></div>
+      </div>
+      <div class="mdl-mega-footer--middle-section">
+        <p class="mdl-typography--font-light">Anbu-squad Team: &copy; 2016</p>
+      </div>
+      <div class="mdl-mega-footer--bottom-section"><a id="developers-dropdown" href="https://github.com/andela/anbu-cfh" class="cfh-link cfh-link-menu mdl-typography--font-light">For Developers<i class="material-icons">arrow_drop_up</i></a>
+        <ul for="developers-dropdown" class="mdl-menu mdl-js-menu mdl-menu--top-left mdl-js-ripple-effect">
+          <li class="mdl-menu__item">App developer resources</li>
+        </ul><a href="/#!/privacy" class="cfh-link mdl-typography--font-light">Privacy Policy</a>
+      </div>
+    </footer>
   </div>
-  <div class="cfh-how-section mdl-typography--text-center cfh-how-panel--text">
-    <a id="how" name="how"></a>
-    <div class="mdl-typography--display-1-color-contrast">What is Cards for Humanity?
-      <p class="cfh-how-text mdl-color-text--grey-600">Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you
-        the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.</p>
-      <p class="cfh-how-text mdl-color-text--grey-600">Warning! This game contains offensive, profane, explicit content created by Cards Against Humanity and provided here,
-        uncensored and complete, in digital form. Human Resources made us say that.</p>
+  <dialog class="mdl-dialog" id="notificationsDialog">
+  <h4 class="mdl-dialog__title">Notifications</h4>
+  <div class="mdl-dialog__content">
+    <div class="notification_body">
+    <div ng-show="friends.gameInvites.length <= 0"> 
+      <h6>There are no Game Invites</h6>
     </div>
-    <div class="mdl-grid cfh-how-cards">
-      <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-          <h2 class="mdl-card__title-text">Step 1</h2>
-        </div>
-        <div class="mdl-card__supporting-text">Each player begins with, and will always have, 10 white answer cards.</div>
-      </div>
-      <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-          <h2 class="mdl-card__title-text">Step 2</h2>
-        </div>
-        <div class="mdl-card__supporting-text">For each round, one player is randomly chosen as the Card Czar.</div>
-      </div>
-      <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-          <h2 class="mdl-card__title-text">Step 3</h2>
-        </div>
-        <div class="mdl-card__supporting-text">Everyone else answers the black question card, clicks on the answer card they want.</div>
-      </div>
-      <div class="mdl-cell mdl-cell--3-col cfh-how-card mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-          <h2 class="mdl-card__title-text">Step 4</h2>
-        </div>
-        <div class="mdl-card__supporting-text">The Card Czar picks a favorite answer, and whoever played that answer wins the round.</div>
-      </div>
+      <ul class="demo-list-item mdl-list">
+        <li class="notification" ng-repeat="invite in friends.gameInvites">
+          <div class="notification_content">
+            <span class="mdl-list__item-primary-content">
+              <strong class="username">
+                {{ invite.message.senderName}}
+              </strong>
+                <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
+                <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
+            </span>
+            <p class="gamelink">
+              <small class="text-muted time-content">
+                {{invite.message.location}}
+              </small>
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
-  <a id="charity" name="charity"></a>
-  <div class="cfh-charity-section mdl-grid--no-spacing">
-    <div class="mdl-cell mdl-cell--9-col cfh-charity-band">
-      <div style="display: inline-block" class="cfh-charity-band-text">
-        <div class="mdl-typography--display-2 mdl-typography--font-thin">CHARITY</div><span>if you don't give no one one will like you</span><br/>
-        <p class="mdl-typography--headline mdl-typography--font-thin"><span class="left"><a id="crowdriseStaticLink-fundraiser-121142" href="http://www.crowdrise.com/cfhio/fundraiser/cards4humanity" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
-            <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script></span>We're
-          quite sure you feel the same way, so we've integrated donation widgets (via crowdrise.com), along with some not-so-subtle
-          reminders throughout the game to give you the opportunity to donate. If you're signed in when you donate, we'll
-          even upgrade your account and place a crown on your avatar's head (to remind other players how much better you
-          are than them).</p>
-        <p><a href="https://www.make-a-wish.org.uk/" class="mdl-typography--font-regular mdl-typography--text-uppercase cfh-alt-link">All donations go to the Make-a-Wish Foundation and benefit children in need.<i class="material-icons">chevron_right</i></a></p>
-      </div>
-    </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">Close</button>
   </div>
-  <footer class="cfh-footer mdl-mega-footer">
-    <div class="mdl-mega-footer--top-section">
-      <div class="mdl-mega-footer--right-section"><a href="/#!/top" ssclass="mdl-typography--font-light">Back to Top<i class="material-icons">expand_less</i></a></div>
-    </div>
-    <div class="mdl-mega-footer--middle-section">
-      <p class="mdl-typography--font-light">Anbu-squad Team: &copy; 2016</p>
-    </div>
-    <div class="mdl-mega-footer--bottom-section"><a id="developers-dropdown" href="https://github.com/andela/anbu-cfh" class="cfh-link cfh-link-menu mdl-typography--font-light">For Developers<i class="material-icons">arrow_drop_up</i></a>
-      <ul for="developers-dropdown" class="mdl-menu mdl-js-menu mdl-menu--top-left mdl-js-ripple-effect">
-        <li class="mdl-menu__item">App developer resources</li>
-      </ul><a href="/#!/privacy" class="cfh-link mdl-typography--font-light">Privacy Policy</a>
-    </div>
-  </footer>
+  </dialog>
 </div>
-<a id="view-source" href="#!/signup" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>
+<a id="view-source" href="#!/play-with" class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-button--fab mdl-js-ripple-effect"><i style="color: #fff" class="material-icons">videogame_asset</i></a>

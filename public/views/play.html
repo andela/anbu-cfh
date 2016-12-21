@@ -1,23 +1,95 @@
-<div class="cfh-header mdl-layout__header mdl-layout__header--scroll">
-  <div class="mdl-layout__header-row"><span class="cfh-title mdl-layout-title text-logo">Cards For Humanity</span>
-    <!-- Add spacer, to align navigation to the right in desktop-->
-    <div class="cfh-header-spacer mdl-layout-spacer"></div>
-    <!-- Navigation-->
-    <div class="cfh-navigation-container">
-      <nav class="cfh-navigation mdl-navigation">
-        <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-        <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-      </nav>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="IndexController">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row">
+      <span class="cfh-title mdl-layout-title text-logo">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <span ng-show="userName">
+            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          </span>
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+      </span>
     </div>
-    <span class="android-mobile-title mdl-layout-title text-logo-mobile">Cards For Humanity</span>
   </div>
-</div>
-
-<section class="play-with">
-  <main class="mdl-layout__content">
-    <div class="play-with-card">
-      <a href="/#!/app" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Play With Strangers </a>
-      <a href="/#!/app?custom" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"> Play With Friends </a>
+  <div class="cfh-drawer mdl-layout__drawer">
+    <nav class="mdl-navigation">
+      <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
+    </nav>
+  </div>
+  <section class="play-with">
+    <main class="mdl-layout__content">
+      <div ng-if="userName">
+        <div style="width: 120px;margin: 0 auto">
+          <!-- Avatar change Tooltip -->
+          <a href="/#!/choose-avatar">
+            <img ng-src={{userName.avatar}} style="width:70px;height:70;border-radius: 100%; border: 5px solid #000;" />
+            <div id="tt3" class="icon material-icons">image</div>
+            <div class="mdl-tooltip" data-mdl-for="tt3">
+              change your <strong>avatar</strong>
+            </div>
+          </a>
+        </div>
+        <h2 style="font-size: 18px;text-align: center;text-transform: capitalize;">Welcome <span style="color: #3004e0">{{userName.name}}</span></h2>
+      </div>
+      <div class="play-with-card">
+        <a href="/#!/gametour" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Play With Strangers </a>
+        <a href="/#!/gametour?custom" ng-if="userName" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default"> Play With Friends </a>
+      </div>
+    </main>
+  </section>
+  <div class="cfh-content mdl-layout__content">
+  </div> 
+  <dialog class="mdl-dialog" id="notificationsDialog">
+    <h4 class="mdl-dialog__title">Notifications</h4>
+    <div class="mdl-dialog__content">
+      <div class="notification_body">
+        <div ng-show="friends.gameInvites.length <= 0"> 
+          <h6>There are no Game Invites</h6>
+        </div>
+        <ul class="demo-list-item mdl-list">
+          <li class="notification" ng-repeat="invite in friends.gameInvites">
+            <div class="notification_content">
+              <span class="mdl-list__item-primary-content">
+                <strong class="username">
+                  {{ invite.message.senderName}}
+                </strong>
+                <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
+                <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
+              </span>
+              <p class="gamelink">
+                <small class="text-muted time-content">
+                  {{invite.message.location}}
+                </small>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </main>
-</section>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
+  </dialog>
+</div>
