@@ -99,6 +99,12 @@ module.exports = function(io) {
       connectedUsers[socket.userEmail] = undefined;
       exitGame(socket);
     });
+
+    socket.on('drawCard', function() {
+      if (allGames[socket.gameID]) {
+        allGames[socket.gameID].drawCard();
+      }
+    });
   });
 
   var joinGame = function(socket,data) {
@@ -256,5 +262,4 @@ module.exports = function(io) {
     }
     socket.leave(socket.gameID);
   };
-
 };
