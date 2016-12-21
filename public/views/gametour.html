@@ -25,36 +25,36 @@
           <a href id="requests" style="margin-left: 10px;">
             <i class="material-icons">group_add</i>
           </a>-->
-          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i class="material-icons">home</i>
+          <a href class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i id="home" class="material-icons">home</i>
             <div class="mdl-tooltip" data-mdl-for="home">
               <strong>Home</strong>
             </div>
           </a>
-          <a ng-show="true" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
-            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+          <a ng-show="true" href class="mdl-navigation__link mdl-typography--text-uppercase">
+            <span ng-show="invites > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{invites}}">
               notifications
             </span> 
-            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <i ng-hide="invites > 0" id="notifications" class="material-icons">notifications</i>
             <div class="mdl-tooltip" data-mdl-for="notifications">
               <strong>Notifications</strong>
             </div>
           </a>
-          <a href ng-show="true" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase"
-          ng-click="openFriends()">
-            <i class="material-icons">people</i>
+          <a href ng-show="true" class="mdl-navigation__link mdl-typography--text-uppercase"
+          >
+            <i id="people" class="material-icons">people</i>
             <div class="mdl-tooltip" data-mdl-for="requests">
               <strong>Send Invites</strong>
             </div>
           </a>
-          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+          <a href class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i id="abandon-game-button" class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
             <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
               Abandon <strong>Game</strong>
             </div>
           </a>
-          <a ng-show="true" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i class="material-icons" style="background-color:#fff;" >&#xE879;</i>
+          <a ng-show="true" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons"  id="signout" style="background-color:#fff;" >&#xE879;</i>
             <div class="mdl-tooltip" data-mdl-for="signout">
               <strong>Signout</strong>
             </div>

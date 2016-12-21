@@ -1,5 +1,7 @@
 angular.module('mean.system')
-.controller('GameTourController', ['$scope', '$window', function ($scope, $window) {
+.controller('GameTourController', ['$scope', '$window', 'Storage', function ($scope, $window, Storage) {
+  
+
   // exit game tour when we navigate pages
   $scope.$on('$locationChangeSuccess', () => {
     if ($scope.gameTour) {
@@ -77,14 +79,8 @@ angular.module('mean.system')
       {
         element: '#notifications',
         intro: `Your in-app notifications are shown here. Click to view
-         a drop down of listing game invites from your friends`,
-         position: 'left'
-      },
-      {
-        element: '#requests',
-        intro: `You can add other users as friends and also send in app 
-        notifications to users that are you friends to join your current game.`,
-        position: 'left'
+         a dialog listing all your current game invites from your friends`,
+        position: 'bottom'
       },
       {
         element: '#chat',
@@ -103,17 +99,24 @@ angular.module('mean.system')
         position: 'top'
       },
       {
+        element: '#people',
+        intro: `Click to open a dialog to allow you search and
+        add friends. Send your friends in app game invites to 
+        join the current game.`,
+        position: 'bottom'
+      },
+      {
         element: '#abandon-game-button',
-        intro: 'You can also abandon a game at any point in the game.'
+        intro: 'You can click this icon to abandon a game at any time.'
       },
       {
         element: '#signout',
-        intro: 'You could also signout here',
-        position: 'top'
+        intro: 'You can click this icon to signout here',
+        position: 'bottom'
       },
       {
         element: '#home',
-        intro: 'You could also return to the homepage',
+        intro: 'You can click this icon to return to the homepage',
         position: 'bottom'
       }
 
