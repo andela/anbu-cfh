@@ -241,7 +241,7 @@
                 <tr ng-repeat="i in items">
                   <td>{{i.name}} </td>
                   <td ng-if="checkPlayer(i.email)" title="{{i.email}}">
-                    <button ng-click="sendInvite(i.email, i.name)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    <button ng-click="sendMailInvite(i.email, i.name)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                       Send Invite
                     </button>
                   </td>

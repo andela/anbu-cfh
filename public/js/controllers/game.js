@@ -420,7 +420,7 @@ angular.module('mean.system')
                 });
             };
 
-            $scope.sendInvite = (email, name) => {
+            $scope.sendMailInvite = (email, name) => {
               console.log(email, name, 'testfrom angulars')
               if ($scope.numberOfInvites < game.playerMaxLimit - 1) {
                 if ($scope.invitedPlayersList.indexOf(email) === -1) {

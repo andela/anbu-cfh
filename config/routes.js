@@ -121,6 +121,6 @@ module.exports = function(app, passport, auth) {
   app.get('/api/search/users/:email', search);
 
   // Send Invite Route
-  const sendInvite = require('../app/controllers/sendInvite');
-  app.post('/api/send/userinvite', sendInvite);
+  const sendMailInvite = require('../app/controllers/sendMailInvite');
+  app.post('/api/send/userinvite', sendMailInvite);
 };
