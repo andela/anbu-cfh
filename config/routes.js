@@ -7,8 +7,7 @@ const questions = require('../app/controllers/questions');
 const answers = require('../app/controllers/answers');
 const avatars = require('../app/controllers/avatars');
 const GameHistory = require('../app/controllers/game-history');
-const search = require('../app/controllers/searchUser');
-const sendInvite = require('../app/controllers/sendInvite');
+
 
 module.exports = function(app, passport, auth) {
   // User Routes
@@ -117,8 +116,10 @@ module.exports = function(app, passport, auth) {
   app.put('/api/games/:id/end', GameHistory.updateGame);
 
   // Search Route
+  const search = require('../app/controllers/searchUser');
   app.get('/api/search/users/:email', search);
 
   // Send Invite Route
+  const sendInvite = require('../app/controllers/sendInvite');
   app.post('/api/send/userinvite', sendInvite);
 };

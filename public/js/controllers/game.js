@@ -304,14 +304,19 @@ angular.module('mean.system')
 
               //Definition for Search and Invite Dialog
               var searchDialog = document.getElementById('searchModal');
-              var showDialogButton = document.querySelector('#invite-friends-button');
+              var showDialogButtonDesktop = document.querySelector('#invite-players-button-desktop');
+              var showDialogButtonMobile = document.querySelector('#invite-players-button-mobile');
               if (!searchDialog.showModal) {
                 dialogPolyfill.registerDialog(searchDialog);
               }
-              showDialogButton.addEventListener('click', function() {
+              showDialogButtonDesktop.addEventListener('click', function() {
                 searchDialog.showModal();
               });
-              dialog.querySelector('.close').addEventListener('click', function() {
+              showDialogButtonMobile.addEventListener('click', function() {
+                searchDialog.showModal();
+              });
+
+              searchDialog.querySelector('.close').addEventListener('click', function() {
                 searchDialog.close();
               });
 
@@ -388,7 +393,6 @@ angular.module('mean.system')
             } else {
                 game.joinGame();
             }
-
             if ($scope.isCustomGame() && $scope.isCzar) {
                 $scope.showDialog = true;
                 dialog.showModal();
@@ -414,7 +418,8 @@ angular.module('mean.system')
                 .error((err) => {
                   console.log(err);
                 });
-            }
+            };
+
             $scope.sendInvite = (email, name) => {
               console.log(email, name, 'testfrom angulars')
               if ($scope.numberOfInvites < game.playerMaxLimit - 1) {

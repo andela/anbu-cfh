@@ -36,6 +36,12 @@
               <strong>Send Invites</strong>
             </div>
           </a>
+          <a id="invite-players-button-desktop" class="invitePlayersButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          Invite Players
+          </a>
+          <a id='game-history-button-desktop' ng-click="gameLog()" class="gameHistoryButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          Game History
+          </a>
           <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
             <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
@@ -52,10 +58,10 @@
       </div>
       <span class="android-mobile-title mdl-layout-title text-logo-mobile">
         <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
-        <a id="invite-friends-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <a id="invite-players-button-mobile" class=" invitePlayersButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Invite Players
         </a>
-         <a id='game-history-button' ng-click="gameLog()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+         <a id='game-history-button-mobile' ng-click="gameLog()" class="gameHistoryButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Game History
         </a>
         <a href="#" id ='abandon-button' ng-click="abandonGame()">
@@ -198,16 +204,6 @@
     <button type="button" class="mdl-button close">Close</button>
   </div>
 </dialog>
-</div>
-<dialog class="mdl-dialog" id="showMyDialog">
-  <div class="mdl-dialog__content">
-    <p>You are about to start a game that will be saved</p>
-  </div>
-  <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button proceed">PROCEED</button>
-    <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
-  </div>
-</dialog>
 <!--Dialog Displaying Search and Invite Users-->
   <dialog class="mdl-dialog" id="searchModal">
       <h4 class="mdl-dialog__title">Search and Invite Players</h4>
@@ -270,57 +266,67 @@
       </div>
 
     </dialog>
-<!--Dialog Showing Game History-->
-<dialog class="mdl-dialog" id="gameHistoryModal">
-  <h6 class="mdl-dialog__title" style="text-align:center">Game History</h6>
+    <!--Dialog Showing Game History-->
+    <dialog class="mdl-dialog" id="gameHistoryModal">
+      <h6 class="mdl-dialog__title" style="text-align:center">Game History</h6>
+      <div class="mdl-dialog__content">
+        <div ng-show="gamelogshow" class="table-responsive">
+          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">
+                  GAME TIME
+                </th>
+                <th class="mdl-data-table__cell--non-numeric">
+                  FRIENDS PLAYED
+                </th>
+                <th class="mdl-data-table__cell--non-numeric">
+                  NO. OF ROUNDS
+                </th>
+                <th class="mdl-data-table__cell--non-numeric">
+                  WINNER
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="toDisplay in allGames">
+                <td class="mdl-data-table__cell--non-numeric">
+                  {{toDisplay.gamedate}}
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">
+                  <a ng-click="displayfriends = !displayfriends">
+                      {{toDisplay.players.length}} players...
+                    </a>
+                  <table ng-show='displayfriends'>
+                    <tr ng-repeat="name in toDisplay.players">
+                      <td class="mdl-data-table__cell--non-numeric">
+                        {{name}}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">
+                  {{toDisplay.rounds}}
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">
+                  {{toDisplay.winner}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </dialog>
+</div>
+<dialog class="mdl-dialog" id="showMyDialog">
   <div class="mdl-dialog__content">
-    <div ng-show="gamelogshow" class="table-responsive">
-      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-          <tr>
-            <th class="mdl-data-table__cell--non-numeric">
-              GAME TIME
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              FRIENDS PLAYED
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              NO. OF ROUNDS
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              WINNER
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="toDisplay in allGames">
-            <td class="mdl-data-table__cell--non-numeric">
-              {{toDisplay.gamedate}}
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">
-              <a ng-click="displayfriends = !displayfriends">
-                  {{toDisplay.players.length}} players...
-                </a>
-              <table ng-show='displayfriends'>
-                <tr ng-repeat="name in toDisplay.players">
-                  <td class="mdl-data-table__cell--non-numeric">
-                    {{name}}
-                  </td>
-                </tr>
-              </table>
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">
-              {{toDisplay.rounds}}
-            </td>
-            <td class="mdl-data-table__cell--non-numeric">
-              {{toDisplay.winner}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <p>You are about to start a game that will be saved</p>
   </div>
   <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button close">Close</button>
+    <button type="button" class="mdl-button proceed">PROCEED</button>
+    <button type="button" class="mdl-button close" ng-click="dialog.close();">CANCEL</button>
   </div>
 </dialog>
