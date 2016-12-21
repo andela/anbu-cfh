@@ -50,23 +50,41 @@
           </a>
         </nav>
       </div>
-      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
-        <a href="#" id ='abandon-button' ng-click="abandonGame()">
-          <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
-          <div class="mdl-tooltip" data-mdl-for="abandon-button">
-            Abandon <strong>Game</strong>
+      <div class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-left:15px; display: inline-block">CFH</a>
+
+        <a ng-show="userName" href id="notifications" ng-click="openNotifications()" style="display: inline-block;float: right">
+          <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+            notifications
+          </span> 
+          <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+          <div class="mdl-tooltip" data-mdl-for="notifications">
+            <strong>Notifications</strong>
           </div>
         </a>
-        <span ng-show="userName">
-          <a id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i class="material-icons">&#xE879;</i>
-            <div class="mdl-tooltip" data-mdl-for="signout">
-              <strong>Signout</strong>
-            </div>
-          </a>
-        </span>
-      </span>
+
+        <a href ng-show="userName" id="requests" ng-click="openFriends()" style="display: inline-block;float: right">
+          <i class="material-icons">people</i>
+          <div class="mdl-tooltip" data-mdl-for="requests">
+            <strong>Send Invites</strong>
+          </div>
+        </a>
+
+        <a href="#" id ='abandon-button' ng-click="abandonGame()" style="display: inline-block;float: right">
+          <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+          <span class="mdl-tooltip" data-mdl-for="abandon-button">
+            Abandon <strong>Game</strong>
+          </span>
+        </a>
+
+        <a ng-show="userName" id="signout" href="/signout" style="display: inline-block;float: right">
+          <i class="material-icons" style="background-color:#fff;">&#xE879;</i>
+          <span class="mdl-tooltip" data-mdl-for="signout">
+            <strong>Signout</strong>
+          </span>
+        </a>
+        
+      </div>
     </div>
   </div>
   <div class="cfh-drawer mdl-layout__drawer">
