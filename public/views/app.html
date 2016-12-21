@@ -37,10 +37,16 @@
             </div>
           </a>
           <a id="invite-players-button-desktop" class="invitePlayersButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-          Invite Players
+            <i class="material-icons" style="display: inline-block;float: right">&#xE24F;</i>
+            <span class="mdl-tooltip" data-mdl-for="invite-players-button-desktop">
+              Invite <strong>Players</strong>
+            </span>
           </a>
           <a id='game-history-button-desktop' ng-click="gameLog()" class="gameHistoryButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-          Game History
+            <i class="material-icons" style="display: inline-block;float: right">&#xE889;</i>
+            <span class="mdl-tooltip" data-mdl-for="game-history-button-desktop">
+              Game <strong>History</strong>
+            </span>
           </a>
           <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
@@ -75,11 +81,18 @@
             <strong>Send Invites</strong>
           </div>
         </a>
-         <a id="invite-players-button-mobile" class=" invitePlayersButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Invite Players
+         <a id="invite-players-button-mobile" class=" invitePlayersButton">
+           <i class="material-icons" style="display: inline-block;float: right">&#xE24F;</i>
+            <span class="mdl-tooltip" data-mdl-for="invite-players-button-mobile">
+              Invite <strong>Players</strong>
+            </span>
         </a>
-         <a id='game-history-button-mobile' ng-click="gameLog()" class="gameHistoryButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Game History
+       <a id='game-history-button-mobile' ng-click="gameLog()" class="gameHistoryButton">
+          Game History
+          <i class="material-icons" style="display: inline-block;float: right">&#xE889;</i>
+          <span class="mdl-tooltip" data-mdl-for="game-history-button-mobile">
+            Game <strong>History</strong>
+          </span>
         </a>
         <a href="#" id ='abandon-button' ng-click="abandonGame()" style="display: inline-block;float: right">
           <i class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
