@@ -737,7 +737,7 @@ div.notification_body {
   cursor: default;
 }
 
-div.chatthread {
+/*div.chatthread {
   background: red;
   height: 340px;
   width: 320px;
