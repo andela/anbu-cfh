@@ -3,7 +3,9 @@ angular.module('mean.system')
     function ($scope, Global, $location, socket, game, AvatarService, $window, friends, Storage, $routeParams) {
       $scope.global = Global;
       $scope.userName = Storage.get('user');
-      console.log($scope.userName)
+      $scope.clearAvatarStorage = () => {
+        return Storage.clear('user');
+      };
       $scope.friends = friends;
 
       let notificationsDialog = document.getElementById('notificationsDialog');
