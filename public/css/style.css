@@ -239,3 +239,8 @@ div.transbox p {
   right: 0 !important;
   transform: translateX(618px) translateY(611px) translateZ(0px) !important;
 }
+
+.cfh-header .material-icons,
+.cfh-header .mdl-navigation__link {
+  color: #000 !important;
+}

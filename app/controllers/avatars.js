@@ -13,7 +13,7 @@ avatars = ['/img/chosen/shin.gif',
   '/img/chosen/alfred.gif',
   '/img/chosen/dudai.gif',
   '/img/chosen/general.gif',
-  '/img/chosen/andina.kay.gif',
+  '/img/chosen/andina.gif',
   '/img/chosen/eduardo.gif',
   '/img/chosen/dorothy.gif',
   '/img/chosen/rainbowness.gif'
