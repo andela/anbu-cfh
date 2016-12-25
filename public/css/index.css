@@ -196,8 +196,9 @@ a img{
 
   .cfh-drawer .mdl-layout-title {
     position: relative;
-    background: #6ab344;
-    height: 160px;
+    background: #46B6AC;
+    font-family: Montserrat;
+    height: 50px;
   }
 
     .cfh-drawer .cfh-logo-image {
