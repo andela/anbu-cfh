@@ -37,18 +37,17 @@
               <!-- Teaser Text Start -->
               <div id="landing-logo">
                 <h2 id="slogan" style="text-align: center">Choose an Avatar!</h2>
-                <p id="create" style="text-align: center">You're almost there! Just pick an avatar from the options below!</p>
-
+                <p id="create" style="text-align: center;">You're almost there! Just pick an avatar from the options below!</p>
                 <div class="sign-body">
                   <div class="more-sign">
                     <form class="signup form-horizontal" action="/users/avatars" method="post">
                       <div id="contain-avatars">
-                        <ul class="avatar-list">
-                          <li ng-repeat="avatar in avatars" class="avatars ng-scope">
-                            <input name="avatar" type='radio' value="{{$index}}">
-                            <img ng-src="{{avatar}}">
-                          </li>
-                        </ul>
+                        <p class="avatar-list">
+                          <span ng-repeat="avatar in avatars" class="avatars ng-scope">
+                            <input name="avatar" type='radio' value="{{$index}}" ng-checked="{{avatar === userName.avatar}}">
+                            <img ng-src="{{avatar}}" />
+                          </span>
+                        </p>
                       </div>
                       <div class="form-actions">
                         <p style="text-align: center;">
@@ -72,7 +71,7 @@
     <h4 class="mdl-dialog__title">Notifications</h4>
     <div class="mdl-dialog__content">
       <div class="notification_body">
-        <div ng-show="friends.gameInvites.length <= 0"> 
+        <div ng-show="friends.gameInvites.length <= 0">
           <h6>There are no Game Invites</h6>
         </div>
         <ul class="demo-list-item mdl-list">

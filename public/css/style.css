@@ -1,4 +1,6 @@
-html,body,p {
+html,
+body,
+p {
   font-family: Montserrat;
 }
 
@@ -6,20 +8,23 @@ html,body,p {
   display: inline-flex;
   margin: 0 auto;
 }
+
 .play-with {
-  padding-top: 150px;
+  padding-top: 90px;
 }
 
 .play-with .mdl-card {
-    background-color: transparent;
+  background-color: transparent;
 }
+
 .play-with a {
   display: block;
   width: 70vw;
   padding: 20px;
   margin: 5px
-  }
-.answer-box{
+}
+
+.answer-box {
   min-width: 229px;
 }
 
@@ -32,7 +37,7 @@ html,body,p {
   padding-top: 10%;
 }
 
-#info-container{
+#info-container {
   padding: 20px;
 }
 
@@ -41,11 +46,11 @@ html,body,p {
   color: #FFF;
 }
 
-.the-card{
-  background-image:url('https://res.cloudinary.com/iykyvic/image/upload/v1482308825/card_dbdst8.png');
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position:center;
+.the-card {
+  background-image: url('https://res.cloudinary.com/iykyvic/image/upload/v1482308825/card_dbdst8.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   max-height: 217px;
   height: 217px;
 }
@@ -59,23 +64,25 @@ html,body,p {
 }
 
 .mdl-grid.mdl-cell.mdl-cell--9-col.big {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
-
 
 .players {
   height: 70vh !important;
 }
+
 .player-czar {
-  background-color: rgba(12,12,12,0.2);
+  background-color: rgba(12, 12, 12, 0.2);
 }
+
 .question-box {
   padding: 20px;
   color: #fff;
   background-color: #000;
   min-width: 229px;
 }
+
 #question-container-inner {
   margin: 0 auto;
   margin-top: 10px;
@@ -85,12 +92,12 @@ html,body,p {
   background-color: transparent;
 }
 
-timer{
+timer {
   margin: 0 auto;
   margin-top: 30px;
 }
 
-.time-remaining{
+.time-remaining {
   padding: 7px;
 }
 
@@ -104,9 +111,11 @@ timer{
   margin-top: 15px;
 }
 
-#finding-players, #lobby-how-to-play {
+#finding-players,
+#lobby-how-to-play {
   font-size: 28px;
 }
+
 #player-count {
   font-size: 18px;
   margin-top: 20px;
@@ -125,7 +134,8 @@ div.transbox {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.9;
-  filter: alpha(opacity=90); /* For IE8 and earlier */
+  filter: alpha(opacity=90);
+  /* For IE8 and earlier */
 }
 
 div.transbox p {
@@ -135,25 +145,26 @@ div.transbox p {
 }
 
 .emoji-menu {
-    position: absolute;
-    z-index: 999;
-    width: 225px;
-    overflow: hidden;
-    border: 1px #dfdfdf solid;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    overflow: hidden;
-    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-    margin-top: -400px !important;
-    margin-right: 140px !important;
+  position: absolute;
+  z-index: 999;
+  width: 225px;
+  overflow: hidden;
+  border: 1px #dfdfdf solid;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  margin-top: -400px !important;
+  margin-right: 140px !important;
 }
 
 .chatinput {
   background-color: #FFF !important;
 }
+
 
 /*.emoji-picker-icon {
     position: absolute;
@@ -171,56 +182,57 @@ div.transbox p {
 .emoji-menu {
   bottom: 60px !important;
   margin-top: -244px !important;
-margin-left: 25% !important;  
-height: 225px !important;
+  margin-left: 25% !important;
+  height: 225px !important;
 }
 
 .emoji-picker-icon {
-    position: absolute;
-    left: 15px;
-    top: -1px !important;
-    font-size: 20px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    opacity: 0.7;
-    padding-top: 15px !important;
-    z-index: 100;
-    transition: none;
-    color: black;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-    width: 15px;
+  position: absolute;
+  left: 15px;
+  top: -1px !important;
+  font-size: 20px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  opacity: 0.7;
+  padding-top: 15px !important;
+  z-index: 100;
+  transition: none;
+  color: black;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  width: 15px;
 }
 
 .emoji-wysiwyg-editor {
-    padding: 0 60px 0 40px!important;
-    width: 230px;
-    max-width: 230px;
-    padding-top: 15px !important;
-    padding-right: 35px important;
-    padding-left: 35px;
-    margin-bottom: 0px;
-    min-height: 0 !important;
-    height: 30px;
-    max-height: 54px !important;
-    overflow: auto;
-    line-height: 17px;
-    border: 1px solid #d2dbe3;
-    border-radius: 2px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    -webkit-user-select: text;
-    word-wrap: break-word;
+  padding: 0 60px 0 40px!important;
+  width: 230px;
+  max-width: 230px;
+  padding-top: 15px !important;
+  padding-right: 35px important;
+  padding-left: 35px;
+  margin-bottom: 0px;
+  min-height: 0 !important;
+  height: 30px;
+  max-height: 54px !important;
+  overflow: auto;
+  line-height: 17px;
+  border: 1px solid #d2dbe3;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-user-select: text;
+  word-wrap: break-word;
 }
+
 .emoji-menu {
   position: absolute !important;
   bottom: 0 !important;

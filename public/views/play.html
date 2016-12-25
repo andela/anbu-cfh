@@ -41,10 +41,10 @@
   <section class="play-with">
     <main class="mdl-layout__content">
       <div ng-if="userName">
-        <div style="width: 120px;margin: 0 auto">
+        <div style="width: 240px;margin: 0 auto">
           <!-- Avatar change Tooltip -->
           <a href="/#!/choose-avatar">
-            <img ng-src={{userName.avatar}} style="width:70px;height:70;border-radius: 100%; border: 5px solid #000;" />
+            <img ng-src={{userName.avatar}} width="160" height="160" />
             <div id="tt3" class="icon material-icons">image</div>
             <div class="mdl-tooltip" data-mdl-for="tt3">
               change your <strong>avatar</strong>
@@ -60,12 +60,12 @@
     </main>
   </section>
   <div class="cfh-content mdl-layout__content">
-  </div> 
+  </div>
   <dialog class="mdl-dialog" id="notificationsDialog">
     <h4 class="mdl-dialog__title">Notifications</h4>
     <div class="mdl-dialog__content">
       <div class="notification_body">
-        <div ng-show="friends.gameInvites.length <= 0"> 
+        <div ng-show="friends.gameInvites.length <= 0">
           <h6>There are no Game Invites</h6>
         </div>
         <ul class="demo-list-item mdl-list">
