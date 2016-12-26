@@ -9,7 +9,7 @@ const avatars = require('../app/controllers/avatars');
 
 
 
-module.exports = function(app, passport, auth) {
+module.exports = function (app, passport, auth) {
   // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
@@ -126,4 +126,3 @@ module.exports = function(app, passport, auth) {
   app.post('/api/games/:id/start', GameHistory.createGame);
   app.put('/api/games/:id/end', GameHistory.updateGame);
 };
-

@@ -25,7 +25,7 @@
               <strong>Home</strong>
             </div>
           </a>
-          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+          <a ng-if="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
             <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
               notifications
             </span> 
@@ -34,19 +34,19 @@
               <strong>Notifications</strong>
             </div>
           </a>
-          <a href ng-show="userName" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openFriends()">
+          <a href ng-if="userName" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openFriends()">
             <i class="material-icons">people</i>
             <div class="mdl-tooltip" data-mdl-for="requests">
               <strong>Send Invites</strong>
             </div>
           </a>
-          <a id="invite-players-button-desktop" class="mdl-navigation__link mdl-typography--text-uppercase">
+          <a ng-show="userName" id="invite-players-button-desktop" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons">&#xE24F;</i>
             <span class="mdl-tooltip" data-mdl-for="invite-players-button-desktop">
               Invite <strong>Players</strong>
             </span>
           </a>
-          <a id='game-history-button-desktop' ng-click="gameLog()" class="mdl-navigation__link mdl-typography--text-uppercase">
+          <a ng-if="userName" id='game-history-button-desktop' ng-click="gameLog()" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons">&#xE889;</i>
             <span class="mdl-tooltip" data-mdl-for="game-history-button-desktop">
               Game <strong>History</strong>
@@ -58,6 +58,20 @@
               Abandon <strong>Game</strong>
             </div>
           </a>
+          <span ng-if="!userName">
+            <a id="signup" href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE898;</i>
+              <div class="mdl-tooltip" data-mdl-for="signup">
+                <strong>Signup</strong>
+              </div>
+            </a>
+            <a id="signin" href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE879;</i>
+              <div class="mdl-tooltip" data-mdl-for="signin">
+                <strong>Signin</strong>
+              </div>
+            </a>
+          </span>
           <a ng-if="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
             <i class="material-icons">&#xE8AC;</i>
             <div class="mdl-tooltip" data-mdl-for="signout">
@@ -67,8 +81,20 @@
         </nav>
       </div>
       <div class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-left:15px; display: inline-block">CFH</a>
-        <a ng-show="userName" id="signoutmob" href="/signout" style="display: inline-block;float: right">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-top: 4px; margin-left:-15px; display: inline-block">CFH</a>
+        <a ng-if="!userName" id="signinmob" href="#!/signin " style="display: inline-block;float: right ">
+          <i class="material-icons ">&#xE879;</i>
+          <div class="mdl-tooltip " data-mdl-for="signinmob">
+            <strong>Signin</strong>
+          </div>
+        </a>
+        <a ng-if="!userName" id="signupmob" href="#!/signup" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE898;</i>
+          <div class="mdl-tooltip" data-mdl-for="signupmob">
+            <strong>Signup</strong>
+          </div>
+        </a>
+        <a ng-if="userName" id="signoutmob" href="/signout" style="display: inline-block;float: right">
           <i class="material-icons">&#xE8AC;</i>
           <span class="mdl-tooltip" data-mdl-for="signoutmob">
             <strong>Signout</strong>
@@ -80,13 +106,26 @@
             Abandon <strong>Game</strong>
           </span>
         </a>
-        <a href ng-show="userName" id="requestsmob" ng-click="openFriends()" style="display: inline-block;float: right">
+        <a ng-show="userName" id="invite-players-button-mobile" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE24F;</i>
+          <span class="mdl-tooltip" data-mdl-for="invite-players-button-mobile">
+            Invite <strong>Players</strong>
+          </span>
+        </a>
+        <a ng-if="userName" id='game-history-button-mobile' ng-click="gameLog()" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE889;</i>
+          <span class="mdl-tooltip" data-mdl-for="game-history-button-mobile">
+            Game <strong>History</strong>
+          </span>
+        </a>
+
+        <a href ng-if="userName" id="requestsmob" ng-click="openFriends()" style="display: inline-block;float: right">
           <i class="material-icons">people</i>
           <div class="mdl-tooltip" data-mdl-for="requestsmob">
             <strong>Send Invites</strong>
           </div>
         </a>
-        <a ng-show="userName" href id="notificationsmob" ng-click="openNotifications()" style="display: inline-block;float: right">
+        <a ng-if="userName" href id="notificationsmob" ng-click="openNotifications()" style="display: inline-block;float: right">
           <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
             notifications
           </span> 
@@ -104,13 +143,17 @@
     </span>
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+      <a ng-if="userName" href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
         <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
       </a>
-      <a href class="mdl-navigation__link" ng-show="userName" id="requests" ng-click="openFriends()">
+      <a ng-if="userName" href class="mdl-navigation__link" ng-show="userName" id="requests" ng-click="openFriends()">
       SEND INVITES
       </a>
       <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+      <span ng-if="!userName">
+        <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
+        <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
+      </span>
       <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
@@ -218,126 +261,124 @@
         </ul>
       </div>
     </div>
-  <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button close">Close</button>
-  </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
   </dialog>
   <!--Dialog Displaying Search and Invite Users-->
   <dialog class="mdl-dialog" id="searchModal">
-      <h4 class="mdl-dialog__title">Search and Invite Players</h4>
-      <div class="mdl-dialog__content">
-        <div>
+    <h4 class="mdl-dialog__title">Search and Invite Players</h4>
+    <div class="mdl-dialog__content">
+      <div>
         <form>
-            <div class="mdl-textfield mdl-js-textfield">
-              <input type="text" class="mdl-textfield__input" id="search-query"
-                placeholder="Search users..." ng-model="searchString"
-                ng-change="searchDB(searchString)" autocomplete=off>
-            </div>
-          </form>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input type="text" class="mdl-textfield__input" id="search-query" placeholder="Search users..." ng-model="searchString" ng-change="searchDB(searchString)" autocomplete=off>
           </div>
-          <div id="search-result">
+        </form>
+      </div>
+      <div id="search-result">
 
-            <table class="mdl-data-table mdl-js-data-table">
-              <tbody>
-                <tr ng-repeat="i in items">
-                  <td>{{i.name}} </td>
-                  <td ng-if="checkPlayer(i.email)" title="{{i.email}}">
-                    <button ng-click="sendMailInvite(i.email, i.name)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        <table class="mdl-data-table mdl-js-data-table">
+          <tbody>
+            <tr ng-repeat="i in items">
+              <td>{{i.name}} </td>
+              <td ng-if="checkPlayer(i.email)" title="{{i.email}}">
+                <button ng-click="sendMailInvite(i.email, i.name)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                       Send Invite
                     </button>
-                  </td>
-                  <td ng-if="!checkPlayer(i.email)">
-                    <button ng-disabled="true" class="mdl-button mdl-js-button mdl-button--raised">
+              </td>
+              <td ng-if="!checkPlayer(i.email)">
+                <button ng-disabled="true" class="mdl-button mdl-js-button mdl-button--raised">
                       User invited
                     </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button close">Close</button>
-      </div>
-    </dialog>
-    <!--Dialog for Minimum Players-->
-    <dialog class ="mdl-dialog" id="minAlertModal">
-      <h4 class="mdl-dialog__title" style="text-align:center">Alert message</h4>
-      <div class="mdl-dialog__content">
-        <p style="text-align:center">A minimum of three players are required to start the game</p>
-      </div>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
+  </dialog>
+  <!--Dialog for Minimum Players-->
+  <dialog class="mdl-dialog" id="minAlertModal">
+    <h4 class="mdl-dialog__title" style="text-align:center">Hey Champ!</h4>
+    <div class="mdl-dialog__content">
+      <p style="text-align:center">A minimum of three players are required to start the game</p>
+    </div>
 
-      <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button close">Close</button>
-      </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
 
-    </dialog>
-    <!--Dialog for Maximum Players-->
-    <dialog class ="mdl-dialog" id="maxAlertModal">
-      <h4 class="mdl-dialog__title" style="text-align:center">Alert message</h4>
-      <div class="mdl-dialog__content">
-        <p style="text-align:center">You have exceeded the maximum allowed no of invites</p>
-      </div>
+  </dialog>
+  <!--Dialog for Maximum Players-->
+  <dialog class="mdl-dialog" id="maxAlertModal">
+    <h4 class="mdl-dialog__title" style="text-align:center">Hey Champ!</h4>
+    <div class="mdl-dialog__content">
+      <p style="text-align:center">You have exceeded the maximum allowed no of invites</p>
+    </div>
 
-      <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button close">Close</button>
-      </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
 
-    </dialog>
-<!--Dialog Showing Game History-->
-<dialog class="mdl-dialog" id="gameHistoryModal">
-  <h6 class="mdl-dialog__title" style="text-align:center">Game History</h6>
-  <div class="mdl-dialog__content">
-    <div class="table-responsive">
-      <table style="margin-left:auto;margin-right:auto;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-          <tr>
-            <th class="mdl-data-table__cell--non-numeric">
-              GAME DATE
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              FRIENDS PLAYED
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              NO. OF ROUNDS
-            </th>
-            <th class="mdl-data-table__cell--non-numeric">
-              WINNER
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="toDisplay in allGames">
-            <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
-              {{regexx.exec(toDisplay.started)[0]}}
-            </td>
-            <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
-              <a ng-click="displayfriends = !displayfriends">
+  </dialog>
+  <!--Dialog Showing Game History-->
+  <dialog class="mdl-dialog" id="gameHistoryModal">
+    <h6 class="mdl-dialog__title" style="text-align:center">Game History</h6>
+    <div class="mdl-dialog__content">
+      <div class="table-responsive">
+        <table style="margin-left:auto;margin-right:auto;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">
+                GAME DATE
+              </th>
+              <th class="mdl-data-table__cell--non-numeric">
+                FRIENDS PLAYED
+              </th>
+              <th class="mdl-data-table__cell--non-numeric">
+                NO. OF ROUNDS
+              </th>
+              <th class="mdl-data-table__cell--non-numeric">
+                WINNER
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="toDisplay in allGames">
+              <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
+                {{regexx.exec(toDisplay.started)[0]}}
+              </td>
+              <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
+                <a ng-click="displayfriends = !displayfriends">
                   {{toDisplay.players.length}} players...
                 </a>
-              <table ng-show='displayfriends'>
-                <tr ng-repeat="name in toDisplay.players">
-                  <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
-                    {{name.username}}
-                  </td>
-                </tr>
-              </table>
-            </td>
-            <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
-              {{toDisplay.rounds}}
-            </td>
-            <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
-              {{toDisplay.winner}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <table ng-show='displayfriends'>
+                  <tr ng-repeat="name in toDisplay.players">
+                    <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
+                      {{name.username}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
+                {{toDisplay.rounds}}
+              </td>
+              <td style="text-align:center" class="mdl-data-table__cell--non-numeric">
+                {{toDisplay.winner}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button close">Close</button>
-  </div>
-</dialog>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button close">Close</button>
+    </div>
+  </dialog>
 </div>
 <dialog class="mdl-dialog" id="showMyDialog">
   <div class="mdl-dialog__content">

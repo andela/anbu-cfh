@@ -1,3 +1,6 @@
+<script>
+  window.user ? null : (window.location = '#!/signin');
+</script>
 <div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <div class="mdl-layout__header-row">
@@ -59,7 +62,7 @@
         </nav>
       </div>
       <div class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-left:15px; display: inline-block">CFH</a>
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-top: 4px; margin-left:-15px; display: inline-block">CFH</a>
 
         <a ng-if="!userName" id="signinmob" href="#!/signin " style="display: inline-block;float: right ">
           <i class="material-icons ">&#xE879;</i>
