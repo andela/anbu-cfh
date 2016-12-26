@@ -15,7 +15,7 @@
     </div>
     <div ng-repeat="answer in game.table">
       <div ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()" ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet"
-        style="background-color:#46B6AC; min-width: 197px; padding: 10px;border-radius:5px;min-height:217px;">
+        style="background-color:{{winningColor($parent.$index)}}; min-width: 197px; padding: 10px;border-radius:5px;min-height:217px;">
         <div class="the-card">
           <div class="transbox">
             <p ng-bind-html-unsafe="card.text"></p>
@@ -88,7 +88,7 @@
     </div>
 
     <div id='charity-logo-container'>
-      <img src='/img/make-a-wish-logo.png' />
+      <img src='https://res.cloudinary.com/iykyvic/image/upload/v1482308825/make-a-wish-logo_xz7buw.png' />
     </div>
 
   </div>
