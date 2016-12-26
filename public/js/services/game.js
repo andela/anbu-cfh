@@ -134,6 +134,9 @@ angular.module('mean.system')
           data.state !== 'game ended' && data.state !== 'game dissolved') {
           game.time = game.timeLimits.stateChoosing - 1;
           timeSetViaUpdate = true;
+        } else if (newState && data.state === 'waiting for czar to draw cards') {
+          game.time = game.timeLimits.stateDrawCards - 1;
+          timeSetViaUpdate = true;
         } else if (newState && data.state === 'waiting for czar to decide') {
           game.time = game.timeLimits.stateJudging - 1;
           timeSetViaUpdate = true;
@@ -141,7 +144,6 @@ angular.module('mean.system')
           game.time = game.timeLimits.stateResults - 1;
           timeSetViaUpdate = true;
         }
-
         // Set these properties on each update
         game.round = data.round;
         game.winningCard = data.winningCard;
@@ -206,6 +208,12 @@ angular.module('mean.system')
           } else {
             addToNotificationQueue('The czar is contemplating...');
           }
+        } else if (data.state === 'waiting for czar to draw cards') {
+          if (game.czar === game.playerIndex) {
+            addToNotificationQueue("Click to Draw the Cards!");
+          } else {
+            addToNotificationQueue("The czar is drawing the cards...");
+          }
         } else if (data.state === 'winner has been chosen' &&
           game.curQuestion.text.indexOf('<u></u>') > -1) {
           game.curQuestion = data.curQuestion;
@@ -246,7 +254,7 @@ angular.module('mean.system')
         room = room || '';
         createPrivate = createPrivate || false;
         /* eslint-disable no-underscore-dangle */
-        const userID = window.user ? user._id : 'unauthenticated';
+        const userID = Storage.get('user') ? user._id : 'unauthenticated';
         socket.emit(mode, { userID, room, createPrivate });
       };
 
@@ -256,7 +264,7 @@ angular.module('mean.system')
 
       game.saveGame = () => {
         socket.emit('startGame');
-        if (window.user) {
+        if (Storage.get('user')) {
           $http({
             method: 'POST',
             url: `/api/games/${game.gameID}/start`,
@@ -289,6 +297,10 @@ angular.module('mean.system')
       game.pickWinning = card => socket.emit('pickWinning', {
         card: card.id,
       });
+
+      game.drawCard = () => {
+        socket.emit('drawCard');
+      };
 
       decrementTime();
 

@@ -68,12 +68,10 @@ angular.module('mean.system')
           return false;
         }
       };
-
-      $scope.avatars = [];
-      AvatarService.getAvatars()
-        .then(function (data) {
-          $scope.avatars = data;
-        });
-      $scope.userName = Storage.get('user');
-    }
-  ]);
+    $scope.avatars = [];
+    AvatarService.getAvatars()
+      .then(function(data) {
+        $scope.avatars = data;
+      });
+    $scope.userName = Storage.get('user');
+}]);

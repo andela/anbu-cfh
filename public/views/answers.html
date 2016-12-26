@@ -1,7 +1,5 @@
 <div ng-cloak id="cards-container" ng-hide="game.state === 'game ended' || game.state ==='game dissolved'">
-
-  <div id="cards" class='hand mdl-grid'>
-
+  <div id="cards" class='hand mdl-grid' ng-hide="game.state === 'waiting for czar to draw cards'">
     <span ng-show="winnerPicked()"></span>
     <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' ng-click="pickCard(card)" ng-hide="showTable || isCzar()" ng-repeat="card in game.players[game.playerIndex].hand"
       ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}" style="padding: 10px;border-radius:5px;min-height:217px;">
@@ -24,6 +22,15 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div ng-show="game.state === 'waiting for czar to draw cards'">
+    <div ng-show="!isCzar()">
+      <h4 class='text-center'>Wait for czar to draw next set of cards</h4>
+    </div>
+    <div ng-show="isCzar()">
+      <h4 class='text-center'> Click to draw next set of cards </h4>
+        <div  class="draw-card-icon" ng-click="drawCard()"></div>
     </div>
   </div>
 </div>
