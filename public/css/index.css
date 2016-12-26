@@ -696,6 +696,7 @@ small.message_notification {
 a.retract_button {
   position: absolute;
   right: 0px;
+  top: 0;
   padding: 5px;
   color: #64ffda;
 }
