@@ -3,8 +3,8 @@
     <span ng-show="isPlayer($index)" id="player-star">
       <img src="../img/11.png" width="25" height="25"/>
     </span>
-    <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold"> {{player.username | upperFirstLetter}}</h2>
-    <span ng-show="currentCzar($index)" style="float: right;margin-right:7px;background-color:#46B6AC;color:#fff !important,padding:5px;font-size:12px;">CZAR</span>
+    <span style="font-size: 14px; font-weight: bold"> {{player.username | upperFirstLetter}}</span>
+    <span ng-show="currentCzar($index)" style="position: absolute; right: 0;margin-right:7px;background-color:#46B6AC;color:#fff !important,padding:5px;font-size:12px;">CZAR</span>
   </div>
   <div class="mdl-card__actions mdl-card--border">
     <span id="player-score" style="color: #000;font-size: 20px;font-weight: bold;">
