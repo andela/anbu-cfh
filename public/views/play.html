@@ -1,4 +1,4 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="IndexController">
+<div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
@@ -9,11 +9,39 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <span ng-show="userName">
-            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
+            <div class="mdl-tooltip" data-mdl-for="home">
+              <strong>Home</strong>
+            </div>
+          </a>
+          <a id="how" href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE887;</i>
+            <div class="mdl-tooltip" data-mdl-for="how">
+              <strong>How To Play</strong>
+            </div>
+          </a>
+          <a id="charity" href="/#!/#charity" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE8F6;</i>
+            <div class="mdl-tooltip" data-mdl-for="charity">
+              <strong>Charity</strong>
+            </div>
+          </a>
+          <span ng-if="!userName">
+            <a id="signup" href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE898;</i>
+              <div class="mdl-tooltip" data-mdl-for="signup">
+                <strong>Signup</strong>
+              </div>
+            </a>
+            <a id="signin" href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE879;</i>
+              <div class="mdl-tooltip" data-mdl-for="signin">
+                <strong>Signin</strong>
+              </div>
+            </a>
           </span>
-          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+          <a ng-if="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
             <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
               notifications
             </span> 
@@ -22,20 +50,74 @@
               <strong>Notifications</strong>
             </div>
           </a>
+          <a ng-if="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE8AC;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
+          </a>
         </nav>
       </div>
-      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
-      </span>
+      <div class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-left:15px; display: inline-block">CFH</a>
+
+        <a ng-if="!userName" id="signinmob" href="#!/signin " style="display: inline-block;float: right ">
+          <i class="material-icons ">&#xE879;</i>
+          <div class="mdl-tooltip " data-mdl-for="signinmob">
+            <strong>Signin</strong>
+          </div>
+        </a>
+        <a ng-if="!userName" id="signupmob" href="#!/signup" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE898;</i>
+          <div class="mdl-tooltip" data-mdl-for="signupmob">
+            <strong>Signup</strong>
+          </div>
+        </a>
+        <a ng-show="userName" id="signoutmob" href="/signout" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE8AC;</i>
+          <span class="mdl-tooltip" data-mdl-for="signoutmob">
+            <strong>Signout</strong>
+          </span>
+        </a>
+        <a ng-if="userName " href id="notificationsmob" ng-click="openNotifications() " style="display: inline-block;float: right ">
+          <span ng-show="friends.gameInvites.length> 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}"> notifications
+        </span>
+        <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+        <div class="mdl-tooltip" data-mdl-for="notificationsmob">
+          <strong>Notifications</strong>
+        </div>
+        </a>
+        <a id="charitymob" href="/#!/#charity" onClick="scroll(0,742);" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE8F6;</i>
+          <div class="mdl-tooltip" data-mdl-for="charitymob">
+            <strong>Charity</strong>
+          </div>
+        </a>
+        <a id="howmob" href="/#!/#how" onClick="scroll(0,742);" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE887;</i>
+          <div class="mdl-tooltip" data-mdl-for="howmob">
+            <strong>How To Play</strong>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   <div class="cfh-drawer mdl-layout__drawer">
+    <span class="mdl-layout-title">
+      <a href="/" style="text-decoration: none; color: #fff">Cards For Humanity</a>
+    </span>
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
+      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
+      <span ng-if="!userName">
+        <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
+        <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
+      </span>
       <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
         <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
       </a>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
   <section class="play-with">
