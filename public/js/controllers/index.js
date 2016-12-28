@@ -9,6 +9,16 @@ angular.module('mean.system')
       if (!$scope.userName && $location.path() == '/choose-avatar') {
         $window.location.href = '/#!/signin';
       }
+      $scope.loginError = () => {
+        let errorMessage = '';
+        if ($window.location.href.includes('/#!/signin?error=invalid')) {
+          errorMessage = 'invalid user details supplied, please try again.';
+        } else if (
+          $window.location.href.includes('/#!/signup?error=incomplete')) {
+          errorMessage = 'incomplete user details supplied, please try again.';
+        }
+        return errorMessage;
+      }
       $scope.friends = friends;
       $scope.showme = false;
       let avatarDiv = document.getElementById('contain-avatars');

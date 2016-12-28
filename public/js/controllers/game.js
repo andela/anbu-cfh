@@ -353,7 +353,7 @@ angular.module('mean.system')
 
       $scope.abandonGame = () => {
         game.leaveGame();
-        $window.location.href = '/#!/play-with';
+        $location.path('/play-with');
       };
 
 
