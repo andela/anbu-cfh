@@ -122,7 +122,7 @@
 
             <br />
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <a href="" ng-click="showme=true"><img id="img1" class="img-thumbnail" src="http://cfh.io/img/chosen/FB03.png"></a>
+              <a href="" id="revealAvatars"><img id="img1" class="img-thumbnail" width="80" src="/img/chosen/jennifer.gif"></a>
 
               <label class="mdl-textfield__label" for="password">Choose Avatar</label>
 
@@ -132,10 +132,10 @@
 
 
             <div ng-show="showme" id="contain-avatars" class="a">
-              <ul class="avatar-list" ng-controller="IndexController">
-                <li ng-repeat="avatar in avatars" class="avatars ng-scope">
-                  <input name="avatar" type='radio' value="{{$index}}">
-                  <img ng-src="{{avatar}}">
+              <ul class="avatar-list">
+                <li style="cursor: pointer; cursor: hand;" ng-click="showAvatarsDiv($event)" ng-repeat="avatar in avatars" class="avatars ng-scope">
+                  <input name="avatar" type='radio' value="{{$index}}" style="cursor: pointer; cursor: hand;">
+                  <img ng-src="{{avatar}}" style="width:80px;height:80px">
                 </li>
               </ul>
             </div>

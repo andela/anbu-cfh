@@ -1,12 +1,29 @@
 angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService', '$window', 'friends', 'Storage', '$routeParams',
-    function ($scope, Global, $location, socket, game, AvatarService, $window, friends, Storage, $routeParams) {
+  .controller('IndexController', ['$scope', 'Global', '$location', 'socket', 'game', 'AvatarService', '$window', 'friends', 'Storage', '$routeParams', '$timeout',
+    function ($scope, Global, $location, socket, game, AvatarService, $window, friends, Storage, $routeParams, $timeout) {
       $scope.global = Global;
       $scope.userName = Storage.get('user');
       $scope.clearAvatarStorage = () => {
         return Storage.clear('user');
       };
       $scope.friends = friends;
+      $scope.showme = false;
+      let avatarDiv = document.getElementById('contain-avatars');
+      if (document.getElementById('revealAvatars')) {
+        document.getElementById('revealAvatars')
+          .addEventListener('click', () => {
+            $scope.showme === false ?
+              (avatarDiv.style.display = 'block', $scope.showme = true) :
+              (avatarDiv.style.display = 'none', $scope.showme = false);
+          });
+      }
+      $scope.showAvatarsDiv = ($event) => {
+        $event.currentTarget.childNodes[1].checked = true;
+        $timeout(() => {
+          avatarDiv.style.display = 'none';
+          $scope.showme = false;
+        }, 1000);
+      };
 
       let notificationsDialog = document.getElementById('notificationsDialog');
       if (notificationsDialog) {
@@ -68,10 +85,11 @@ angular.module('mean.system')
           return false;
         }
       };
-    $scope.avatars = [];
-    AvatarService.getAvatars()
-      .then(function(data) {
-        $scope.avatars = data;
-      });
-    $scope.userName = Storage.get('user');
-}]);
+      $scope.avatars = [];
+      AvatarService.getAvatars()
+        .then(function (data) {
+          $scope.avatars = data;
+        });
+      $scope.userName = Storage.get('user');
+    }
+  ]);
