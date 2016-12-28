@@ -62,7 +62,7 @@ exports.checkAvatar = function (req, res) {
       })
       .exec(function (err, user) {
         if (user.avatar !== undefined) {
-          res.redirect('/#!/');
+          res.redirect('/#!/play-with');
         } else {
           res.redirect('/#!/choose-avatar');
         }
@@ -71,7 +71,6 @@ exports.checkAvatar = function (req, res) {
     // If user doesn't even exist, redirect to /
     res.redirect('/');
   }
-
 };
 
 /**

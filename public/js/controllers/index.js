@@ -6,6 +6,9 @@ angular.module('mean.system')
       $scope.clearAvatarStorage = () => {
         return Storage.clear('user');
       };
+      if (!$scope.userName && $location.path() == '/choose-avatar') {
+        $window.location.href = '/#!/signin';
+      }
       $scope.friends = friends;
       $scope.showme = false;
       let avatarDiv = document.getElementById('contain-avatars');
