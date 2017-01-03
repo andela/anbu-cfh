@@ -37,7 +37,7 @@ exports.updateGame = (request, response) => {
     if (error) {
       return response.status(500)
         .json({ message: 'An error occured while updating this data' });
-    } 
+    }
     if (!history) {
       return response.status(404)
         .json({ message: 'data not found' });
@@ -52,8 +52,58 @@ exports.updateGame = (request, response) => {
           .json({ message: 'An error occured while updating this data' });
       }
       return response.status(200)
-      .json({ message: 'Game updated sucessfully', history});
+        .json({ message: 'Game updated sucessfully', history });
     });
+  });
+};
+
+/*
+ * Patch Game Record
+ */
+exports.patchGame = (request, response) => {
+  const gameCreator = request.body.creator;
+  const gameId = request.params.id;
+  const query = {
+    $and: [
+      { gameID: gameId }, { creator: gameCreator }
+    ]
+  }
+  gameHistory.findOne(query, (error, history) => {
+    if (error) {
+      return response.status(500)
+        .json({ message: 'An error occured while patching this data' });
+    }
+    if (!history) {
+      return response.status(404)
+        .json({ message: 'data not found' });
+    }
+
+    history.players = request.body.players;
+    history.save((error, history) => {
+      if (error) {
+        return response.status(500)
+          .json({ message: 'An error occured while updating this data' });
+      }
+      return response.status(200)
+        .json({ message: 'Game updated sucessfully', history });
+    });
+  });
+};
+
+/*
+ * Delete Game Record
+ */
+exports.deleteGame = (request, response) => {
+  const gameCreator = request.body.creator;
+  const gameId = request.params.id;
+  const query = { gameID: gameId }
+  gameHistory.findOneAndRemove(query, error => {
+    if (error) {
+      return response.status(500)
+        .json({ message: 'An error occured while deleting this data' });
+    }
+    return response.status(201)
+      .json({ message: 'game deleted successfully' });
   });
 };
 
@@ -103,8 +153,8 @@ exports.getAllGames = (request, response) => {
 };
 
 /*
-* Get Played Games for Logged-in Users
-*/
+ * Get Played Games for Logged-in Users
+ */
 exports.getUserGames = (request, response) => {
   gameHistory.find({ 'players.email': request.params.email }, (error, gameLogs) => {
     if (error) {

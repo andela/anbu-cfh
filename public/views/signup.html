@@ -1,25 +1,64 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
+<div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
-        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+        <a href="/" style="text-decoration: none; color: #FFF">Cards For Humanity</a>
       </span>
       <!-- Add spacer, to align navigation to the right in desktop-->
       <div class="cfh-header-spacer mdl-layout-spacer"></div>
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
+            <div class="mdl-tooltip" data-mdl-for="home">
+              <strong>Home</strong>
+            </div>
+          </a>
+          <span ng-if="!userName">
+            <a id="signup" href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE898;</i>
+              <div class="mdl-tooltip" data-mdl-for="signup">
+                <strong>Signup</strong>
+              </div>
+            </a>
+            <a id="signin" href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE879;</i>
+              <div class="mdl-tooltip" data-mdl-for="signin">
+                <strong>Signin</strong>
+              </div>
+            </a>
+          </span>
         </nav>
       </div>
-      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
-      </span>
+      <div class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-left:15px; display: inline-block">CFH</a>
+
+        <a ng-if="!userName" id="signinmob" href="#!/signin " style="display: inline-block;float: right ">
+          <i class="material-icons ">&#xE879;</i>
+          <div class="mdl-tooltip " data-mdl-for="signinmob">
+            <strong>Signin</strong>
+          </div>
+        </a>
+        <a ng-if="!userName" id="signupmob" href="#!/signup" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE898;</i>
+          <div class="mdl-tooltip" data-mdl-for="signupmob">
+            <strong>Signup</strong>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   <div class="cfh-drawer mdl-layout__drawer">
+    <span class="mdl-layout-title">
+      <a href="/" style="text-decoration: none; color: #fff">Cards For Humanity</a>
+    </span>
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <span ng-if="!userName">
+        <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
+        <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
+      </span>
     </nav>
   </div>
   <div class="cfh-content mdl-layout__content">
@@ -60,6 +99,7 @@
               </a>
             </div>
 
+            <p style="color: #cc0000; margin: 5px 0 5px 0">{{loginError()}}</p>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" pattern="[A-Za-z]{2,}" id="name" name="name" />
@@ -83,7 +123,7 @@
 
             <br />
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <a href="" ng-click="showme=true"><img id="img1" class="img-thumbnail" src="http://cfh.io/img/chosen/FB03.png"></a>
+              <a href="" id="revealAvatars"><img id="img1" class="img-thumbnail" width="80" src="/img/chosen/jennifer.gif"></a>
 
               <label class="mdl-textfield__label" for="password">Choose Avatar</label>
 
@@ -93,10 +133,10 @@
 
 
             <div ng-show="showme" id="contain-avatars" class="a">
-              <ul class="avatar-list" ng-controller="IndexController">
-                <li ng-repeat="avatar in avatars" class="avatars ng-scope">
-                  <input name="avatar" type='radio' value="{{$index}}">
-                  <img ng-src="{{avatar}}">
+              <ul class="avatar-list">
+                <li style="cursor: pointer; cursor: hand;" ng-click="showAvatarsDiv($event)" ng-repeat="avatar in avatars" class="avatars ng-scope">
+                  <input name="avatar" type='radio' value="{{$index}}" style="cursor: pointer; cursor: hand;">
+                  <img ng-src="{{avatar}}" style="width:80px;height:80px">
                 </li>
               </ul>
             </div>

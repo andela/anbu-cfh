@@ -27,39 +27,39 @@ angular.module('mean.system')
         gameChat: chat
       };
 
-/*<<<<<<< HEAD
-  let notificationQueue = [];
-  let timeout = false;
-  let self = this;
-  let joinOverrideTimeout = 0;
-  
-  let addToNotificationQueue = function(msg) {
-    notificationQueue.push(msg);
-    if (!timeout) { // Start a cycle if there isn't one
-      setNotification();
-    }
-  };
-  let setNotification = function() {
-    if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
-      clearInterval(timeout);
-      timeout = false;
-      game.notification = '';
-    } else {
-      game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
-      timeout = $timeout(setNotification, 1300);
-    }
-  };
+      /*<<<<<<< HEAD
+        let notificationQueue = [];
+        let timeout = false;
+        let self = this;
+        let joinOverrideTimeout = 0;
+        
+        let addToNotificationQueue = function(msg) {
+          notificationQueue.push(msg);
+          if (!timeout) { // Start a cycle if there isn't one
+            setNotification();
+          }
+        };
+        let setNotification = function() {
+          if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
+            clearInterval(timeout);
+            timeout = false;
+            game.notification = '';
+          } else {
+            game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
+            timeout = $timeout(setNotification, 1300);
+          }
+        };
 
-  let timeSetViaUpdate = false;
-  let decrementTime = function() {
-    if (game.time > 0 && !timeSetViaUpdate) {
-      game.time--;
-    } else {
-      timeSetViaUpdate = false;
-    }
-    $timeout(decrementTime, 950);
-  };
-=======*/
+        let timeSetViaUpdate = false;
+        let decrementTime = function() {
+          if (game.time > 0 && !timeSetViaUpdate) {
+            game.time--;
+          } else {
+            timeSetViaUpdate = false;
+          }
+          $timeout(decrementTime, 950);
+        };
+      =======*/
       const notificationQueue = [];
       let timeout = false;
       const self = this;
@@ -80,17 +80,17 @@ angular.module('mean.system')
           setNotification();
         }
       };
-// >>>>>>> 35b897679f9fd65fe240c7f2978f2ea1e69ceebb
+      // >>>>>>> 35b897679f9fd65fe240c7f2978f2ea1e69ceebb
 
-    socket.on('id', function(data) {
-      game.id = data.id;
-      // request to join if you are authenticated
-      if (Storage.get('user')) {
-        socket.emit('join', {
-          userEmail: Storage.get('user').email
-        });
-      }
-    });
+      socket.on('id', function (data) {
+        game.id = data.id;
+        // request to join if you are authenticated
+        if (Storage.get('user')) {
+          socket.emit('join', {
+            userEmail: Storage.get('user').email
+          });
+        }
+      });
 
       let timeSetViaUpdate = false;
       const decrementTime = () => {
@@ -125,7 +125,9 @@ angular.module('mean.system')
 
         const newState = (data.state !== game.state);
         // update our chat service properties
-        game.gameChat.setChatUsername(data.players[game.playerIndex].username);
+        if (data.players[game.playerIndex].username) {
+          game.gameChat.setChatUsername(data.players[game.playerIndex].username);
+        }
         game.gameChat.setChatGroup(data.gameID);
         game.gameChat.listenForMessages();
         game.gameChat.clearMessageHistory();
@@ -225,20 +227,20 @@ angular.module('mean.system')
           data.state === 'game ended') {
           if (!(/^\d+$/).test(game.gameID) && data.state === 'game ended') {
             $http({
-              method: 'PUT',
-              url: `/api/games/${game.gameID}/end`,
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              data: {
-                creator: game.players[0].id,
-                ended: true,
-                rounds: game.rounds,
-                winner: game.players[game.gameWinner].id
-              }
-            })
-            .success(response => response)
-            .error(response => response);
+                method: 'PUT',
+                url: `/api/games/${game.gameID}/end`,
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                data: {
+                  creator: game.players[0].id,
+                  ended: true,
+                  rounds: game.round,
+                  winner: game.players[game.gameWinner].username
+                }
+              })
+              .success(response => response)
+              .error(response => response);
           }
           game.players[game.playerIndex].hand = [];
           game.time = 0;
@@ -260,27 +262,41 @@ angular.module('mean.system')
 
       game.startGame = () => {
         socket.emit('startGame');
+        if (!(/^\d+$/).test(game.gameID) && Storage.get('user')) {
+          $http({
+              method: 'PATCH',
+              url: `/api/games/${game.gameID}/update`,
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                creator: game.players[0].id,
+                players: game.players,
+              }
+            })
+            .success(response => response)
+            .error(response => response);
+        }
       };
 
       game.saveGame = () => {
-        socket.emit('startGame');
         if (Storage.get('user')) {
           $http({
-            method: 'POST',
-            url: `/api/games/${game.gameID}/start`,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: {
-              creator: game.players[0].id,
-              players: game.players,
-              ended: false,
-              rounds: 0,
-              winner: ''
-            }
-          })
-          .success(response => response)
-          .error(response => response);
+              method: 'POST',
+              url: `/api/games/${game.gameID}/start`,
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                creator: game.players[0].id,
+                players: game.players,
+                ended: false,
+                rounds: 0,
+                winner: ''
+              }
+            })
+            .success(response => response)
+            .error(response => response);
         }
       };
 
@@ -288,6 +304,14 @@ angular.module('mean.system')
         game.players = [];
         game.time = 0;
         socket.emit('leaveGame');
+        // if (!(/^\d+$/).test(game.gameID) && Storage.get('user')) {
+        //   $http({
+        //       method: 'DELETE',
+        //       url: `/api/games/${game.gameID}/delete`
+        //     })
+        //     .success(response => response)
+        //     .error(response => response);
+        // }
       };
 
       game.pickCards = cards => socket.emit('pickCards', {

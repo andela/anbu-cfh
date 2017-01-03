@@ -1,7 +1,14 @@
+<style>
+  body {
+    background-color: #ddd;
+  }
+</style>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="GameTourController">
   <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
     <style>
-      .cfh-header .mdl-navigation__link { color: #000;}
+      .cfh-header .mdl-navigation__link {
+        color: #000;
+      }
     </style>
     <div class="mdl-layout__header-row">
       <span class="cfh-title mdl-layout-title text-logo">
@@ -12,67 +19,86 @@
       <!-- Navigation-->
       <div class="cfh-navigation-container">
         <nav class="cfh-navigation mdl-navigation">
-          <!--<a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-          <a href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">HOW TO PLAY</a>
-          <a href="/#!/#charity" class="mdl-navigation__link mdl-typography--text-uppercase">CHARITY</a>
-          <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
-          <span ng-show="true">
-            <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-          </span>
-          <a href id="notifications" style="margin-left: 10px;">
-            <i class="material-icons">notifications</i>
-          </a>
-          <a href id="requests" style="margin-left: 10px;">
-            <i class="material-icons">group_add</i>
-          </a>-->
-          <a href class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i id="home" class="material-icons">home</i>
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
             <div class="mdl-tooltip" data-mdl-for="home">
               <strong>Home</strong>
             </div>
           </a>
-          <a ng-show="true" href class="mdl-navigation__link mdl-typography--text-uppercase">
-            <span ng-show="invites > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{invites}}">
+          <a ng-show="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
               notifications
             </span> 
-            <i ng-hide="invites > 0" id="notifications" class="material-icons">notifications</i>
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
             <div class="mdl-tooltip" data-mdl-for="notifications">
               <strong>Notifications</strong>
             </div>
           </a>
-          <a href ng-show="true" class="mdl-navigation__link mdl-typography--text-uppercase"
-          >
-            <i id="people" class="material-icons">people</i>
+          <a href ng-show="userName" id="requests" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openFriends()">
+            <i class="material-icons">people</i>
             <div class="mdl-tooltip" data-mdl-for="requests">
               <strong>Send Invites</strong>
             </div>
           </a>
-          <a href class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i id="abandon-game-button" class="material-icons" style="background-color:#fff;border-radius:100%">&#xE5C9;</i>
+          <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE5C9;</i>
             <div class="mdl-tooltip" data-mdl-for="abandon-game-button">
               Abandon <strong>Game</strong>
             </div>
           </a>
-          <a ng-show="true" class="mdl-navigation__link mdl-typography--text-uppercase">
-            <i class="material-icons"  id="signout" style="background-color:#fff;" >&#xE879;</i>
+          <a ng-if="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE8AC;</i>
             <div class="mdl-tooltip" data-mdl-for="signout">
               <strong>Signout</strong>
             </div>
           </a>
         </nav>
       </div>
-      <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat">Cards For Humanity</a>
-        <a href="#" id ='abandon-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="margin-left: 15px;">Abandon Game</a>
-      </span>
+      <div class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left;margin-top: 4px; margin-left:-15px; display: inline-block">CFH</a>
+        <a ng-show="userName" id="signoutmob" href="/signout" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE8AC;</i>
+          <span class="mdl-tooltip" data-mdl-for="signoutmob">
+            <strong>Signout</strong>
+          </span>
+        </a>
+        <a href="#" id='abandon-buttonmob' ng-click="abandonGame()" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE5C9;</i>
+          <span class="mdl-tooltip" data-mdl-for="abandon-buttonmob">
+            Abandon <strong>Game</strong>
+          </span>
+        </a>
+        <a href ng-show="userName" id="requestsmob" ng-click="openFriends()" style="display: inline-block;float: right">
+          <i class="material-icons">people</i>
+          <div class="mdl-tooltip" data-mdl-for="requestsmob">
+            <strong>Send Invites</strong>
+          </div>
+        </a>
+        <a ng-show="userName" href id="notificationsmob" ng-click="openNotifications()" style="display: inline-block;float: right">
+          <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+            notifications
+          </span> 
+          <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+          <div class="mdl-tooltip" data-mdl-for="notificationsmob">
+            <strong>Notifications</strong>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   <div class="cfh-drawer mdl-layout__drawer">
+    <span class="mdl-layout-title">
+      <a href="/" style="text-decoration: none; color: #fff">Cards For Humanity</a>
+    </span>
     <nav class="mdl-navigation">
       <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
-      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
-      <a href="#" id ='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
+      <a href class="mdl-navigation__link" ng-show="userName" id="requests" ng-click="openFriends()">
+      SEND INVITES
+      </a>
+      <a href="#" id='abandon-game-button' ng-click="abandonGame()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Abandon Game</a>
       <a ng-show="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
     </nav>
   </div>
@@ -86,7 +112,7 @@
               <span id="timer-status-round" ng-show="showTime"> Time Remaining</span>
               <div id="time" ng-show="showTime">20</div>
             </div>
-          
+
             <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet question-box mdl-card mdl-shadow--4dp">
               <!--<question></question>-->
               <div id="question-container-inner">
@@ -106,126 +132,123 @@
                       </div>
                     </div>
                     <div class="start-game-container">
-                      <button id="start-game-button" 
-                      class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default" ng-show="showStartButton">
+                      <button id="start-game-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default" ng-show="showStartButton">
                       Start with 3 players
                       </button>
                     </div>
                   </div>
-                    <!-- Game Over Stuff -->
+                  <!-- Game Over Stuff -->
                 </div>
               </div>
-            <!-- end questions -->
+              <!-- end questions -->
             </div>
 
             <div class="mdl-cell mdl-cell--12-col answer-box">
               <div class="mdl-card mdl-shadow--4dp game-cards card-for-game">
                 <!--<answers></answers>-->
-              <div ng-cloak id="cards-container" ng-show="showQuestion">
-                <div id="cards" class='hand mdl-grid'>
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' 
-                  style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Stephen Bayo</p>
+                <div ng-cloak id="cards-container" ng-show="showQuestion">
+                  <div id="cards" class='hand mdl-grid'>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Stephen Bayo</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Banwo Victor</p>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Banwo Victor</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Oreoluwa Olaniran</p>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Oreoluwa Olaniran</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Raphael Akinseye</p>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Raphael Akinseye</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Olawale Enogwe</p>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Olawale Enogwe</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                </div>
-              </div>
-
-              <div ng-cloak id="cards-container" ng-show="showQuestion">
-                <div id="cards" class='hand mdl-grid'>
-                  <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
-                    <div class="the-card">
-                      <div class="transbox">
-                        <p>Azeez Akpan</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div id="game-end-container" ng-show="gameEnd">
-                <div id="inner-info-exit">
-                  <div class="game-end-answer-text" ng-show="game.state ==='game dissolved' && game.gameWinner === -1"  class="mdl-cell mdl-cell--12-col" style="padding: 20px">
-                    <h2>What would you like to do now?</h2>
-                    You might consider donating to charity to atone for the horrifying answers you've submitted. Donating will also place a lovely crown on your avatar's head.
-                  </div>
-                <div class="game-end-answer-text" ng-show="game.state === 'game ended' || game.gameWinner !== -1"  class="mdl-grid">
-                  <div class="mdl-cell mdl-cell--12-col">
-                    <h2>What would you like to do now?</h2>
-                    <div id='inner-text-container' class="mdl-grid">
-                      <div class="mdl-cell mdl-cell--6-col">
-                        <p>Help yourself to another game or help a child in need? Donating will also place a lovely crown on your avatar's head.</p>
-                        <a href>
-                          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default" id="join-new-game" >
-                          Join a New Game
-                          </button>
-                        </a>
-                        <a href>
-                          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="return-to-lobby">
-                          Return to Lobby
-                          </button>
-                        </a>
-                      </div>
-                      <div class="mdl-cell mdl-cell--6-col">
-                        <div id="charity-widget-container">
-                        <!-- This is real -->
-                          <a href id="crowdriseStaticLink-fundraiser-121142" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
-                          <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script>
+
+                <div ng-cloak id="cards-container" ng-show="showQuestion">
+                  <div id="cards" class='hand mdl-grid'>
+                    <div ng-style="{'cursor':'pointer'}" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col  mdl-cell--4-col-phone mdl-cell--4-col-tablet" id='answers' style="padding: 10px;border-radius:5px;min-height:217px;">
+                      <div class="the-card">
+                        <div class="transbox">
+                          <p>Azeez Akpan</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+
+                <div id="game-end-container" ng-show="gameEnd">
+                  <div id="inner-info-exit">
+                    <div class="game-end-answer-text" ng-show="game.state ==='game dissolved' && game.gameWinner === -1" class="mdl-cell mdl-cell--12-col" style="padding: 20px">
+                      <h2>What would you like to do now?</h2>
+                      You might consider donating to charity to atone for the horrifying answers you've submitted. Donating will also place a lovely crown on your avatar's head.
+                    </div>
+                    <div class="game-end-answer-text" ng-show="game.state === 'game ended' || game.gameWinner !== -1" class="mdl-grid">
+                      <div class="mdl-cell mdl-cell--12-col">
+                        <h2>What would you like to do now?</h2>
+                        <div id='inner-text-container' class="mdl-grid">
+                          <div class="mdl-cell mdl-cell--6-col">
+                            <p>Help yourself to another game or help a child in need? Donating will also place a lovely crown on your avatar's head.</p>
+                            <a href>
+                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-default" id="join-new-game">
+                          Join a New Game
+                          </button>
+                            </a>
+                            <a href>
+                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="return-to-lobby">
+                          Return to Lobby
+                          </button>
+                            </a>
+                          </div>
+                          <div class="mdl-cell mdl-cell--6-col">
+                            <div id="charity-widget-container">
+                              <!-- This is real -->
+                              <a href id="crowdriseStaticLink-fundraiser-121142" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
+                              <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- end answers here -->
               </div>
             </div>
           </div>
         </div>
-      
+
         <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone players">
           <!--<player></player>-->
 
-          <div id="player-container" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp"
-          style="background-color:#8CFF95; padding: 7px;min-height: 75px;">
+          <div id="player-container" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp" style="padding: 7px;min-height: 75px;">
             <div class="mdl-card__title" style="height:30px; margin-top: -7px;">
               <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold">Super Chick</h2>
               <span ng-show="showCzar" style="background-color:#fff;padding:3px;margin-right: 12px;" id="is-czar">CZAR</span>
@@ -240,12 +263,11 @@
               <span ng-show="isPremium($index)">
                 <img ng-src="img/king.png" id="king">
               </span>
-                <img ng-src="../img/chosen/FA04.png" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
+              <img ng-src="../img/chosen/jennifer.gif" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
             </div>
           </div>
 
-          <div id="player-container" ng-show="showOtherPlayers" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp"
-          style="background-color:#F2ADFF; padding: 7px;min-height: 75px;">
+          <div id="player-container" ng-show="showOtherPlayers" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp" style="padding: 7px;min-height: 75px;">
             <div class="mdl-card__title" style="height:30px; margin-top: -7px;">
               <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold"> Funeral Flapjack</h2>
               <span ng-hide="showCzar" style="background-color:#fff;padding:3px;margin-right: 12px;" id="is-czar">CZAR</span>
@@ -257,12 +279,11 @@
               <span ng-show="isPremium($index)">
                 <img ng-src="img/king.png" id="king">
               </span>
-                <img ng-src="../img/chosen/N03.png" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
+              <img ng-src="../img/chosen/andina.gif" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
             </div>
           </div>
 
-          <div id="player-container" ng-show="showOtherPlayers" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp"
-          style="background-color:#FFFFa5; padding: 7px;min-height: 75px;">
+          <div id="player-container" ng-show="showOtherPlayers" class="player mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp" style="padding: 7px;min-height: 75px;">
             <div class="mdl-card__title" style="height:30px; margin-top: -7px;">
               <h2 style="margin-right: 12px;font-size: 14px; font-weight: bold">The Spleen</h2>
               <span ng-hide="showCzar" style="background-color:#fff;padding:3px;margin-right: 12px;" id="is-czar">CZAR</span>
@@ -274,13 +295,13 @@
               <span ng-show="isPremium($index)">
                 <img ng-src="img/king.png" id="king">
               </span>
-                <img ng-src="../img/chosen/N02.png" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
+              <img ng-src="../img/chosen/eduardo.gif" width="35" height="35" style="float: right; margin-top: -5px" id="player-avatar" />
             </div>
           </div>
 
           <!-- End of players -->
-        </div> 
-     
+        </div>
+
       </div>
       <div class="chatpanel" id="chat">
         <div class="panel-heading">
@@ -303,7 +324,7 @@
                   <span class="mdl-list__item-primary-content">
                     <strong class="username">Toe Nail</strong>
                     <small class="text-muted time-content">07:47</small></b></span>
-                  <p class="message_content">Real good, about to go bad on this one.  Yahooo !</p>
+                  <p class="message_content">Real good, about to go bad on this one. Yahooo !</p>
                 </div>
               </li>
             </ul>

@@ -1,102 +1,195 @@
-<div id="main-bod" ng-controller="IndexController">
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="IndexController">
-    <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall">
-      <div class="mdl-layout__header-row">
-        <span class="cfh-title mdl-layout-title text-logo">
-          <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
+<div ng-controller="IndexController" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="cfh-header mdl-layout__header mdl-layout__header--waterfall" style="background-color:#46B6AC;color: #000">
+    <div class="mdl-layout__header-row">
+      <span class="cfh-title mdl-layout-title text-logo">
+        <a href="/" style="text-decoration: none; color: #FFF">Cards For Humanity</a>
+      </span>
+      <!-- Add spacer, to align navigation to the right in desktop-->
+      <div class="cfh-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation-->
+      <div class="cfh-navigation-container">
+        <nav class="cfh-navigation mdl-navigation">
+          <a id="home" href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">home</i>
+            <div class="mdl-tooltip" data-mdl-for="home">
+              <strong>Home</strong>
+            </div>
+          </a>
+          <a id="how" href="/#!/#how" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE887;</i>
+            <div class="mdl-tooltip" data-mdl-for="how">
+              <strong>How To Play</strong>
+            </div>
+          </a>
+          <a id="charity" href="/#!/#charity" onClick="scroll(0,742);" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE8F6;</i>
+            <div class="mdl-tooltip" data-mdl-for="charity">
+              <strong>Charity</strong>
+            </div>
+          </a>
+          <span ng-if="!userName">
+            <a id="signup" href="#!/signup" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE898;</i>
+              <div class="mdl-tooltip" data-mdl-for="signup">
+                <strong>Signup</strong>
+              </div>
+            </a>
+            <a id="signin" href="#!/signin" class="mdl-navigation__link mdl-typography--text-uppercase">
+              <i class="material-icons">&#xE879;</i>
+              <div class="mdl-tooltip" data-mdl-for="signin">
+                <strong>Signin</strong>
+              </div>
+            </a>
+          </span>
+          <a ng-if="userName" href id="notifications" class="mdl-navigation__link mdl-typography--text-uppercase" ng-click="openNotifications()">
+            <span ng-show="friends.gameInvites.length > 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}">
+              notifications
+            </span> 
+            <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+            <div class="mdl-tooltip" data-mdl-for="notifications">
+              <strong>Notifications</strong>
+            </div>
+          </a>
+          <a ng-if="userName" id="signout" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">
+            <i class="material-icons">&#xE8AC;</i>
+            <div class="mdl-tooltip" data-mdl-for="signout">
+              <strong>Signout</strong>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="android-mobile-title mdl-layout-title text-logo-mobile">
+        <a href="/" style="text-decoration: none; color: #FFF;font-family: Montserrat; float:left; margin-top: 4px; margin-left:-15px; display: inline-block">CFH</a>
+
+        <a ng-if="!userName" id="signinmob" href="#!/signin " style="display: inline-block;float: right ">
+          <i class="material-icons ">&#xE879;</i>
+          <div class="mdl-tooltip " data-mdl-for="signinmob">
+            <strong>Signin</strong>
+          </div>
+        </a>
+        <a ng-if="!userName" id="signupmob" href="#!/signup" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE898;</i>
+          <div class="mdl-tooltip" data-mdl-for="signupmob">
+            <strong>Signup</strong>
+          </div>
+        </a>
+        <a ng-show="userName" id="signoutmob" href="/signout" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE8AC;</i>
+          <span class="mdl-tooltip" data-mdl-for="signoutmob">
+            <strong>Signout</strong>
+          </span>
+        </a>
+        <a ng-if="userName " href id="notificationsmob" ng-click="openNotifications() " style="display: inline-block;float: right ">
+          <span ng-show="friends.gameInvites.length> 0" class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{friends.gameInvites.length}}"> notifications
         </span>
-        <!-- Add spacer, to align navigation to the right in desktop-->
-        <div class="cfh-header-spacer mdl-layout-spacer"></div>
-        <!-- Navigation-->
-        <div class="cfh-navigation-container">
-          <nav class="cfh-navigation mdl-navigation">
-            <a href="/#!/#top" class="mdl-navigation__link mdl-typography--text-uppercase">HOME</a>
-            <span ng-show="userName">
-              <a href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-            </span>
-          </nav>
+        <i ng-hide="friends.gameInvites.length > 0" class="material-icons">notifications</i>
+        <div class="mdl-tooltip" data-mdl-for="notificationsmob">
+          <strong>Notifications</strong>
         </div>
-        <span class="android-mobile-title mdl-layout-title text-logo-mobile">
-          <a href="/" style="text-decoration: none; color: #46B6AC">Cards For Humanity</a>
-        </span>
+        </a>
+        <a id="charitymob" href="/#!/#charity" onClick="scroll(0,742);" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE8F6;</i>
+          <div class="mdl-tooltip" data-mdl-for="charitymob">
+            <strong>Charity</strong>
+          </div>
+        </a>
+        <a id="howmob" href="/#!/#how" onClick="scroll(0,742);" style="display: inline-block;float: right">
+          <i class="material-icons">&#xE887;</i>
+          <div class="mdl-tooltip" data-mdl-for="howmob">
+            <strong>How To Play</strong>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="cfh-drawer mdl-layout__drawer">
-      <nav class="mdl-navigation">
-        <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
-        <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
-      </nav>
-    </div>
-    <section class="play-with">
-      <main class="mdl-layout__content">
-        <!-- Landing Start -->
-        <div class="wpb-teaser parallax-background" id="homer">
-          <div class="background-opacity"></div>
-          <div class="modified-container">
-            <div class="row" id="main-text">
-              <!-- Teaser Text Start -->
-              <div id="landing-logo">
-                <h2 id="slogan" style="text-align: center">Choose an Avatar!</h2>
-                <p id="create" style="text-align: center">You're almost there! Just pick an avatar from the options below!</p>
-
-                <div class="sign-body">
-                  <div class="more-sign">
-                    <form class="signup form-horizontal" action="/users/avatars" method="post">
-                      <div id="contain-avatars">
-                        <ul class="avatar-list">
-                          <li ng-repeat="avatar in avatars" class="avatars ng-scope">
-                            <input name="avatar" type='radio' value="{{$index}}">
-                            <img ng-src="{{avatar}}">
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="form-actions">
-                        <p style="text-align: center;">
-                          <button style="width: 190px; margin-top: 20px" id="sign-up-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type='submit'>Let's Go!</button>
-                        </p>
-                      </div>
-                    </form>
-                  </div>
+  </div>
+  <div class="cfh-drawer mdl-layout__drawer">
+    <span class="mdl-layout-title">
+      <a href="/" style="text-decoration: none; color: #fff">Cards For Humanity</a>
+    </span>
+    <nav class="mdl-navigation">
+      <a href="/#!/#top" class="mdl-navigation__link">HOME</a>
+      <a href="/#!/#how" class="mdl-navigation__link">HOW TO PLAY</a>
+      <a href="/#!/#charity" class="mdl-navigation__link">CHARITY</a>
+      <span ng-if="!userName">
+        <a href="/#!/signup" class="mdl-navigation__link">SIGN UP</a>
+        <a href="/#!/signin" class="mdl-navigation__link">SIGN IN</a>
+      </span>
+      <a href ng-click="openNotifications()" class="mdl-navigation__link" ng-show="userName">NOTIFICATIONS
+        <span ng-show="friends.gameInvites.length > 0" class="mdl-badge" data-badge="{{friends.gameInvites.length}}"></span>
+      </a>
+      <a ng-if="userName" href="/signout" class="mdl-navigation__link mdl-typography--text-uppercase">SIGN OUT</a>
+    </nav>
+  </div>
+  <section class="play-with">
+    <main class="mdl-layout__content">
+      <!-- Landing Start -->
+      <div class="wpb-teaser parallax-background" id="homer">
+        <div class="background-opacity"></div>
+        <div class="modified-container">
+          <div class="row" id="main-text">
+            <!-- Teaser Text Start -->
+            <div id="landing-logo">
+              <h2 id="slogan" style="text-align: center">Choose an Avatar!</h2>
+              <p id="create" style="text-align: center;">You're almost there! Just pick an avatar from the options below!</p>
+              <div class="sign-body">
+                <div class="more-sign">
+                  <form class="signup form-horizontal" action="/users/avatars" method="post">
+                    <div id="contain-avatars">
+                      <p class="avatar-list">
+                        <span ng-repeat="avatar in avatars" class="avatars ng-scope">
+                            <input name="avatar" type='radio' value="{{$index}}" ng-checked="{{avatar === userName.avatar}}">
+                            <img ng-src="{{avatar}}" />
+                          </span>
+                      </p>
+                    </div>
+                    <div class="form-actions">
+                      <p style="text-align: center;">
+                        <button ng-click="clearAvatarStorage()" style="min-width: 190px;" id="sign-up-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type='submit'>CHANGE AVATAR!</button>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" style="width: 190px; height: 36px;padding:0px !important;display: inline-block;" href="/#!/play-with">BACK TO DASHBOARD</a>
+                      </p>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </main>
-    </section>
-    <div class="cfh-content mdl-layout__content">
+      </div>
+    </main>
+  </section>
+  <div class="cfh-content mdl-layout__content">
 
-    </div>
   </div>
-  <dialog class="mdl-dialog" id="notificationsDialog">
-    <h4 class="mdl-dialog__title">Notifications</h4>
-    <div class="mdl-dialog__content">
-      <div class="notification_body">
-        <div ng-show="friends.gameInvites.length <= 0"> 
-          <h6>There are no Game Invites</h6>
-        </div>
-        <ul class="demo-list-item mdl-list">
-          <li class="notification" ng-repeat="invite in friends.gameInvites">
-            <div class="notification_content">
-              <span class="mdl-list__item-primary-content">
+</div>
+<dialog class="mdl-dialog" id="notificationsDialog">
+  <h4 class="mdl-dialog__title">Notifications</h4>
+  <div class="mdl-dialog__content">
+    <div class="notification_body">
+      <div ng-show="friends.gameInvites.length <= 0">
+        <h6>There are no Game Invites</h6>
+      </div>
+      <ul class="demo-list-item mdl-list">
+        <li class="notification" ng-repeat="invite in friends.gameInvites">
+          <div class="notification_content">
+            <span class="mdl-list__item-primary-content">
                 <strong class="username">
                   {{ invite.message.senderName}}
                 </strong>
                 <i title="Delete Notification" class="material-icons notification" ng-click="deleteGameInvite($index)">delete</i>
                 <i title="Join Game" class="material-icons notification" ng-click="joinGame($index, invite.message.location)">check_circle</i>
               </span>
-              <p class="gamelink">
-                <small class="text-muted time-content">
+            <p class="gamelink">
+              <small class="text-muted time-content">
                   {{invite.message.location}}
                 </small>
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button close">Close</button>
-    </div>
-  </dialog>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">Close</button>
+  </div>
+</dialog>
 </div>
