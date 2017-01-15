@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/andela/anbu-cfh/badge.svg?branch=master)](https://coveralls.io/github/andela/anbu-cfh?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/andela/anbu-cfh/badge.svg?branch=chore%2F134249273%2Fintegrate-coveralls-code-coverage)](https://coveralls.io/github/andela/anbu-cfh?branch=chore%2F134249273%2Fintegrate-coveralls-code-coverage)
 [![codebeat badge](https://codebeat.co/badges/aa2e3819-2f12-4593-83ab-10660560550c)](https://codebeat.co/projects/github-com-andela-anbu-cfh)
 [![Build Status](https://travis-ci.org/andela/anbu-cfh.svg?branch=chore%2F13424926%2Fintegrat-travis-ci-with-readme)](https://travis-ci.org/andela/anbu-cfh) [![codebeat badge](https://codebeat.co/badges/aa2e3819-2f12-4593-83ab-10660560550c)](https://codebeat.co/projects/github-com-andela-anbu-cfh)
 
